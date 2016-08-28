@@ -39,7 +39,7 @@
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 					      <ul class="nav navbar-nav navbar-right">
-					        <li><a class="menu active" href="/" >About Us</a></li>
+					        <li><a class="menu" href="/" >About Us</a></li>
 					        <li><a class="menu" href="/culture">Culture</a></li>
 					        <li><a class="menu" href="/career">Career </a></li>
 					        <li><a class="menu" href="#contact">Contact Us</a></li>
@@ -51,21 +51,47 @@
 			</div>
     </div> <!-- end row -->
 	</header> <!-- end of header area -->
-  <div style="background: #A9A9A9; margin: auto; max-width: 1100px; min-height: 800px">
+  <div style="min-height: 75vh;">
   {% block body-content %}
   {% endblock body-content %}
   </div>
   <!-- footer starts here -->
   <footer class="footer clearfix">
     <div class="container">
-      <div class="row" style="background: #6495ED">
-        <p>This is site map</p>
-      </div>
-      <div class="row" style="background: #008B8B">
-        <div class="col-xs-6 footer-para">
-          <p>&copy;freshDesignweb.com All right reserved</p>
+      <div class="row" style="background: #074E68;">
+        <div class="col-sm-4">
+          <div class="site-map-links">
+            <h4 class="hide-for-small"><i class="fa fa-users" aria-hidden="true"></i> Careers</h6>
+            <ul style="margin-left: 0; padding-left: 0;">
+              <li><a href="/career#overview">Overview</a></li>
+              <li><a href="/career#why-choose-us">Why Choose Us</a></li>
+              <li><a href="/career#job-opening">Job Opening</a></li>
+            </ul>
+          </div>
         </div>
-
+        <div class="col-sm-4">
+          <div class="site-map-links">
+            <h4 class="hide-for-small"><i class="fa fa-star" aria-hidden="true"></i> About Us</h6>
+            <ul style="margin-left: 0; padding-left: 0;">
+              <li><a href="/what#investment-approach">Investment Approach</a></li>
+              <li><a href="/culture#in-the-work">At Work</a></li>
+              <li><a href="/culture#off-the-work">Off Work</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="site-map-links">
+            <h4 class="hide-for-small" ><i class="fa fa-paper-plane" aria-hidden="true"></i> Talk to Us</h6>
+            <p style="font-size: 12px">
+              Email us at<br> <a href="mailto:careers@dytechlab.com" style="font-weight: bold">contact@dytechlab.com</a><br>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="background: #666666;">
+        <div class="col-xs-6 col-xs-offset-3">
+          <p class="text-center">&copy;2011-2015 Dynamic Technology Lab All rights reserved.</p>
+        </div>
       </div>
     </div>
   </footer>
