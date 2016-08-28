@@ -81,7 +81,7 @@ def career(request):
     ]
 
 
-    return render(request, "main/career.html", {"why_dtl": why_dtl, 'positions': positions})
+    return render(request, "main/career.html", {"why_dtl": why_dtl, 'positions': positions, 'form': TestRequestForm() })
 
 
 def culture(request):

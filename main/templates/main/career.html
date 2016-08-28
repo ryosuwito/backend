@@ -1,47 +1,42 @@
 {% extends 'main/base.html' %}
 {% load static %}
-{% load main_extras %}
 
 {% block body-content %}
-<div class="container">
+<div class="container" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <div class="row">
+    <div>
+      <span class="pull-right">
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills culture" role="tablist">
+          <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+          <li role="presentation"><a href="#job-opening" aria-controls="job-opening" role="tab" data-toggle="tab">Job Opening</a></li>
+          <li role="presentation"><a href="#test-request" aria-controls="test-request" role="tab" data-toggle="tab">Online Test Request</a></li>
+        </ul>
+      </span>
+    </div>
 
-<h1>Overview</h1>
-<p>Dynamic Technology Lab Pte. Ltd. (DTL) aims to attract the best and brightest, and to train them to be the "best" in the industry. We are looking for smart, creative and detail-oriented individuals, with intellectual curiosity and enthusiasm, to explore principles behind financial markets.</p>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="overview">
+        <h1>Overview</h1>
+        <p>Dynamic Technology Lab Pte. Ltd. (DTL) aims to attract the best and brightest, and to train them to be the "best" in the industry. We are looking for smart, creative and detail-oriented individuals, with intellectual curiosity and enthusiasm, to explore principles behind financial markets.</p>
 
-<h1>Why choose us?</h1>
-{% for reason in why_dtl %}
-  <h4>{{reason.desc}}</h4>
-  <p>{{reason.content}}</p>
-{% endfor %}
+        <h1>Why choose us?</h1>
+        {% for reason in why_dtl %}
+          <h4>{{reason.desc}}</h4>
+          <p>{{reason.content}}</p>
+        {% endfor %}
+      </div>
 
-<h1>Job Opening</h1>
-{% for position in positions %}
-  <h2>{{position.title}}</h2>
-  <h3>Job description: </h3>
-  {% for desc in position.desc %}
-    {% if desc|is_string %}
-      <h5>{{desc}}</h5>
-    {% else %}
-      <ul>
-      {% for subdesc in desc %}
-        <li>{{subdesc}}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endfor %}
-  <h3>Qualification: </h3>
-  {% for qft in position.qualification %}
-    {% if qft|is_string %}
-      <h5>{{qft}}</h5>
-    {% else %}
-      <ul>
-      {% for subqft in qft %}
-        <li>{{subqft}}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endfor %}
-{% endfor %}
+      <div role="tabpanel" class="tab-pane" id="job-opening">
+          {% include "main/career_job_opening.html" with positions=positions %}
+      </div>
 
+      <div role="tabpanel" class="tab-pane" id="test-request">
+          {% include "main/request.html"  with form=form %}
+      </div>
+
+    </div>
+  </div>
 </div>
 {% endblock body-content %}
