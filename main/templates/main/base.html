@@ -39,9 +39,10 @@
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 					      <ul class="nav navbar-nav navbar-right">
-					        <li><a class="menu" href="/" >About Us</a></li>
-					        <li><a class="menu" href="/culture">Culture</a></li>
-					        <li><a class="menu" href="/career">Career </a></li>
+                  <li><a class="menu" href="/" >Home</a></li>
+					        <li><a class="menu" href="{% url 'what' %}" >What We Do</a></li>
+					        <li><a class="menu" href="{% url 'culture' %}">Culture</a></li>
+					        <li><a class="menu" href="{% url 'career' %}">Career </a></li>
 					        <li><a class="menu" href="#contact">Contact Us</a></li>
 					      </ul>
 					    </div><!-- /navbar-collapse -->
