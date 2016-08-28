@@ -822,6 +822,7 @@ responsive area
   	}
 }
 
+/* sitemap */
 .site-map-links a {
     color: #dcdcdc;
 }
@@ -832,4 +833,47 @@ responsive area
 
 .site-map-links p {
     color: #dcdcdc;
+}
+
+/* Culture Page */
+.col-sm-6.left-top {
+    border-right: 2px solid lightblue;
+    border-bottom: 2px solid lightblue;
+    width: 50%;
+    min-height: 300px;
+    padding: 20px;
+}
+.col-sm-6.right-top {
+    border-left: 2px solid lightblue;
+    border-bottom: 2px solid lightblue;
+    width: 50%;
+    min-height: 300px;
+    padding: 20px;
+}
+.col-sm-6.left-bottom {
+    border-right: 2px solid lightblue;
+    border-top: 2px solid lightblue;
+    width: 50%;
+    min-height: 300px;
+    padding: 20px;
+}
+.col-sm-6.right-bottom {
+    border-left: 2px solid lightblue;
+    border-top: 2px solid lightblue;
+    width: 50%;
+    min-height: 300px;
+    padding: 20px;
+}
+.content-p {
+    margin-top: 40px;
+    margin-bottom: 60px;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Overwite navpills */
+.nav-pills.culture > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color: #fff;
+    background: #074E68;
 }

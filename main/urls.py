@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^career$', views.career, name='main.career'),
     url(r'^request$', views.online_test_request, name='main.request'),
     url(r'^culture$', views.culture, name='main.culture'),
+    url(r'^what_we_do$', views.what_we_do, name='main.what_we_do'),
 ]

@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 from main.models import Position
 from main.forms import TestRequestForm
@@ -84,5 +83,10 @@ def career(request):
 
     return render(request, "main/career.html", {"why_dtl": why_dtl, 'positions': positions})
 
+
 def culture(request):
     return render(request, "main/culture.html")
+
+
+def what_we_do(request):
+    return render(request, "main/what_we_do.html")
