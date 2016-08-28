@@ -1,0 +1,55 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block body-content %}
+<div class="container" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <div class="row">
+    <div>
+      <span class="pull-right">
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills culture" role="tablist">
+          <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+          <li role="presentation"><a href="#investment-approach" aria-controls="investment-approach" role="tab" data-toggle="tab">Investment Approach</a></li>
+        </ul>
+      </span>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="overview">
+        <div style="width: 80%; margin: 50px auto; padding-top: 40px;">
+          <div class="row" style="text-align: center">
+            <img class="img img-rounded" src="{% static "main/img/what/overview.jpg" %}">
+          </div>
+          <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+              <p style="margin-top: 40px;">
+                <b>Dynamic Technology Lab Pte. Ltd. (DTL)</b> <br />designs technological innovations to intelligently analyze information to uncover irrationality in the seemingly rational financial markets. By adopting a diverse range of ideas, we pursue the goal of continuously generating high risk-adjusted investment returns for our clients.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="investment-approach">
+        <div style="width: 80%; margin: 50px auto; padding-top: 40px;">
+          <div class="row">
+            <div class="col-xs-8">
+              <p>Our investment approaches are based on quantitative analyses which rely on mathematical models and number crunching to predict future security performances. The models built on historical data are used to measure the value of a security and identify potential trading opportunities, in an effort to identify potential trading opportunities. They are designed to utilize the best minds in the business and the fastest computers to both exploit inefficiencies and make market bets. </p>
+              <br>
+              <p>
+                The methods we use provide us with unique advantages over traditional investors.
+                <ul>
+                  <li style="list-style-type: circle;">We use logic and historical facts, rather than emotional biases to drive decisions.</li>
+                  <li style="list-style-type: circle;">Quantitative approach is consistent and repeatable because it uses a systematic investment methodology for security selection, and to enforce strong disciplines.</li>
+                </ul>
+              </p>
+            </div>
+            <div class="col-xs-4">
+              <img class="img img-rounded" src="{% static "main/img/what/p1.jpg" %}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body-content %}
