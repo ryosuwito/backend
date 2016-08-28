@@ -87,6 +87,7 @@ li a.active{
 
 
 /*slider area*/
+/*
 .slider-row{
 	margin: 0;
 	padding: 0;
@@ -130,10 +131,10 @@ li a.active{
 	width: 5%;
 }
 .carousel-inner{
-	background: -webkit-linear-gradient(left, #000 , blue); /* For Safari 5.1 to 6.0 */
-	background: -o-linear-gradient(left, #000, blue); /* For Opera 11.1 to 12.0 */
-	background: -moz-linear-gradient(left, #000, blue); /* For Firefox 3.6 to 15 */
-	background: linear-gradient(to left, #000 , blue); /* Standard syntax */
+	background: -webkit-linear-gradient(left, #000 , blue);  # For Safari 5.1 to 6.0
+	background: -o-linear-gradient(left, #000, blue); # For Opera 11.1 to 12.0
+	background: -moz-linear-gradient(left, #000, blue); # For Firefox 3.6 to 15
+	background: linear-gradient(to left, #000 , blue); # Standard syntax
 }
 .item{
 	position: relative;
@@ -163,6 +164,11 @@ li a.active{
   color: transparent;
   margin-right: 0;
   margin-top: 50px;
+}
+*/
+.carousel-caption{
+    background: rgba(0,0,0,0.3);
+    border-radius: 20px;
 }
 
 /*about area*/
@@ -814,4 +820,16 @@ responsive area
 	.footer p {
   		font-size: 10px;
   	}
+}
+
+.site-map-links a {
+    color: #dcdcdc;
+}
+
+.site-map-links {
+    color: #dcdcdc;
+}
+
+.site-map-links p {
+    color: #dcdcdc;
 }

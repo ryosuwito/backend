@@ -9,7 +9,8 @@ DTL Website
 ```bash
 git clone gitlab@10.200.79.103:ynguyen/dtl-website.git
 cd dtl-website
-bash setup.sh
+./setup.sh
+source env/bin/activate
 python manage.py migrate
 python manage.py runserver
 ```
