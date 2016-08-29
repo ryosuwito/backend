@@ -1,0 +1,19 @@
+{% load static %}
+{% load bootstrap3 %}
+
+<h3><b>Online Test Request</b></h3>
+<h5>The time slots available in Singapore timezone are as follows.</h5>
+<h5>researcher: 7p-10p Mon-Fri</h5>
+<h5>developer: 7p-9p Mon-Fri</h5>
+<br>
+<h5>The test will be emailed to you at the selected date/time.</h5>
+<h5>If you can't make it at any of the above time please email <a href="mailto:careers@dytechlab.com">careers@dytechlab.com</a> for special arrangement.</h5>
+<form method="post" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form layout='inline' %}
+    {%buttons %}
+        <button type="submit" class="btn btn-primary">
+            {% bootstrap_icon "star" %}Submit
+        </button>
+    {% endbuttons %}
+</form>
