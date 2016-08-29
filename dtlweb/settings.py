@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
-    'bootstrap3'
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [
@@ -123,6 +123,6 @@ STATIC_URL = '/static/'
 
 
 BOOTSTRAP3 = {
-    'horizontal_label_class': 'col-md-4',
-    'horizontal_field_class': 'col-md-8',
+    'horizontal_label_class': 'col-md-2',
+    'horizontal_field_class': 'col-md-10',
 }
