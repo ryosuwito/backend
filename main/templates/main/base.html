@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Dynamic Technology Lab</title>
+  <link rel="icon" href="{% static 'favicon.ico' %}" type="image/png">
   <link rel="stylesheet" href="{% static 'main/css/font-awesome.min.css' %}">
   <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
@@ -55,7 +56,7 @@
 			</div>
     </div> <!-- end row -->
 	</header> <!-- end of header area -->
-  <div class="container" style="min-height: 75vh; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <div class="container" style="min-height: 70vh; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
   {% block body-content %}
   {% endblock body-content %}
   </div>
@@ -77,7 +78,7 @@
           <div class="site-map-links">
             <h4 class="hide-for-small"><i class="fa fa-star" aria-hidden="true"></i> About Us</h6>
             <ul style="margin-left: 0; padding-left: 0;">
-              <li><a href="/what#investment-approach">Investment Approach</a></li>
+              <li><a href="/what_we_do#investment-approach">Investment Approach</a></li>
               <li><a href="/culture#in-the-work">At Work</a></li>
               <li><a href="/culture#off-the-work">Off Work</a></li>
             </ul>
@@ -103,7 +104,6 @@
 	<!-- script tags
 	============================================================= -->
   <script src="{% static 'main/js/jquery-2.1.1.js' %}"></script>
-  <script src="{% static 'main/js/smoothscroll.js' %}"></script>
   <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
   <script src="{% static 'main/js/custom.js' %}"></script>
   {% block extra-js %}

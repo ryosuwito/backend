@@ -2,11 +2,11 @@
 
 {% block body-content %}
 <div class="row">
-  <div class="col-md-2 col-md-offset-3">
-    <script type="text/javascript" src="http://www.webestools.com/google_map_gen.js?lati=1.296788&long=103.844164&zoom=17&width=600&height=400&mapType=normal&map_btn_normal=yes&map_small=yes&info_bulle=Singapore%20Office"></script>
+  <div class="col-xs-6 col-xs-offset-3" style="height: 50vh;">
+    <div id="our-map" style="height: 100%"></div>
   </div>
 </div>
-
+<br><br>
 <div class="row">
   <div style="text-align: center">
     <p>
@@ -18,5 +18,26 @@
     Singapore 239926</p>
   </div>
 </div>
-
 {% endblock body-content %}
+{% block extra-js %}
+<script>
+  var map;
+  function initMap() {
+    var location = {lat: 1.296788, lng: 103.844164};
+    map = new google.maps.Map(document.getElementById('our-map'), {
+      center: location,
+      zoom: 17
+    });
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      title: 'DTL',
+    });
+    var infowindow = new google.maps.InfoWindow({
+      content: 'Singapore Office'
+    });
+    infowindow.open(map, marker);
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC37qx9DI1padGtuMKyR9bAT5QJrLEV2t4&callback=initMap" async defer></script>
+{% endblock extra-js%}
