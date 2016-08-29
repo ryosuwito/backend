@@ -5,13 +5,19 @@ from main.forms import TestRequestForm
 def index(request):
     return render(request, "main/main_page.html")
 
+
 def online_test_request(request):
     if not request.POST:
-        return render(request, "main/request.html", {'form': TestRequestForm()})
+        return render(request, "main/career_request.html", {'form': TestRequestForm()})
     else:
         # Handle POST Request
         # TODO
         redirect('main.request')
+
+
+def contact(request):
+    return render(request, "main/contact.html")
+
 
 def career(request):
     why_dtl = [
@@ -28,7 +34,6 @@ def career(request):
             "desc": '''Make a difference''',
             "content": '''You could really make a difference even as an entry-level staff, by taking on great responsibilities. Your job will be challenging but interesting, and we will provide every help to facilitate innovation. You are strongly encouraged to bring in fresh ideas to contribute to our success.'''}
     ]
-
 
     positions = [
         Position(
@@ -49,7 +54,6 @@ def career(request):
                 ]
             ]
         ),
-
         Position(
             "Front Desk Quant Developer",
             [
@@ -79,8 +83,6 @@ def career(request):
             ]
         )
     ]
-
-
     return render(request, "main/career.html", {"why_dtl": why_dtl, 'positions': positions, 'form': TestRequestForm() })
 
 
