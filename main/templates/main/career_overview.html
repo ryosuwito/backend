@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+{% block body-content %}
+  <div class="row margin-vert-30">
+    <div class="col-md-12">
+      <div class="row text-center">
+        <h2 class="margin-top-10">Overview</h2>
+        <p style="margin: 0px 50px 0px 50px">Dynamic Technology Lab Pte. Ltd. (DTL) aims to attract the best and brightest, and to train them to be the "best" in the industry. We are looking for smart, creative and detail-oriented individuals, with intellectual curiosity and enthusiasm, to explore principles behind financial markets.</p>
+      </div>
+      <hr class="margin-vert-40">
+      <h2>Why Choose Us?</h2>
+      <div class="row margin-vert-30">
+        {% for reason in why_dtl %}
+        <div class="col-md-3">
+          <h3 class="margin-vert-20">{{reason.desc}}</h3>
+          <p>{{reason.content}}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock body-content %}

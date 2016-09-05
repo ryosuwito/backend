@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from main.models import Position
 from main.forms import TestRequestForm
 
@@ -6,20 +6,16 @@ def index(request):
     return render(request, "main/main_page.html")
 
 
-def online_test_request(request):
+def career_test_request(request):
     if not request.POST:
-        return render(request, "main/career_request.html", {'form': TestRequestForm()})
+        return render(request, "main/career_testreq.html", {'form': TestRequestForm()})
     else:
         # Handle POST Request
         # TODO
-        redirect('main.request')
+        redirect('main.career.testreq')
 
 
-def contact(request):
-    return render(request, "main/contact.html")
-
-
-def career(request):
+def career_overview(request):
     why_dtl = [
         {
             "desc": '''Learn from the best''',
@@ -34,7 +30,10 @@ def career(request):
             "desc": '''Make a difference''',
             "content": '''You could really make a difference even as an entry-level staff, by taking on great responsibilities. Your job will be challenging but interesting, and we will provide every help to facilitate innovation. You are strongly encouraged to bring in fresh ideas to contribute to our success.'''}
     ]
+    return render(request, "main/career_overview.html", {'why_dtl': why_dtl})
 
+
+def career_jobs(request):
     positions = [
         Position(
             "Quantitative Researcher",
@@ -83,7 +82,7 @@ def career(request):
             ]
         )
     ]
-    return render(request, "main/career.html", {"why_dtl": why_dtl, 'positions': positions, 'form': TestRequestForm() })
+    return render(request, "main/career_job_opening.html", {'positions': positions})
 
 
 def culture(request):
@@ -92,3 +91,9 @@ def culture(request):
 
 def what_we_do(request):
     return render(request, "main/what_we_do.html")
+
+
+def contact(request):
+    return render(request, "main/contact.html")
+
+

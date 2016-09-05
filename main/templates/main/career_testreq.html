@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% load bootstrap3 %}
+
+{% block head-extras %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+{{ form.media }}
+{% endblock head-extras %}
+
+{% block body-content %}
+<div class="row margin-vert-30">
+  <div class="col-md-8">
+    <div class="headline">
+      <h2>Online Test Request</h2>
+    </div>
+    <br>
+    <form method="post" class="form">
+      {% csrf_token %}
+      {% bootstrap_form form layout="vertical"%}
+      {%buttons %}
+      <button type="submit" class="center btn btn-primary">Submit</button>
+      {% endbuttons %}
+    </form>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Information</h3>
+      </div>
+      <div class="panel-body">
+        <p>The time slots available in Singapore timezone as follow:</p>
+        <ul class="list-unstyle">
+          <li>Researcher: 7pm-10pm Mon-Fri</li>
+          <li>Developer: 7pm-9pm Mon-Fri</li>
+        </ul>
+        <p>The test will be emailed to you at the selected date/time.</p>
+        <p>If you can't make it at any of above time please email:</p>
+        <ul class="list-unstyled"><li>
+            <i class="fa-envelope color-primary"></i>
+            <a href="mailto:careers@dytechlab.com">careers@dtytechlab.com</a>
+        </li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body-content %}
