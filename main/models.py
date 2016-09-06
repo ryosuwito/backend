@@ -17,13 +17,21 @@ class TestRequest(models.Model):
         (STATUS_PENDING, "Pending"),
     )
 
-    position = models.CharField(max_length=10, choices=POSITION_CHOICES)
+    VER_ENGLISH = "EN"
+    VER_CHINESE = "CN"
+    VERSION_CHOICES = (
+        (VER_ENGLISH, "English"),
+        (VER_CHINESE, "Chinese"),
+    )
+
+    position = models.CharField(max_length=10, choices=POSITION_CHOICES, default=DEVELOPER)
     name = models.CharField(max_length=30)
     university = models.CharField(max_length=100)
     major = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     date = models.DateField()
     time = models.TimeField()
+    version = models.CharField(max_length=10, choices=VERSION_CHOICES, default=VER_ENGLISH)
 
     # Additional fields for admin management
     created_at = models.DateTimeField(auto_now_add=True)

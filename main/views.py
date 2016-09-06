@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from main.models import Position
+from main.models import TestRequest, Position
 from main.forms import TestRequestForm
 
 def index(request):
@@ -8,11 +8,17 @@ def index(request):
 
 def career_test_request(request):
     if not request.POST:
-        return render(request, "main/career_testreq.html", {'form': TestRequestForm()})
+        return render(request, "main/career_testreq.html", { 'form': TestRequestForm() })
     else:
         # Handle POST Request
-        # TODO
-        redirect('main.career.testreq')
+        form = TestRequestForm(request.POST)
+        if form.is_valid():
+            model_instance = form.save(commit=False);
+            model_instance.status = TestRequest.STATUS_PENDING
+            model_instance.save()
+            return render(request, "main/career_testreq_confirm.html", {"testReq": model_instance})
+        else:
+            return render(request, "main/career_testreq.html", { 'form': form })
 
 
 def career_overview(request):
