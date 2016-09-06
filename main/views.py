@@ -42,6 +42,23 @@ def career_overview(request):
 def career_jobs(request):
     positions = [
         Position(
+            "Fundamental Quantitative Researcher",
+            ['''The fundamental quantitative researchers develop trading ideas using fundamental and quantitative analysis. A mixed background of finance, programming and statistics is preferred for this position.'''],
+            [
+                [
+                    '''Recent Master/PhD from a finance, accounting, economics or related field. Bachelors with exceptional performance will also be considered''',
+                    '''Key interest in financial markets''',
+                    '''Attention to detail''',
+                    '''Excellent analytical and financial skills''',
+                ],
+                '''The following skills are bonus in recruitment and are required before on board''',
+                [
+                    '''Intermediate programming skills''',
+                    '''Comfortable with Linux/Unix''',
+                ]
+            ]
+        ),
+        Position(
             "Quantitative Researcher",
             ['''The quantitative researchers design and backtest trading models, which form the most important elements in the final trading strategies. They work in groups or independently, depending on the projects and/or the researchers' preference. Creativity and innovation are what we are looking for in this position.'''],
             [

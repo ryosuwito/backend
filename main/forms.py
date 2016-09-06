@@ -13,7 +13,7 @@ class TestRequestForm(forms.ModelForm):
         #     'date': DateWidget(usel10n=True, bootstrap_version=3),
         #     'time': TimeWidget(usel10n=True, bootstrap_version=3)
         # }
-    
+
     def clean_email(self):
         email = self.cleaned_data['email']
         if email == "a@email.com":
