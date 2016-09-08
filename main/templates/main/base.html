@@ -26,12 +26,12 @@
   {% endblock head-extras %}
 </head>
 <body>
-  <div id="pre_header" class="visible-lg"></div>
+  <!-- <div id="pre_header" class="visible-lg"></div> -->
   <div id="header" class="container">
     <div class="row">
       <!-- Logo -->
       <div class="logo">
-        <a href="index.html" title="">
+        <a href="{% url 'main.index' %}" title="">
           <img src="{% static 'main/img/dtl_logo.jpg' %}" style="margin-top:20px; max-width: 250px;" alt="Logo" />
         </a>
       </div>

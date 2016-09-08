@@ -1,3 +1,4 @@
 django==1.10
 django-bootstrap3
 django-datetime-widget
+django-crontab
