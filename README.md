@@ -14,3 +14,11 @@ source env/bin/activate
 python manage.py migrate
 python manage.py runserver
 ```
+
+# Run website on localhost (for ftang & mhua)
+```bash
+git pull origin master
+source env/bin/activate
+pip install -r requirements.txt
+python manage.py runserver
+```
