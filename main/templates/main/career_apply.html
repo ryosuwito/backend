@@ -1,0 +1,11 @@
+{% extends 'main/base.html' %}
+
+{% block body-content %}
+<div class="row margin-vert-30">
+  <div class="col-md-3"></div>
+  <div class="col-md-9">
+    <h2 class="headline">Online Application</h2>
+    {% include 'main/snippet_form.html' with form=form %}
+  </div>
+</div>
+{% endblock body-content %}

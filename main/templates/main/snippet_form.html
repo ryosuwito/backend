@@ -1,0 +1,9 @@
+{% load bootstrap3 %}
+
+<form method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form layout="vertical"%}
+  {%buttons %}
+  <button type="submit" class="center btn btn-primary">Submit</button>
+  {% endbuttons %}
+</form>

@@ -1,16 +1,34 @@
 from django.shortcuts import render, redirect
 from main.models import TestRequest, Position
-from main.forms import TestRequestForm
+from main.forms import OnlineApplicationForm, TestRequestForm
 
 def index(request):
     return render(request, "main/main_page.html")
 
 
 def career_apply(request):
-    pass
+
+    def handle_application_form(application, resume):
+        # TODO: send application form summary to company email
+        # TODO: send confirmation email to candidate
+        pass
+
+    if not request.POST:
+        return render(request, "main/career_apply.html", {'form': OnlineApplicationForm() })
+    else:
+        # Handle POST request
+        form = OnlineApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            model_instance = form.save(commit=False);
+            model_instance.save()
+            handle_application_form(model_instance, resume=request.FILES['file'])
+            return render(request, "main/career_apply_confirm.html", {'application': model_instance})
+        else:
+            return render(request, "main/career_apply.html", {'form': form})
 
 
-def career_test_request(request):
+def career_test(request):
+    # TODO: check if it is valid link
     if not request.POST:
         return render(request, "main/career_testreq.html", { 'form': TestRequestForm() })
     else:

@@ -13,13 +13,7 @@
       <h2>Online Test Request</h2>
     </div>
     <br>
-    <form method="post" class="form">
-      {% csrf_token %}
-      {% bootstrap_form form layout="vertical"%}
-      {%buttons %}
-      <button type="submit" class="center btn btn-primary">Submit</button>
-      {% endbuttons %}
-    </form>
+    {% include 'main/snippet_form.html' with form=form %}
   </div>
   <div class="col-md-4">
     <div class="panel panel-default">
