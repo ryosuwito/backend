@@ -1,6 +1,29 @@
 from django.contrib import admin
 from main.models import OnlineApplication, TestRequest
+from main.forms import OnlineApplicationForm
+from django.core.exceptions import ObjectDoesNotExist
 
-# Register your models here.
-admin.site.register(OnlineApplication)
-admin.site.register(TestRequest)
+
+@admin.register(OnlineApplication)
+class OnlineApplicationAdmin(admin.ModelAdmin):
+    def get_scheduled_test(application):
+        if application.status == OnlineApplication.APP_STATUS_NO:
+            return "Not Applicable"
+        elif application.status == OnlineApplication.APP_STATUS_YES:
+            try:
+                return application.test_request.get_datetime()
+            except ObjectDoesNotExist:
+                return "Oops no test request!"
+        else:
+            return "None"
+
+    get_scheduled_test.short_description = "Scheduled Test"
+    list_display = ('name', 'university', 'email', 'position', 'status', get_scheduled_test)
+    list_editable = ('status',)
+    list_filter = ('status',)
+
+
+@admin.register(TestRequest)
+class TestRequest(admin.ModelAdmin):
+    list_display = ('application', 'signature', 'version', 'get_date', 'get_time', 'status')
+    list_selected_related = ('application')
