@@ -125,11 +125,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-# BOOTSTRAP3 = {
-#     'horizontal_label_class': 'col-md-2',
-#     'horizontal_field_class': 'col-md-10',
-# }
-
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_USE_TLS = True
