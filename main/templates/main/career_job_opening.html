@@ -1,39 +1,26 @@
 {% extends 'main/base.html' %}
-{% load main_extras %}
 {% block body-content %}
 <div class="row margin-vert-30">
-    <div class="col-md-12">
-      <div class="row text-center">
-        <h2 class="margin-top-10">Opening Jobs</h2>
-      </div>
-      <hr class="margin-vert-40">
-      {% for position in positions %}
-        <h3>{{position.title}}</h3>
-        <h4>Job description: </h4>
-        {% for desc in position.desc %}
-          {% if desc|is_string %}
-            <h5>{{desc}}</h5>
-          {% else %}
-            <ul>
-            {% for subdesc in desc %}
-              <li>{{subdesc}}</li>
-            {% endfor %}
-            </ul>
-          {% endif %}
-        {% endfor %}
-        <h4>Qualification: </h4>
-        {% for qft in position.qualification %}
-          {% if qft|is_string %}
-            <h5>{{qft}}</h5>
-          {% else %}
-            <ul>
-            {% for subqft in qft %}
-              <li>{{subqft}}</li>
-            {% endfor %}
-            </ul>
-          {% endif %}
-        {% endfor %}
-      {% endfor %}
-    </div>
+  <div class="col-md-3">
+<ul class="nav nav-tabs nav-stacked">
+  <li class="active"><a href="#fund-quan-res" data-toggle="tab">Fundamental Quantitative Researcher</a></li>
+  <li><a href="#quan-res" data-toggle="tab">Quantitative Researcher</a></li>
+  <li><a href="#quan-dev" data-toggle="tab">Front Desk Quant Developer</a></li>
+</ul>
+</div>
+<div class="col-md-9">
+<div class="tab-content">
+  <div class="tab-pane active" id="fund-quan-res">
+    {% include "main/snippet_job.html" with position=positions.0 %}
+  </div>
+  <div class="tab-pane" id="quan-res">
+    {% include "main/snippet_job.html" with position=positions.1 %}
+  </div>
+  <div class="tab-pane" id="quan-dev">
+    {% include "main/snippet_job.html" with position=positions.2 %}
+  </div>
+</div><!-- tab content -->
+</div>
 </div>
 {% endblock body-content %}
+

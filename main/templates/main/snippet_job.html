@@ -1,0 +1,27 @@
+{% load main_extras %}
+
+<h3>{{position.title}}</h3>
+<h4>Job description: </h4>
+{% for desc in position.desc %}
+  {% if desc|is_string %}
+    <h5>{{desc}}</h5>
+  {% else %}
+    <ul>
+    {% for subdesc in desc %}
+      <li>{{subdesc}}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}
+<h4>Qualification: </h4>
+{% for qft in position.qualification %}
+  {% if qft|is_string %}
+    <h4>{{qft}}</h4>
+  {% else %}
+    <ul>
+    {% for subqft in qft %}
+      <li>{{subqft}}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}

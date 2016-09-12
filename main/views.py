@@ -6,6 +6,10 @@ def index(request):
     return render(request, "main/main_page.html")
 
 
+def career_apply(request):
+    pass
+
+
 def career_test_request(request):
     if not request.POST:
         return render(request, "main/career_testreq.html", { 'form': TestRequestForm() })
@@ -118,5 +122,3 @@ def what_we_do(request):
 
 def contact(request):
     return render(request, "main/contact.html")
-
-

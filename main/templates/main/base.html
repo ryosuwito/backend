@@ -2,14 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Title -->
   <title>Dynamic Technology Lab</title>
-  <!-- Meta -->
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-  <!-- Favicon -->
   <link href="{% static 'favicon.ico' %}" rel="shortcut icon" type="image/png">
   <!-- Bootstrap Core CSS -->
   <link rel="stylesheet" href="{% static 'main/css/bootstrap.css' %}" rel="stylesheet">
@@ -18,7 +15,7 @@
   <link rel="stylesheet" href="{% static 'main/css/font-awesome.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'main/css/nexus.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'main/css/responsive.css' %}" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'main/css/custom.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'main/css/dtl.css' %}" rel="stylesheet">
   <!-- Google Fonts-->
   <link href="http://fonts.googleapis.com/css?family=Lato:400,300" rel="stylesheet" type="text/css">
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet" type="text/css">
@@ -26,23 +23,23 @@
   {% endblock head-extras %}
 </head>
 <body>
-  <!-- <div id="pre_header" class="visible-lg"></div> -->
   <div id="header" class="container">
     <div class="row">
       <!-- Logo -->
       <div class="logo">
         <a href="{% url 'main.index' %}" title="">
-          <img src="{% static 'main/img/dtl_logo.jpg' %}" style="margin-top:20px; max-width: 250px;" alt="Logo" />
+          <img src="{% static 'main/img/dtl_logo.png' %}" style="margin-top:20px; max-width: 250px;" alt="Logo" />
         </a>
       </div>
       <!-- End Logo -->
+
       <!-- Top Menu -->
       <div class="col-md-12 margin-top-30">
         <div id="hornav" class="pull-right visible-lg">
           <ul class="nav navbar-nav">
             <li><a href="{% url 'main.index' %}">Home</a></li>
-            <li><a href="{% url 'main.what_we_do' %}">What we do</a></li>
-            <li><a href="">Culture</a></li>
+            <li><a href="{% url 'main.what' %}">What we do</a></li>
+            <li><a href="{% url 'main.culture' %}">Culture</a></li>
             <li><span>Careers</span>
               <ul>
                 <li><a href="{% url 'main.career.overview' %}">Overview</a></li>
@@ -50,7 +47,7 @@
                 <li><a href="{% url 'main.career.testreq' %}">Online Test Request</a></li>
               </ul>
             </li>
-            <li><a href="">Contact</a></li>
+            <li><a href="{% url 'main.contact' %}">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -59,49 +56,39 @@
     </div>
   </div>
   <!-- === END HEADER === -->
+
   <!-- === BEGIN CONTENT === -->
-  <div id="content" class="container" style="min-height: 500px;">
-{% block body-content %}
-{% endblock body-content %}
+  <div id="content" class="container" style="min-height: 700px;">
+  {% block body-content %}
+  {% endblock body-content %}
   </div>
   <!-- === END CONTENT === -->
+
   <!-- === BEGIN FOOTER === -->
   <div id="base">
     <div class="container padding-vert-30">
       <div class="row">
-        <!-- Thumbs Gallery -->
-        <div class="col-md-4 margin-bottom-20">
-          <h3 class="margin-bottom-10">About Us</h3>
-          <p>A quantitative trading firm engaged in equity trading. We have significant presence in the global market by trading over 400m USD daily in the world's major exchanges.</p>
-        </div>
-        <!-- End Thumbs Gallery -->
-        <!-- Contact Details -->
         <div class="col-md-4 margin-bottom-20">
           <h3 class="margin-bottom-10">Contact Details</h3>
           <p>#07-00,<br />
           Haw Par Glass Tower,<br />
           178 Clemenceau Avenue,<br />
           Singapore 239926</p>
-          Website: <a href="http://www.dytechlab.com/">www.dytechlab.com</a></p>
-          Mobile: 9876 5432
         </div>
-        <!-- End Contact Details -->
-				<!-- Sample Menu -->
-        <div class="col-md-4 margin-bottom-20" >
-          <h3 class="margin-bottom-10">Menu</h3>
+        <div class="col-md-4">
+          <h3 class="margin-bottom-10">Culture</h3>
           <ul class="menu">
-            <li>
-              <a class="fa-tasks" href="#" >What we do</a>
-            </li>
-            <li>
-              <a class="fa-users" href="#" >Culture</a>
-            </li>
-            <li>
-              <a class="fa-signal" href="#" >Career</a>
-            </li>
-            <li>
-              <a class="fa-coffee" href="#">Contact</a>
-            </li>
+            <li><a href="">Overview</a></li>
+            <li><a href="">At Work</a></li>
+            <li><a href="">Off Work</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4" >
+          <h3 class="margin-bottom-10">Careers</h3>
+          <ul class="menu">
+            <li><a class="" href="{% url 'main.career.overview' %}">Overview</a></li>
+            <li><a class="" href="{% url 'main.career.jobs' %}">Opening Jobs</a></li>
+            <li><a class="" href="{% url 'main.career.apply' %}">Online Application</a></li>
           </ul>
           <div class="clearfix"></div>
         </div>
@@ -113,8 +100,8 @@
 		<div id="footer">
 			<div class="container">
 				<div class="row">
-					<div id="copyright" class="col-md-4">
-						<p>(c) 2016 Dynamic Technology Lab</p>
+					<div id="copyright">
+            <p>© 2011-2015 Dynamic Technology Lab All rights reserved.</p>
 					</div>
 				</div>
 			</div>
@@ -126,8 +113,8 @@
   <script type="text/javascript" src="{% static 'main/js/jquery.min.js' %}" type="text/javascript"></script>
   <script type="text/javascript" src="{% static 'main/js/bootstrap.min.js' %}" type="text/javascript"></script>
   <script type="text/javascript" src="{% static 'main/js/scripts.js' %}"></script>
-  <!-- <1!-- Isotope - Portfolio Sorting --1> -->
-  <!-- <script type="text/javascript" src="{% static 'main/js/jquery.isotope.js' %}" type="text/javascript"></script> -->
+  <!-- Isotope - Portfolio Sorting -->
+  <script type="text/javascript" src="assets/js/jquery.isotope.js" type="text/javascript"></script></script>
   <!-- Mobile Menu - Slicknav -->
   <script type="text/javascript" src="{% static 'main/js/jquery.slicknav.js' %}" type="text/javascript"></script>
   <!-- Animate on Scroll-->
