@@ -133,8 +133,16 @@ def career_jobs(request):
     return render(request, "main/career_job_opening.html", {'positions': positions})
 
 
-def culture(request):
-    return render(request, "main/culture.html")
+def culture_overview(request):
+    return render(request, "main/culture_overview.html")
+
+
+def culture_atwork(request):
+    return render(request, "main/culture_atwork.html")
+
+
+def culture_offwork(request):
+    return render(request, "main/culture_offwork.html")
 
 
 def what_we_do(request):

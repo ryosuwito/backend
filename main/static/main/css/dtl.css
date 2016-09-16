@@ -5,3 +5,26 @@
 h3 {
   color: #39A4D1;
 }
+
+.left-top {
+	padding: 20px;
+	border-right: 3px solid lightblue;
+}
+.right-top {
+	padding: 20px;
+}
+.left-bottom {
+	border-right: 3px solid lightblue;
+	border-top: 3px solid lightblue;
+	padding: 20px;
+}
+.right-bottom {
+	border-top: 3px solid lightblue;
+	padding: 20px;
+}
+.content-p.left {
+	margin: 10px 10px 50px 10px;
+}
+.content-p.right {
+	margin: 50px 10px 10px 10px;
+}

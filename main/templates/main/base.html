@@ -39,8 +39,16 @@
           <ul class="nav navbar-nav">
             <li><a href="{% url 'main.index' %}">Home</a></li>
             <li><a href="{% url 'main.what' %}">What we do</a></li>
-            <li><a href="{% url 'main.culture' %}">Culture</a></li>
-            <li><span>Careers</span>
+            <li>
+              <span>Culture</span>
+              <ul>
+                <li><a href="{% url 'main.culture.overview' %}">Overview</a></li>
+                <li><a href="{% url 'main.culture.atwork' %}">At Work</a></li>
+                <li><a href="{% url 'main.culture.offwork' %}">Off Work</a></li>
+              </ul>
+            </li>
+            <li>
+              <span>Careers</span>
               <ul>
                 <li><a href="{% url 'main.career.overview' %}">Overview</a></li>
                 <li><a href="{% url 'main.career.jobs' %}">Opening Job</a></li>
@@ -78,9 +86,9 @@
         <div class="col-md-4">
           <h3 class="margin-bottom-10">Culture</h3>
           <ul class="menu">
-            <li><a href="">Overview</a></li>
-            <li><a href="">At Work</a></li>
-            <li><a href="">Off Work</a></li>
+            <li><a href="{% url 'main.culture.overview' %}">Overview</a></li>
+            <li><a href="{% url 'main.culture.atwork' %}">At Work</a></li>
+            <li><a href="{% url 'main.culture.offwork' %}">Off Work</a></li>
           </ul>
         </div>
         <div class="col-md-4" >
@@ -101,7 +109,7 @@
 			<div class="container">
 				<div class="row">
 					<div id="copyright">
-            <p>© 2011-2015 Dynamic Technology Lab All rights reserved.</p>
+            <p class="small">&copy; 2011-2015 Dynamic Technology Lab All rights reserved.</p>
 					</div>
 				</div>
 			</div>
@@ -109,12 +117,9 @@
 	</div>
 	<!-- End Footer Menu -->
 
-  <!-- JS -->
   <script type="text/javascript" src="{% static 'main/js/jquery.min.js' %}" type="text/javascript"></script>
-  <script type="text/javascript" src="{% static 'main/js/bootstrap.min.js' %}" type="text/javascript"></script>
-  <script type="text/javascript" src="{% static 'main/js/scripts.js' %}"></script>
   <!-- Isotope - Portfolio Sorting -->
-  <script type="text/javascript" src="assets/js/jquery.isotope.js" type="text/javascript"></script></script>
+  <script type="text/javascript" src="{% static 'main/js/jquery.isotope.js' %}" type="text/javascript"></script></script>
   <!-- Mobile Menu - Slicknav -->
   <script type="text/javascript" src="{% static 'main/js/jquery.slicknav.js' %}" type="text/javascript"></script>
   <!-- Animate on Scroll-->
@@ -123,6 +128,9 @@
   <script type="text/javascript" src="{% static 'main/js/slimbox2.js' %}" charset="utf-8"></script>
   <!-- Modernizr -->
   <script src="{% static 'main/js/modernizr.custom.js' %}" type="text/javascript"></script>
+  <!-- JS -->
+  <script type="text/javascript" src="{% static 'main/js/bootstrap.min.js' %}" type="text/javascript"></script>
+  <script type="text/javascript" src="{% static 'main/js/scripts.js' %}"></script>
 
   {% block js-extras %}
   {% endblock js-extras %}
