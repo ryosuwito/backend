@@ -28,10 +28,10 @@
 
 @media only screen and (max-width: 767px) {
 
-/* Slogan Adjust */
-p.site-slogan {
-    right: 0px;
-}
+  /* Slogan Adjust */
+  p.site-slogan {
+      right: 0px;
+  }
 
 }
 

@@ -1,11 +1,9 @@
-#carousel-dtl img {
-  min-width: 100%;
-  height: 580px;
-}
 h3 {
   color: #39A4D1;
 }
 
+/* # For Career overview
+================================================== */
 .left-top {
 	padding: 20px;
 	border-right: 3px solid lightblue;
@@ -27,4 +25,26 @@ h3 {
 }
 .content-p.right {
 	margin: 50px 10px 10px 10px;
+}
+/* #Mobile (Landscape)
+================================================== */
+@media only screen and (max-width: 767px) {
+	.left-top {
+  	border-right: 0px solid lightblue;
+  }
+  .right-top {
+  	border-top: 3px solid lightblue;
+  }
+  .left-bottom {
+  	border-right: 0px solid lightblue;
+  }
+  .right-bottom {
+  	border-top: 3px solid lightblue;
+  }
+}
+
+/* # Hack for careers jobs
+================================================== */
+.nav.nav-tabs.nav-stacked > li:nth-child(3) > a {
+	border-bottom-color: #ffffff;
 }
