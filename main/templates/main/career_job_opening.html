@@ -2,25 +2,25 @@
 {% block body-content %}
 <div class="row margin-vert-30">
   <div class="col-md-3">
-<ul class="nav nav-tabs nav-stacked">
-  <li class="active"><a href="#fund-quan-res" data-toggle="tab">Fundamental Quantitative Researcher</a></li>
-  <li><a href="#quan-res" data-toggle="tab">Quantitative Researcher</a></li>
-  <li><a href="#quan-dev" data-toggle="tab">Front Desk Quant Developer</a></li>
-</ul>
-</div>
-<div class="col-md-9">
-<div class="tab-content">
-  <div class="tab-pane active" id="fund-quan-res">
-    {% include "main/snippet_job.html" with position=positions.0 %}
+    <ul class="nav nav-tabs nav-stacked">
+      <li class="active"><a href="#fund-quan-res" data-toggle="tab">Fundamental Quantitative Researcher</a></li>
+      <li><a href="#quan-res" data-toggle="tab">Quantitative Researcher</a></li>
+      <li><a href="#quan-dev" data-toggle="tab">Front Desk Quant Developer</a></li>
+    </ul>
   </div>
-  <div class="tab-pane" id="quan-res">
-    {% include "main/snippet_job.html" with position=positions.1 %}
+  <div class="col-md-9">
+    <div class="tab-content" style="margin-top: 20px;">
+      <div class="tab-pane active" id="fund-quan-res">
+        {% include "main/snippet_job.html" with position=positions.0 %}
+      </div>
+      <div class="tab-pane" id="quan-res">
+        {% include "main/snippet_job.html" with position=positions.1 %}
+      </div>
+      <div class="tab-pane" id="quan-dev">
+        {% include "main/snippet_job.html" with position=positions.2 %}
+      </div>
+    </div><!-- tab content -->
   </div>
-  <div class="tab-pane" id="quan-dev">
-    {% include "main/snippet_job.html" with position=positions.2 %}
-  </div>
-</div><!-- tab content -->
-</div>
 </div>
 {% endblock body-content %}
 

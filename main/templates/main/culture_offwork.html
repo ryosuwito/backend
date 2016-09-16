@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block body-content %}
+<div class="container" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <br><br>
+  <div class="row">
+    <div class="col-sm-6">
+      <img class="img img-rounded" src="{% static "main/img/offoffice/p1.jpg" %}">
+      <p class="content-p left">On major holidays we arrange dinner/lunch parties. You could enjoy various delicious food and have fun with colleagues. You may even have the opportunities to eat abroad with the company.</p>
+      <img class="img img-rounded" src="{% static "main/img/offoffice/p3.jpg" %}">
+      <p class="content-p left">We have many ways to entertain ourselves, e.g. diving, KTV, playing pool, playing chess and hiking etc. We encourage employees to pursue their hobbies off work.</p>
+    </div>
+    <div class="col-sm-6">
+      <p class="content-p right">You could enjoy the free sporting facilities nearby, e.g. tennis/table tennis/basketball courts, swimming pool and gym etc. Whatever you like you could always find someone to play within the company.</p>
+      <img class="img img-rounded" src="{% static "main/img/offoffice/p2.jpg" %}">
+      <p class="content-p right">Every Friday we go jogging to keep us healthy and energetic. You may also exploit your intelligence in the Texas Hold'em games in weekends.</p>
+      <img class="img img-rounded" src="{% static "main/img/offoffice/p4.jpg" %}">
+    </div>
+  </div>
+  <br><br>
+</div>
+{% endblock body-content %}

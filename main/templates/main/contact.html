@@ -1,25 +1,29 @@
 {% extends 'main/base.html' %}
 
 {% block body-content %}
-<div class="row">
-  <div class="col-xs-6 col-xs-offset-3" style="height: 50vh;">
-    <div id="our-map" style="height: 100%"></div>
+<div class="container">
+  <br><br>
+  <div class="row">
+    <div class="col-xs-6 col-xs-offset-3" style="height: 40vh;">
+      <div id="our-map" style="height: 100%"></div>
+    </div>
   </div>
-</div>
-<br><br>
-<div class="row">
-  <div style="text-align: center">
-    <p>
-      <strong>Singapore Office:</strong><br/>
-      Email: <a href="mailto:careers@dytechlab.com">contact@dytechlab.com</a><br>
-    <p>
-    <p>Address:<br>Dynamic Technology Lab<br>
-    #07-00, Haw Par Glass Tower, 178 Clemenceau Avenue<br>
-    Singapore 239926</p>
+  <br><br>
+  <div class="row">
+    <div style="text-align: center">
+      <p>
+        <strong>Singapore Office:</strong><br/>
+        Email: <a href="mailto:careers@dytechlab.com">contact@dytechlab.com</a><br>
+      <p>
+      <p>Address:<br>Dynamic Technology Lab<br>
+      #07-00, Haw Par Glass Tower, 178 Clemenceau Avenue<br>
+      Singapore 239926</p>
+    </div>
+    <br>
   </div>
 </div>
 {% endblock body-content %}
-{% block extra-js %}
+{% block js-extras %}
 <script>
   var map;
   function initMap() {
@@ -40,4 +44,4 @@
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC37qx9DI1padGtuMKyR9bAT5QJrLEV2t4&callback=initMap" async defer></script>
-{% endblock extra-js%}
+{% endblock js-extras%}
