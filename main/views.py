@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from main.models import TestRequest, Position
 from main.forms import OnlineApplicationForm, TestRequestForm
 from main.emails import send_online_application_confirm
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.http import Http404
+
 
 
 def index(request):
@@ -49,13 +51,20 @@ def career_apply(request):
             return render(request, "main/career_apply.html", {'form': form})
 
 
-def career_test(request):
-    # TODO: check if it is valid link
+def career_test(request, req_id, hashstr):
+    test_request = get_object_or_404(TestRequest, pk=req_id)
+    if test_request.status == TestRequest.STATUS_SENT:
+        raise Http404("The test request is expired. email is sent to candidate.")
+    if hashstr != test_request.hashstr:
+        raise Http404("This link does not exist.")
+
+    form = TestRequestForm(instance=test_request)
+
     if not request.POST:
-        return render(request, "main/career_testreq.html", { 'form': TestRequestForm() })
+        return render(request, "main/career_testreq.html", { 'form': form })
     else:
         # Handle POST Request
-        form = TestRequestForm(request.POST)
+        form = TestRequestForm(request.POST, instance=test_request)
         if form.is_valid():
             model_instance = form.save(commit=False);
             model_instance.status = TestRequest.STATUS_PENDING

@@ -25,7 +25,7 @@ class OnlineApplicationForm(forms.ModelForm):
 class TestRequestForm(forms.ModelForm):
     class Meta:
         model = TestRequest
-        exclude = ['signature', 'application', 'created_at', 'status']
+        exclude = ['hashstr', 'application', 'created_at', 'status']
 
 
 
