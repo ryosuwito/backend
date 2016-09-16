@@ -40,18 +40,20 @@ class OnlineApplication(models.Model):
             default=APP_STATUS_NEW)
     created_at = models.DateTimeField(auto_now_add=True)
 
-
+    def __str__(self):
+        return self.email
     # TODO: create a pre-save signals
     # If status: New -> Yes, create a TestRequest instance & send link to candidate
 
 
 class TestRequest(models.Model):
-    STATUS_NEW = "New"      # Test Request link is created but candidate haven't request
-    STATUS_PENDING = "Pend" # Test Request is created but email is not sent
-    STATUS_SENT = "Sent"    # email is sent
+    STATUS_NEW = "New"         # Test Request link is created but candidate haven't request
+    STATUS_PENDING = "Pending" # Test Request is created but email is not sent
+    STATUS_SENT = "Sent"       # email is sent
     STATUS_CHOICES = (
-        (STATUS_SENT, "Sent"),
+        (STATUS_NEW, "New"),
         (STATUS_PENDING, "Pending"),
+        (STATUS_SENT, "Sent"),
     )
 
     VER_ENGLISH = "EN"
@@ -64,7 +66,7 @@ class TestRequest(models.Model):
     application = models.OneToOneField(
             'OnlineApplication',
             on_delete=models.CASCADE,
-            related_name="application")
+            related_name="test_request")
     signature = models.CharField(max_length=100, unique=True)
     version = models.CharField(
             max_length=10,
@@ -74,12 +76,22 @@ class TestRequest(models.Model):
     time = models.TimeField()
     status = models.CharField(
             max_length=10,
-            choices=STATUS_CHOICES, # for sending email confirmation
+            choices=STATUS_CHOICES,
             default=STATUS_NEW)
     # Additional fields for admin management
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+       return "{} {}".format(self.application.position, str(self.date)) 
 
+    def get_date(self):
+        return self.date.strftime("%Y-%m-%d")
+
+    def get_time(self):
+        return self.time.strftime("%H:%M")
+
+    def get_datetime(self):
+        return "{} {}".format(self.get_date(), self.get_time())
 
 class Position(object):
 

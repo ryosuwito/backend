@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from main.models import TestRequest, Position
 from main.forms import OnlineApplicationForm, TestRequestForm
+from main.emails import send_online_application_confirm
 
 def index(request):
     return render(request, "main/main_page.html")
@@ -9,9 +10,11 @@ def index(request):
 def career_apply(request):
 
     def handle_application_form(application, resume):
-        # TODO: send application form summary to company email
-        # TODO: send confirmation email to candidate
-        pass
+        # send application form summary to company email
+        send_application_summary(application)
+
+        # send confirmation email to candidate
+        send_online_application_confirm(application)
 
     if not request.POST:
         return render(request, "main/career_apply.html", {'form': OnlineApplicationForm() })
