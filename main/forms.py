@@ -22,6 +22,7 @@ class OnlineApplicationForm(forms.ModelForm):
         return email
 
 
+
 class TestRequestForm(forms.ModelForm):
     class Meta:
         model = TestRequest

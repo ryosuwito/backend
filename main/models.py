@@ -33,10 +33,10 @@ class OnlineApplication(models.Model):
             choices=POSITION_CHOICES,
             default=DEVELOPER)
     name = models.CharField(max_length=30)
-    university = models.CharField(max_length=100)
-    major = models.CharField(max_length=100)
+    university = models.CharField(max_length=100, null=True, blank=True)
+    major = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(max_length=100, unique=True)
-    resume = models.CharField(max_length=100) # resume file name
+    resume = models.CharField(max_length=100, blank=True) # resume file name
 
     # Additional fields for admin management
     status = models.CharField(
@@ -65,7 +65,7 @@ class OnlineApplication(models.Model):
 
         super(OnlineApplication, self).save(*args, **kwargs)
         if is_updated_status:
-            on_update_status()
+            self.on_update_status()
 
 
 

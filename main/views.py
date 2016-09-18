@@ -42,6 +42,7 @@ def career_apply(request):
         form = OnlineApplicationForm(request.POST, request.FILES)
         if form.is_valid():
             model_instance = form.save(commit=False);
+            model_instance.resume = "_".join((str(model_instance), request.FILES['file'].name))
             model_instance.save()
             handle_application_form(model_instance, resume=request.FILES['file'])
             return render(request, "main/career_apply_confirm.html", {'application': model_instance})

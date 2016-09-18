@@ -6,6 +6,7 @@ from django.utils.html import strip_tags
 
 def send_templated_email(subject, email_template_name, email_context, recipients,
                          sender=None, cc=None, bcc=None, fail_silently=True, files=None):
+    print "send templated email!"
     c = Context(email_context)
     template = loader.get_template(email_template_name)
     text = strip_tags(template.render(c))
