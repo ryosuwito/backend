@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from main.models import TestRequest, Position
 from main.forms import OnlineApplicationForm, TestRequestForm
 from main.emails import send_online_application_confirm
+from chinaevent.forms import RegistrationForm
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import Http404
 
@@ -12,19 +13,18 @@ def index(request):
 
 @xframe_options_exempt
 def career_chinaevent(request):
-    talk = {
-        "datetime": "2016, October 10th, 08:30 a.m",
-        "address": "30 Shuangqing Rd, Haidian, Beijing, China"
-    }
-    talk_range = range(0, 2)
-    test = {
-        "datetime": "2016, October 10th, 08:30 a.m",
-        "address": "30 Shuangqing Rd, Haidian, Beijing, China"
-    }
-
-    return render(request,
-                  "main/career_chinaevent.html",
-                  {'talk': talk, 'test': test, 'range': talk_range})
+    template = 'main/career_chinaevent.html'
+    if not request.POST:
+        return render(request, template, {'form': RegistrationForm()})
+    else:
+        # Handle POST request
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            model_instance = form.save(commit=False)
+            model_instance.save()
+            return HttpResponse("Sucessful!")
+        else:
+            return render(request, template, {'form': form})
 
 
 def career_apply(request):
@@ -32,7 +32,6 @@ def career_apply(request):
     def handle_application_form(application, resume):
         # send application form summary to company email
         send_application_summary(application)
-
         # send confirmation email to candidate
         send_online_application_confirm(application)
 

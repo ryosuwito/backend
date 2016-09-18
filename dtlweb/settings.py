@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
     'bootstrap3',
-    'datetimewidget',
     'django_crontab',
+    'chinaevent.apps.ChinaeventConfig',
 ]
 
 MIDDLEWARE = [
