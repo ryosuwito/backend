@@ -2,7 +2,6 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template import loader, Context
 from django.utils.html import strip_tags
-from main.models import OnlineApplication
 
 
 def send_templated_email(subject, email_template_name, email_context, recipients,
@@ -54,10 +53,14 @@ def send_test_request(test_request):
     """
     send email to applicants with test request link for them to schedule test
     """
+    from main.models import OnlineApplication
     send_templated_email(
             subject="DTL Schedule Test Online",
             email_template_name="main/email_test_request.html",
-            email_context={'test_request': test_request},
+            email_context={
+                'name': test_request.application.name,
+                'req': test_request
+            },
             recipients=[test_request.application.email, ])
 
 
