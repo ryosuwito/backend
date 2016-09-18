@@ -1,5 +1,14 @@
-h3 {
-  color: #39A4D1;
+.dtl-color {
+    color: #39A4D1;
+}
+.margin-left-10 {
+  margin-left: 10px;
+}
+.margin-left-20 {
+  margin-left: 20px;
+}
+.margin-right-10 {
+  margin-right: 10px;
 }
 
 /* # For Career overview
@@ -47,13 +56,8 @@ h3 {
 ================================================== */
 .nav.nav-tabs.nav-stacked > li:nth-child(3) > a {
 	border-bottom-color: #ffffff;
-
-.margin-left-10 {
-  margin-left: 10px;
 }
-.margin-left-20 {
-  margin-left: 20px;
-}
-.margin-right-10 {
-  margin-right: 10px;
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
+    background-color: #39A4D1;
+    color:white;
 }

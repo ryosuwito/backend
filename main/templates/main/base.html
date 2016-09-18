@@ -28,7 +28,7 @@
       <!-- Logo -->
       <div class="logo">
         <a href="{% url 'main.index' %}" title="">
-          <img src="{% static 'main/img/dtl_logo.png' %}" style="margin-top:20px; max-width: 250px;" alt="Logo" />
+          <img src="{% static 'main/img/dtl_logo.png' %}" style="margin-top:20px; max-height: 80px;" alt="Logo" />
         </a>
       </div>
       <!-- End Logo -->
@@ -65,9 +65,15 @@
     </div>
   </div>
   <!-- === END HEADER === -->
-
   <!-- === BEGIN CONTENT === -->
   <div id="content" class="container" style="min-height: 700px;">
+  {% block breadscrumb %}
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#"><i class="fa fa-home fa-fw"></i>&nbsp;</i>Home</a></li>
+      <li class="breadcrumb-item"><a href="#">Subpage</a></li>
+      <li class="breadcrumb-item active">current</li>
+  </ol>
+  {% endblock breadscrumb %}
   {% block body-content %}
   {% endblock body-content %}
   </div>
@@ -77,14 +83,18 @@
   <div id="base">
     <div class="container padding-vert-30">
       <div class="row">
-        <div class="col-md-4 margin-bottom-20">
-          <h3 class="margin-bottom-10">Contact Details</h3>
-          <p>#07-00,<br />
-          Haw Par Glass Tower,<br />
-          178 Clemenceau Avenue,<br />
-          Singapore 239926</p>
+        <div class="col-md-3 margin-bottom-20">
+          <h3 class="margin-bottom-10">About Us</h3>
+        <p>A quantitative trading firm engaged in equity trading. We have significant presence in the global market by trading over 400m USD daily in the world's major exchanges.</p>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
+          <h3 class="margin-bottom-10">Details</h3>
+          <ul class="menu">
+            <li><a href="{% url 'main.what' %}">What We Do</a></li>
+            <li><a href="{% url 'main.contact' %}">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
           <h3 class="margin-bottom-10">Culture</h3>
           <ul class="menu">
             <li><a href="{% url 'main.culture.overview' %}">Overview</a></li>
@@ -92,17 +102,14 @@
             <li><a href="{% url 'main.culture.offwork' %}">Off Work</a></li>
           </ul>
         </div>
-        <div class="col-md-4" >
+        <div class="col-md-3" >
           <h3 class="margin-bottom-10">Careers</h3>
           <ul class="menu">
             <li><a class="" href="{% url 'main.career.overview' %}">Overview</a></li>
             <li><a class="" href="{% url 'main.career.jobs' %}">Opening Jobs</a></li>
             <li><a class="" href="{% url 'main.career.apply' %}">Online Application</a></li>
           </ul>
-          <div class="clearfix"></div>
         </div>
-        <!-- End Sample Menu -->
-        <div class="clearfix"></div>
 			</div>
 		</div>
 		<!-- Footer Menu -->
@@ -110,7 +117,7 @@
 			<div class="container">
 				<div class="row">
 					<div id="copyright">
-            <p class="small">&copy; 2011-2015 Dynamic Technology Lab All rights reserved.</p>
+            <p class="small">&copy; 2011-2016 Dynamic Technology Lab All rights reserved.</p>
 					</div>
 				</div>
 			</div>
