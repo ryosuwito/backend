@@ -3,7 +3,8 @@
 <form method="post" class="form">
   {% csrf_token %}
   {% bootstrap_form form layout="vertical"%}
+  <!-- {{form.as_p}} -->
   {%buttons %}
-  <button type="submit" class="center btn btn-primary">Submit</button>
+  <button type="submit" class="pull-right btn btn-primary">Submit</button>
   {% endbuttons %}
 </form>

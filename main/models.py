@@ -2,8 +2,10 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
+from django.urls import reverse
 from main.hashes import gen_hashstr
 from main.emails import send_test_request
+import datetime
 
 
 class OnlineApplication(models.Model):
@@ -88,25 +90,33 @@ class TestRequest(models.Model):
             'OnlineApplication',
             on_delete=models.CASCADE,
             related_name="test_request")
-    hashstr = models.CharField(max_length=100, unique=True)
+    hashstr = models.CharField(
+            max_length=100,
+            unique=True)
     version = models.CharField(
             max_length=10,
             choices=VERSION_CHOICES,
             default=VER_ENGLISH)
-    date = models.DateField(null=True, blank=True)
-    time = models.TimeField(null=True, blank=True)
+    date = models.DateField(
+            null=True,
+            blank=False)
+    time = models.TimeField(
+            null=True,
+            blank=True,
+            default=datetime.time(19,00))
     status = models.CharField(
             max_length=10,
             choices=STATUS_CHOICES,
             default=STATUS_NEW)
+
     # Additional fields for admin management
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return "{} {}".format(self.application.position, str(self.date))
 
-    def get_absolute_url():
-        return reverse('main.career.test', kwargs={'hashstr': hashstr})
+    def get_absolute_url(self):
+        return reverse('main.career.test', kwargs={'req_id': self.id, 'hashstr': self.hashstr})
 
     def get_date(self):
         if self.date:
