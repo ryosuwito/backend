@@ -6,7 +6,6 @@ from django.utils.html import strip_tags
 
 def send_templated_email(subject, email_template_name, email_context, recipients,
                          sender=None, cc=None, bcc=None, fail_silently=True, files=None):
-    print "send templated email!"
     c = Context(email_context)
     template = loader.get_template(email_template_name)
     text = strip_tags(template.render(c))
@@ -28,16 +27,17 @@ def send_templated_email(subject, email_template_name, email_context, recipients
     return message.send(fail_silently)
 
 
-def send_online_application_summary(application, resume):
+def send_online_application_summary(application):
     """
     forward application form to careers@dytechlab.com
     """
     send_templated_email(
             subject="DTL online application",
             email_template_name="main/email_apply_summary.html",
-            email_context={},
+            email_context={'application': application},
             recipients=['ynguyen@dytechlab.com',],
-            files=resume)
+            files=application.resume.path)
+
 
 def send_online_application_confirm(application):
     """

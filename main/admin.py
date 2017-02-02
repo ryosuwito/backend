@@ -7,9 +7,9 @@ from django.core.exceptions import ObjectDoesNotExist
 @admin.register(OnlineApplication)
 class OnlineApplicationAdmin(admin.ModelAdmin):
     def get_scheduled_test(application):
-        if application.status == OnlineApplication.APP_STATUS_NO:
+        if application.status == OnlineApplication.APP_STATUS_FAIL_RESUME:
             return "Not Applicable"
-        elif application.status == OnlineApplication.APP_STATUS_YES:
+        elif application.status == OnlineApplication.APP_STATUS_PASS_RESUME:
             try:
                 return application.test_request.get_datetime()
             except ObjectDoesNotExist:

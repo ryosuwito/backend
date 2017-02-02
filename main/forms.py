@@ -11,16 +11,14 @@ class OnlineApplicationForm(forms.ModelForm):
     resume = forms.FileField()
     class Meta:
         model = OnlineApplication
-        exclude = ['created_at', 'status', 'resume']
-
+        exclude = ['created_at', 'status']
 
     def clean_email(self):
         email = self.cleaned_data['email']
         # TODO: check if email existed
-        if email == "a@email.com":
-            raise forms.ValidationError("Email is in use. Please see your email to change request.")
+        if email == "a@dytechlab.com":
+            raise forms.ValidationError("You already submit the application")
         return email
-
 
 
 class TestRequestForm(forms.ModelForm):

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from main.models import TestRequest, Position
 from main.forms import OnlineApplicationForm, TestRequestForm
-from main.emails import send_online_application_confirm
+from main.emails import send_online_application_confirm, send_online_application_summary
 from chinaevent.forms import RegistrationForm
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import Http404
@@ -22,16 +22,16 @@ def career_chinaevent(request):
         if form.is_valid():
             model_instance = form.save(commit=False)
             model_instance.save()
-            return HttpResponse("Sucessful!")
+            return HttpResponse("Sucessfully!")
         else:
             return render(request, template, {'form': form})
 
 
 def career_apply(request):
 
-    def handle_application_form(application, resume):
+    def handle_application_form(application):
         # send application form summary to company email
-        send_application_summary(application)
+        send_online_application_summary(application)
         # send confirmation email to candidate
         send_online_application_confirm(application)
 
@@ -41,11 +41,16 @@ def career_apply(request):
         # Handle POST request
         form = OnlineApplicationForm(request.POST, request.FILES)
         if form.is_valid():
-            model_instance = form.save(commit=False);
-            model_instance.resume = "_".join((str(model_instance), request.FILES['file'].name))
+            model_instance = form.save(commit=False)
             model_instance.save()
-            handle_application_form(model_instance, resume=request.FILES['file'])
-            return render(request, "main/career_apply_confirm.html", {'application': model_instance})
+            try:
+                handle_application_form(model_instance)
+                return render(request, "main/career_apply.html",
+                                {'confirm_msg': "Thank you for applying. An email will send to you shortly.",
+                                 'form': None})
+            except:
+                model_instance.delete()
+                return render(request, "main/career_apply.html", {'form': form})
         else:
             return render(request, "main/career_apply.html", {'form': form})
 
@@ -66,7 +71,7 @@ def career_test(request, req_id, hashstr):
         form = TestRequestForm(request.POST, instance=test_request)
         if form.is_valid():
             model_instance = form.save(commit=False);
-            model_instance.status = TestRequest.STATUS_PENDING
+            model_instance.status = TestRequest.STATUS_SET
             model_instance.save()
             return render(request, "main/career_testreq_confirm.html", {"testReq": model_instance})
         else:

@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.conf import settings
 
 from . import views
 
@@ -27,3 +28,4 @@ urlpatterns = [
     url(r'^contact$', views.contact, name='main.contact'),
     url(r'^what$', views.what_we_do, name='main.what'),
 ]
+
