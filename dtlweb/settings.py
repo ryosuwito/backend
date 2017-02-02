@@ -25,7 +25,7 @@ SECRET_KEY = 'nk)^ano7tw499$)e(@mv*$2-c#cwh#4#17a$nu^s8yrl*tx$r)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -123,6 +123,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'main/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'main/media/'
 
 
 # Email settings
@@ -133,13 +137,9 @@ EMAIL_HOST_USER = "ynguyen@dytechlab.com"
 # EMAIL_HOST_PASSWORD = ""
 EMAIL_PORT = 587
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Crontab settings
 CRONJOBS = [
-        ('* * * * *', 'main.emailtools.test')
+        ('* * * * *', 'main.cron.send_online_tests')
 ]
-
-
