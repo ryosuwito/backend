@@ -4,8 +4,12 @@ from django.template import loader, Context
 from django.utils.html import strip_tags
 
 
+COMPANY_EMAIL = 'ynguyen@dytechlab.com';
+SENDER = 'dtl@email.com';
+
+
 def send_templated_email(subject, email_template_name, email_context, recipients,
-                         sender=None, cc=None, bcc=None, fail_silently=True, files=None):
+                         sender=SENDER, cc=None, bcc=None, fail_silently=True, files=None):
     c = Context(email_context)
     template = loader.get_template(email_template_name)
     text = strip_tags(template.render(c))
@@ -35,7 +39,7 @@ def send_online_application_summary(application):
             subject="DTL online application",
             email_template_name="main/email_apply_summary.html",
             email_context={'application': application},
-            recipients=['ynguyen@dytechlab.com',],
+            recipients=[COMPANY_EMAIL,],
             files=application.resume.path)
 
 
@@ -62,7 +66,9 @@ def send_test_request(test_request):
                 'name': test_request.application.name,
                 'req': test_request
             },
-            recipients=[test_request.application.email, ])
+            recipients=[test_request.application.email, ],
+            cc=[COMPANY_EMAIL,]
+    )
 
 
 def send_test(test_request):
@@ -74,4 +80,5 @@ def send_test(test_request):
             email_template_name="main/email_test.html",
             email_context={},
             recipients=[test_request.application.email, ],
+            cc=[COMPANY_EMAIL],
             files="")

@@ -58,7 +58,8 @@ def career_apply(request):
 def career_test(request, req_id, hashstr):
     test_request = get_object_or_404(TestRequest, pk=req_id)
     if test_request.status == TestRequest.STATUS_SENT:
-        raise Http404("The test request is expired. email is sent to candidate.")
+        raise Http404("The test request is expired. Email was sent to you. If you did not receive \
+                the email, please send us email via careers@dytechlab.com.")
     if hashstr != test_request.hashstr:
         raise Http404("This link does not exist.")
 
@@ -166,7 +167,26 @@ def career_jobs(request):
 
 
 def culture_overview(request):
-    return render(request, "main/culture_overview.html")
+    cultures = [
+        {
+            'desc': 'Value our greatest asset',
+            'content': 'We treat employees as the most valuable assets we have, and we try our best to provide opportunities for everyone to achieve and realize their potential. Every employee, regardless of position and experience, is well respected and is growing with the whole company.',
+        },
+        {
+            'desc': 'Never stop thinking',
+            'content': 'To stand out in fiercely competitive markets we always keep a sharp mind, generate fresh ideas, and are ready to solve complex problems. All innovative ideas are fully recognized and highly rewarded.'
+        },
+        {
+            'desc': 'Focus on cutting-edge tech',
+            'content': 'At DTL all the works are technology-oriented. We consider ourselves more as engineers or scientists than financial practitioners. Our success depends on the continuous focus on applying the latest technology in computer science, math, statistics, and finance.'
+        },
+        {
+            'desc': 'Work hard, play hard',
+            'content': 'Working is important but life is more than just work. We aim to make DTL a family to work and to live in. To reward ourselves from hard work we regularly organize programs to eat, to exercise, and to travel. We treat each other as both hard-working colleagues and interesting friends.'
+        },
+    ]
+
+    return render(request, "main/culture_overview.html", { 'cultures': cultures })
 
 
 def culture_atwork(request):

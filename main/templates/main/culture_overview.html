@@ -2,27 +2,16 @@
 {% load static %}
 
 {% block body-content %}
-<div class="container" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
-  <br><br>
-  <div class="row">
-    <div class="col-sm-6 left-top">
-      <h2>Value our greatest asset</h2>
-      <p>We treat employees as the most valuable assets we have, and we try our best to provide opportunities for everyone to achieve and realize their potential. Every employee, regardless of position and experience, is well respected and is growing with the whole company.</p>
+<div class="col-md-4"></div>
+<div class="col-md-8">
+    <h2 class="headline">Our Culture</h2>
+    <div class="row margin-vert-30">
+        {% for culture in cultures %}
+            <div class="col-md-12">
+                <h3 class="margin-vert-20">{{culture.desc}}</h3>
+                <p>{{culture.content}}</p>
+            </div>
+        {% endfor %}
     </div>
-    <div class="col-sm-6 right-top">
-      <h2>Never stop thinking</h2>
-      <p>To stand out in fiercely competitive markets we always keep a sharp mind, generate fresh ideas, and are ready to solve complex problems. All innovative ideas are fully recognized and highly rewarded.</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6 left-bottom">
-      <h2>Focus on cutting-edge tech</h2>
-      <p>At DTL all the works are technology-oriented. We consider ourselves more as engineers or scientists than financial practitioners. Our success depends on the continuous focus on applying the latest technology in computer science, math, statistics, and finance.</p>
-    </div>
-    <div class="col-sm-6 right-bottom">
-      <h2>Work hard, play hard</h2>
-      <p>Working is important but life is more than just work. We aim to make DTL a family to work and to live in. To reward ourselves from hard work we regularly organize programs to eat, to exercise, and to travel. We treat each other as both hard-working colleagues and interesting friends.</p>
-    </div>
-  </div>
 </div>
 {% endblock body-content %}

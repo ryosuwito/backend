@@ -6,12 +6,13 @@
         <div class="row margin-right-10">
         <!-- <h2 class="margin-top-10">Overview</h2> -->
         <p class="margin-bottom-30">Dynamic Technology Lab Pte. Ltd. (DTL) aims to attract the best and brightest, and to train them to be the "best" in the industry. We are looking for smart, creative and detail-oriented individuals, with intellectual curiosity and enthusiasm, to explore principles behind financial markets.</p>
-        <a href={% url 'main.career.chinaevent' %} type="button" class="btn btn-info btn-block">2017 China Campus Recruiting</a>
+        <a href={% url 'main.career.jobs' %} type="button" class="btn btn-info btn-block">BROWSE JOBS</a>
+        <a href={% url 'main.career.apply' %} type="button" class="btn btn-info btn-block">ONLINE APPLICATION</a>
       </div>
       </div>
       <div class="col-md-8">
         <!-- <hr class="margin-vert-40"> -->
-        <h2 clas="headline">Why Choose Us?</h2>
+        <h2 class="headline">Why Choose Us?</h2>
         <div class="row margin-vert-30">
           {% for reason in why_dtl %}
           <div class="col-md-12">

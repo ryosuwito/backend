@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'bootstrap3',
     'django_crontab',
-    'chinaevent.apps.ChinaeventConfig',
+    'mailer',
 ]
 
 MIDDLEWARE = [
@@ -128,18 +128,30 @@ STATIC_ROOT = 'main/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'main/media/'
 
-
 # Email settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "ynguyen@dytechlab.com"
-# EMAIL_HOST_PASSWORD = ""
+EMAIL_BACKEND = 'mailer.backend.DbBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'ynguyen123'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_HOST_USER = ""
+# EMAIL_HOST_PASSWORD = ""
+# EMAIL_PORT = 587
+
+# MAILER settings
+MAILER_EMAIL_MAX_BATCH = None  # integer or None
+MAILER_EMAIL_MAX_DEFERRED = None  # integer or None
+MAILER_EMAIL_THROTTLE = 0  # passed to time.sleep()
 
 # Crontab settings
 CRONJOBS = [
-        ('* * * * *', 'main.cron.send_online_tests')
+        ('* * * * *', 'main.cron.send_online_tests'),
+        ('* * * * *', 'django.core.management.call_command', ['send_mail']),
+        ('0,20,40 *  * * *', 'django.core.management.call_command', ['retry_deferred']),
+        ('0 0 * * *', 'django.core.management.call_command', ['purge_mail_log', 7]),
 ]
