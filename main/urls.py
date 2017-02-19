@@ -8,7 +8,6 @@ urlpatterns = [
     url(r'^careers/overview$', views.career_overview, name='main.career.overview'),
     url(r'^careers/jobs$', views.career_jobs, name='main.career.jobs'),
     url(r'^careers/apply$', views.career_apply, name='main.career.apply'),
-    url(r'^careers/chinaevent$', views.career_chinaevent, name='main.career.chinaevent'),
     url(r'^careers/test/(?P<req_id>[0-9]+)/(?P<hashstr>[\w:]+)$', views.career_test, name='main.career.test'),
     url(
         r'^culture/overview$',

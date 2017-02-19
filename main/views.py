@@ -2,29 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from main.models import TestRequest, Position
 from main.forms import OnlineApplicationForm, TestRequestForm
 from main.emails import send_online_application_confirm, send_online_application_summary
-from chinaevent.forms import RegistrationForm
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import Http404
 
 
 def index(request):
     return render(request, "main/main_page.html")
-
-
-@xframe_options_exempt
-def career_chinaevent(request):
-    template = 'main/career_chinaevent.html'
-    if not request.POST:
-        return render(request, template, {'form': RegistrationForm()})
-    else:
-        # Handle POST request
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            model_instance = form.save(commit=False)
-            model_instance.save()
-            return HttpResponse("Sucessfully!")
-        else:
-            return render(request, template, {'form': form})
 
 
 def career_apply(request):
