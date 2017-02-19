@@ -132,7 +132,7 @@ MEDIA_ROOT = 'main/media/'
 EMAIL_BACKEND = 'mailer.backend.DbBackend'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'ynguyen123'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = 'Hoangyen001'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
@@ -144,14 +144,23 @@ EMAIL_USE_TLS = True
 # EMAIL_PORT = 587
 
 # MAILER settings
-MAILER_EMAIL_MAX_BATCH = None  # integer or None
-MAILER_EMAIL_MAX_DEFERRED = None  # integer or None
+# More of usages: https://github.com/pinax/django-mailer/blob/master/docs/usage.rst
+MAILER_EMAIL_MAX_BATCH = None
+MAILER_EMAIL_MAX_DEFERRED = None
 MAILER_EMAIL_THROTTLE = 0  # passed to time.sleep()
+
+COMPANY_CAREER_EMAIL = 'ynguyen@dytechlab.com'
 
 # Crontab settings
 CRONJOBS = [
+        # cronjob 7pm everyday, try to send online tests that are scheduled today
         ('* * * * *', 'main.cron.send_online_tests'),
+        # cronjob every minute, try to send mails currently in message queue. if any
+        # failure, they will be marked deferred and will not be attempted again by send_mail
         ('* * * * *', 'django.core.management.call_command', ['send_mail']),
+        # cronjob every 20 min, retry on send_email failure. Deferred mail will be added back
+        # to normal queue and attempted again on the next send_mail
         ('0,20,40 *  * * *', 'django.core.management.call_command', ['retry_deferred']),
-        ('0 0 * * *', 'django.core.management.call_command', ['purge_mail_log', 7]),
+        # delete mail log for entries older than 30 days
+        ('0 0 * * *', 'django.core.management.call_command', ['purge_mail_log', 30]),
 ]

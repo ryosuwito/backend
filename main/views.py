@@ -1,3 +1,4 @@
+import sys
 from django.shortcuts import render, redirect, get_object_or_404
 from main.models import TestRequest, Position
 from main.forms import OnlineApplicationForm, TestRequestForm
@@ -32,6 +33,7 @@ def career_apply(request):
                                 {'confirm_msg': "Thank you for applying. An email will send to you shortly.",
                                  'form': None})
             except:
+                print 'err', sys.exc_info()[0]
                 model_instance.delete()
                 return render(request, "main/career_apply.html", {'form': form})
         else:
@@ -173,11 +175,48 @@ def culture_overview(request):
 
 
 def culture_atwork(request):
-    return render(request, "main/culture_atwork.html")
+    atworks = [
+        {
+            'desc': 'Our hierarchy is flat. Juniors are encouraged to discuss, or even challenge the seniors. The firm has an open culture and any suggestions could be proposed directly to the founder or discussed. There is no such thing as a dumb idea. Major decision will be made by taking full consideration of everyone in the company.',
+            'img': 'main/img/inoffice/p1.jpg'
+        },
+        {
+            'desc': 'Though significant amount of our work is done individually our work nature demands a lot of cooperation between researchers, data scientists, developers, traders and portfolio managers. We work together to achieve our shared goals.',
+            'img': 'main/img/inoffice/p2.jpg'
+        },
+        {
+            'desc': 'To foster innovations we have weekly research presentations where all researchers get together to share their findings and ideas. There are also regular meetings where everyone discusses on how to improve our systems and data operations.',
+            'img': 'main/img/inoffice/p3.jpg'
+        },
+        {
+            'desc': 'We strive to maintain a casual and flexible working environment with strong intellectual stimulation. Our office dress code is casual, just make yourself comfortable. Fruits and snacks are provided too.',
+            'img': 'main/img/inoffice/p4.jpg'
+        },
+    ]
+    return render(request, "main/culture_atwork.html", { 'atworks': atworks})
 
 
 def culture_offwork(request):
-    return render(request, "main/culture_offwork.html")
+    offworks = [
+        {
+            'desc': 'On major holidays we arrange dinner/lunch parties. You could enjoy various delicious food and have fun with colleagues. You may even have the opportunities to eat abroad with the company.',
+            'img': 'main/img/offoffice/p1.jpg'
+        },
+        {
+            'desc': 'You could enjoy the free sporting facilities nearby, e.g. tennis/table tennis/basketball courts, swimming pool and gym etc. Whatever you like you could always find someone to play within the company.',
+            'img': 'main/img/offoffice/p2.jpg'
+        },
+        {
+            'desc': 'We have many ways to entertain ourselves, e.g. diving, KTV, playing pool, playing chess and hiking etc. We encourage employees to pursue their hobbies off work.',
+            'img': 'main/img/offoffice/p3.jpg'
+        },
+        {
+            'desc': 'Every Friday we go jogging to keep us healthy and energetic. You may also exploit your intelligence in the Texas Hold\'em games in weekends.',
+            'img': 'main/img/offoffice/p4.jpg'
+        },
+    ]
+
+    return render(request, "main/culture_offwork.html", {'offworks': offworks})
 
 
 def what_we_do(request):

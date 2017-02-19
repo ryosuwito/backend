@@ -5,23 +5,12 @@
 <div class="container" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
   <br><br>
   <div class="row">
-    <div class="col-sm-6">
-      <img class="img img-rounded" src="{% static "main/img/inoffice/p1.jpg" %}">
-      <p class="content-p left">Our hierarchy is flat. Juniors are encouraged to discuss, or even challenge the seniors. The firm has an open culture and any suggestions could be proposed directly to the founder or discussed.
-There is no such thing as a dumb idea. Major decision will be made by taking full consideration of everyone in the company.</p>
-      <img class="img img-rounded" src="{% static "main/img/inoffice/p3.jpg" %}">
-      <p class="content-p left">To foster innovations we have weekly research presentations
-        where all researchers get together to share their findings and
-        ideas. There are also regular meetings where everyone discusses
-        on how to improve our systems and data operations.</p>
+    {% for atwork in atworks %}
+    <div class='col-md-6'>
+      <img class="img img-rounded" src="{% static atwork.img %}">
+      <p class="content-p left">{{ atwork.desc }}</p>
     </div>
-    <div class="col-sm-6">
-      <p class="content-p right">Though significant amount of our work is done individually our work nature demands a lot of cooperation between researchers, data scientists, developers, traders and portfolio managers. We work together to achieve our shared goals.</p>
-      <img class="img img-rounded" src="{% static "main/img/inoffice/p2.jpg" %}">
-      <p class="content-p right">We strive to maintain a casual and flexible working environment with strong intellectual stimulation. Our office dress code is casual, just make yourself comfortable. Fruits and snacks are provided too.</p>
-      <img class="img img-rounded" src="{% static "main/img/inoffice/p4.jpg" %}">
-    </div>
+    {% endfor %}
   </div>
-  <br><br>
 </div>
 {% endblock body-content %}

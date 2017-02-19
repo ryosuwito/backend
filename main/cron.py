@@ -14,6 +14,7 @@ def send_online_tests():
     test_requests = TestRequest.objects.all()
     for req in test_requests:
         if need_send_email(req):
+            send_test()
             # update status of test request to be "SENT"
             req.status = TestRequest.STATUS_SENT
             req.save()
