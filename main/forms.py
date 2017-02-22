@@ -1,10 +1,9 @@
 from django import forms
 from main.models import OnlineApplication, TestRequest
-from datetimewidget.widgets import DateWidget, TimeWidget
 import datetime
 
 from functools import partial
-DateInput = partial(forms.DateInput, {'class': 'datepicker'})
+DateTimeInput = partial(forms.DateTimeInput, {'class': 'datetime'})
 
 
 class OnlineApplicationForm(forms.ModelForm):
@@ -24,8 +23,8 @@ class OnlineApplicationForm(forms.ModelForm):
 class TestRequestForm(forms.ModelForm):
     class Meta:
         model = TestRequest
-        exclude = ['hashstr', 'application', 'time', 'created_at', 'status']
+        exclude = ['hashstr', 'application', 'created_at', 'status']
         widgets = {
-            'date': DateInput()
+            'datetime': DateTimeInput()
         }
 

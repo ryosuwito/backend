@@ -106,13 +106,9 @@ class TestRequest(models.Model):
             max_length=10,
             choices=VERSION_CHOICES,
             default=VER_ENGLISH)
-    date = models.DateField(
+    datetime = models.DateTimeField(
             null=True,
             blank=False)
-    time = models.TimeField(
-            null=True,
-            blank=True,
-            default=datetime.time(19,00))
     status = models.CharField(
             max_length=10,
             choices=STATUS_CHOICES,
@@ -122,25 +118,16 @@ class TestRequest(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "{} {}".format(self.application.position, str(self.date))
+        return "{} {}".format(self.application.position, self.datetime)
 
     def get_absolute_url(self):
         return reverse('main.career.test', kwargs={'req_id': self.id, 'hashstr': self.hashstr})
 
-    def get_date(self):
-        if self.date:
-            return self.date.strftime("%Y-%m-%d")
-        else:
-            return "-"
-
-    def get_time(self):
-        if self.time:
-            return self.time.strftime("%H:%M")
-        else:
-            return "-"
-
     def get_datetime(self):
-        return "{} {}".format(self.get_date(), self.get_time())
+        if self.datetime:
+            return self.datetime.strftime("%Y-%m-%d %H:%M")
+        else:
+            return '-'
 
     @staticmethod
     def createTestRequestForApplication(application):

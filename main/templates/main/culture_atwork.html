@@ -4,12 +4,11 @@
 {% block body-content %}
 <div class="container" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
   <br><br>
-  <div class="row">
     {% for atwork in atworks %}
-    <div class='col-md-6'>
-      <img class="img img-rounded" src="{% static atwork.img %}">
-      <p class="content-p left">{{ atwork.desc }}</p>
-    </div>
+        <div class='row margin-bottom-20'>
+            <div class='col-md-4'><img class="img img-rounded" src="{% static atwork.img %}"></div>
+            <div class='col-md-8'><p class="content-p left">{{ atwork.desc }}</p></div>
+        </div>
     {% endfor %}
   </div>
 </div>

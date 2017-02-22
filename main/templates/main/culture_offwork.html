@@ -3,11 +3,12 @@
 
 {% block body-content %}
 <div class="row margin-vert-30">
-  {% for offwork in offworks %}
-    <div class='col-md-6'>
-      <img class="img img-rounded" src="{% static offwork.img %}"/>
-      <p class='content-p left'>{{ offwork.desc }}</p>
-    </div>
-  {% endfor %}
+  <br><br>
+    {% for offwork in offworks %}
+        <div class='row margin-bottom-20'>
+            <div class='col-md-4'><img class="img img-rounded" src="{% static offwork.img %}"></div>
+            <div class='col-md-8'><p class="content-p left">{{ offwork.desc }}</p></div>
+        </div>
+    {% endfor %}
 </div>
 {% endblock body-content %}

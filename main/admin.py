@@ -25,6 +25,6 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
 
 @admin.register(TestRequest)
 class TestRequest(admin.ModelAdmin):
-    list_display = ('application', 'get_absolute_url', 'version', 'get_date', 'get_time', 'status')
+    list_display = ('application', 'get_absolute_url', 'version', 'get_datetime', 'status')
     list_selected_related = ('application')
     list_display_links = ('application',)
