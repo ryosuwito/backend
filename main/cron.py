@@ -6,7 +6,10 @@ from models import TestRequest
 
 
 def need_send_email(test_request):
-    return test_request.status == TestRequest.STATUS_SET
+    # when testrequest.status=set, and time now pass testrequest.datetime
+    return test_request.status == TestRequest.STATUS_SET \
+            and test_request.datetime
+            and datetime.now() >= TestRequest.datetime
 
 
 def send_online_tests():

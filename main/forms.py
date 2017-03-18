@@ -27,4 +27,3 @@ class TestRequestForm(forms.ModelForm):
         widgets = {
             'datetime': DateTimeInput()
         }
-

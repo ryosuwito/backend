@@ -37,9 +37,9 @@ class OnlineApplication(models.Model):
     )
 
     position = models.CharField(
-            max_length=20,
-            choices=POSITION_CHOICES,
-            default=DEVELOPER)
+        max_length=20,
+        choices=POSITION_CHOICES,
+        default=DEVELOPER)
     name = models.CharField(max_length=30)
     university = models.CharField(max_length=100, null=True, blank=True)
     major = models.CharField(max_length=100, null=True, blank=True)
@@ -49,9 +49,9 @@ class OnlineApplication(models.Model):
 
     # Additional fields for admin management
     status = models.CharField(
-            max_length=20,
-            choices=APP_STATUS_CHOICES,
-            default=APP_STATUS_NEW)
+        max_length=20,
+        choices=APP_STATUS_CHOICES,
+        default=APP_STATUS_NEW)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -79,9 +79,9 @@ class OnlineApplication(models.Model):
 
 
 class TestRequest(models.Model):
-    STATUS_NEW = "NEW"   # Test Request link is created but candidate haven't request
-    STATUS_SET = "SET"   # Candidate set time, and test email not sent yet
-    STATUS_SENT = "SENT" # Test email is sent
+    STATUS_NEW = "NEW"    # Test Request link is created but candidate haven't request
+    STATUS_SET = "SET"    # Candidate set time, and test email not sent yet
+    STATUS_SENT = "SENT"  # Test email is sent
     STATUS_CHOICES = (
         (STATUS_NEW, "New"),
         (STATUS_SET, "Set"),
@@ -96,23 +96,23 @@ class TestRequest(models.Model):
     )
 
     application = models.OneToOneField(
-            'OnlineApplication',
-            on_delete=models.CASCADE,
-            related_name="test_request")
+        'OnlineApplication',
+        on_delete=models.CASCADE,
+        related_name="test_request")
     hashstr = models.CharField(
-            max_length=100,
-            unique=True)
+        max_length=100,
+        unique=True)
     version = models.CharField(
-            max_length=10,
-            choices=VERSION_CHOICES,
-            default=VER_ENGLISH)
+        max_length=10,
+        choices=VERSION_CHOICES,
+        default=VER_ENGLISH)
     datetime = models.DateTimeField(
-            null=True,
-            blank=False)
+        null=True,
+        blank=False)
     status = models.CharField(
-            max_length=10,
-            choices=STATUS_CHOICES,
-            default=STATUS_NEW)
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default=STATUS_NEW)
 
     # Additional fields for admin management
     updated_at = models.DateTimeField(auto_now=True)
@@ -137,8 +137,8 @@ class TestRequest(models.Model):
             return test_request
         except ObjectDoesNotExist:
             test_request = TestRequest(
-                    application=application,
-                    hashstr=gen_hashstr(application.email))
+                application=application,
+                hashstr=gen_hashstr(application.email))
             test_request.save()
             return test_request
 
