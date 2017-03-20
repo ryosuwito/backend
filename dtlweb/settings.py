@@ -164,3 +164,11 @@ CRONJOBS = [
         # delete mail log for entries older than 30 days
         ('0 0 * * *', 'django.core.management.call_command', ['purge_mail_log', 30]),
 ]
+
+# bootstrap3 settings
+BOOTSTRAP3 = {
+    # Set placeholder attributes to label if no placeholder is provided
+    'set_placeholder': False,
+    'required_css_class': 'bootstrap3-required',
+}
+

@@ -4,7 +4,7 @@ from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from main.hashes import gen_hashstr
-from main.emails import send_test_request
+from main.emails import send_test_request, send_reject
 import datetime
 
 

@@ -5,57 +5,47 @@
 {% endblock breadscrumb %}
 
 {% block body-content %}
-  <div class="row margin-top-10">
-    <!-- Carousel Slideshow -->
-    <div id="carousel-dtl" class="carousel slide" data-ride="carousel" data-interval="2000">
-      <!-- Carousel Images -->
-      <div class="carousel-inner">
-        <div class="item active">
-          <img src="http://placehold.it/1050x553">
-        </div>
-        <div class="item">
-          <img src="{% static 'main/img/slideshow/slide1.jpg' %}" width="1050px" height="553px">
-        </div>
-        <!-- <div class="item"> -->
-        <!--   <img src="{% static 'main/img/slideshow/slide2.jpg' %}" width="1050px" height="553px"> -->
-        <!-- </div> -->
-        <div class="item">
-          <img src="{% static 'main/img/slideshow/slide3.jpg' %}" width="1050px" height="553px">
-        </div>
-        <!-- <div class="item"> -->
-        <!--   <img src="{% static 'main/img/slideshow/slide4.jpg' %}" width="1050px" height="553px"> -->
-        <!-- </div> -->
-        <!-- <div class="item"> -->
-        <!--   <img src="{% static 'main/img/slideshow/slide5.jpg' %}" width="1050px" height="553px"> -->
-        <!-- </div> -->
+<section>
+<div data-min-height="400px" class="swiper-container swiper-slider">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide bg-gray-lighter"><img src="{% static 'main/img/slideshow/slide1.jpg' %}" alt="" width="1"/>
+      <div class="swiper-slide-caption">
       </div>
-      <!-- End Carousel Images -->
-      <!-- Carousel Controls -->
-      <a class="left carousel-control" href="#carousel-dtl" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-      </a>
-      <a class="right carousel-control" href="#carousel-dtl" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-      </a>
-      <!-- End Carousel Controls -->
     </div>
-    <!-- End Carousel Slideshow -->
+    <div class="swiper-slide bg-gray-lighter"><img src="{% static 'main/img/slideshow/slide2.jpg' %}" alt="" width="2"/>
+      <div class="swiper-slide-caption">
+      </div>
+    </div>
   </div>
-
-  <div class="row margin-vert-30">
-    <hr class="margin-vert-20">
-    <div class="row" >
-      <div class="col-md-6">
-        <h3 class="margin-vert-20 dtl-color">Dynamic Technology Lab Pte. Ltd. (DTL)</h3>
-        <p>A quantitative trading firm engaged in equity trading. We have significant presence in the global market by trading over 400m USD daily in the world's major exchanges.</p>
-        <a class="btn btn-default" href="{% url 'main.what'  %}">Find More <i class="fa-chevron-right"></i></a>
-      </div>
-      <div class="col-md-6">
-        <h3 class="margin-vert-20 dtl-color">Interested in joining our company?</h3>
-        <p>We aims to attract the best and brightest around the world, and to train them to be the "best" in the industry. We are always looking for great people to join our team.</p>
-        <a class="btn btn-default" href="{% url 'main.career.overview' %}">Explore Careers <i class="fa-chevron-right"></i></a>
-      </div>
-    </div>
+  <!-- Swiper Navigation-->
+  <div class="swiper-nav">
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
   </div>
 </div>
+<section class="section-top-60 section-bottom-55">
+  <div class="shell">
+    <div class="range range-sm-center">
+      <div class="cell-xs-12 cell-sm-5 cell-lg-6">
+        <div class="product">
+          <h4><a href="#">Dynamic Technology Lab Pte. Ltd. (DTL)</a></h4>
+          <p>A quantitative trading firm engaged in equity trading.<br>
+             We have significant presence in the global market by trading<br>
+             over 500m USD daily in the world's major exchanges.</p>
+          <a href="{% url 'main.what' %}" class="link link-inline link-medium link-icon link-icon-right"><span class="icon icon-xs icon-curious-blue fa-angle-right"></span>Learn More</a>
+        </div>
+      </div>
+      <div class="cell-xs-12 cell-sm-5 cell-lg-6 offset-top-56 offset-sm-top-0">
+        <div class="product">
+          <h4><a href="#">Interested in joining our company?</a></h4>
+          <p>We aims to attract the best and brightest around the world,<br>
+             and to train them to be the "best" in the industry. We are <br>
+             always looking for great people to join our team.</p>
+          <a href="{% url 'main.career.overview' %}" class="link link-inline link-medium link-icon link-icon-right"><span class="icon icon-xs icon-curious-blue fa-angle-right"></span>Explore Careers</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</section>
 {% endblock body-content %}

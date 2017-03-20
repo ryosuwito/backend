@@ -1,6 +1,21 @@
 {% extends 'main/base.html' %}
-
+{% load static %}
 {% block body-content %}
+<section data-on="false" data-lg-on="true" class="rd-parallax bg-river-bed">
+  <div data-speed="0.65" data-type="media" data-url="{% static 'main/img/slideshow/slide1.jpg' %}" class="rd-parallax-layer"></div>
+  <div data-speed="0" data-type="html" class="rd-parallax-layer">
+    <div class="shell text-center">
+      <div class="range">
+        <div class="cell-xs-12">
+          <div class="section-45 section-sm-top-60 section-sm-bottom-68">
+            <h2>Contacts</h2>
+            <hr class="hr-block hr-white"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <div class="container">
   <br><br>
   <div class="row">
@@ -13,7 +28,7 @@
     <div style="text-align: center">
       <p>
         <strong>Singapore Office:</strong><br/>
-        Email: <a href="mailto:careers@dytechlab.com">contact@dytechlab.com</a><br>
+        Email: <a href="mailto:careers@dytechlab.com">careers@dytechlab.com</a><br>
       <p>
       <p>Address:<br>Dynamic Technology Lab<br>
       #07-00, Haw Par Glass Tower, 178 Clemenceau Avenue<br>

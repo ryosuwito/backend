@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 from django import forms
 from main.models import OnlineApplication, TestRequest
 import datetime
@@ -11,6 +12,11 @@ class OnlineApplicationForm(forms.ModelForm):
     class Meta:
         model = OnlineApplication
         exclude = ['created_at', 'status']
+        labels = {
+                'name': _('Name *'),
+                'position': _('Position *'),
+                'email': _('Email *'),
+        }
 
     def clean_email(self):
         email = self.cleaned_data['email']

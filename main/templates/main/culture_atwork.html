@@ -2,14 +2,70 @@
 {% load static %}
 
 {% block body-content %}
-<div class="container" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">
-  <br><br>
-    {% for atwork in atworks %}
-        <div class='row margin-bottom-20'>
-            <div class='col-md-4'><img class="img img-rounded" src="{% static atwork.img %}"></div>
-            <div class='col-md-8'><p class="content-p left">{{ atwork.desc }}</p></div>
+<section data-on="false" data-lg-on="true" class="rd-parallax bg-river-bed">
+  <div data-speed="0.65" data-type="media" data-url="{% static 'main/img/bg-image-2.jpg' %}" class="rd-parallax-layer"></div>
+  <div data-speed="0" data-type="html" class="rd-parallax-layer">
+    <div class="shell text-center">
+      <div class="range">
+        <div class="cell-xs-12">
+          <div class="section-45 section-sm-top-60 section-sm-bottom-68">
+            <h2>Cultures</h2>
+            <hr class="hr-block hr-white"/>
+            <p style="margin: 20px 80px 0px 80px; font-size: 18px;">
+            </p>
+          </div>
         </div>
-    {% endfor %}
+      </div>
+    </div>
   </div>
-</div>
+</section>
+<section class="border-bottom border-bottom-gray-lighter">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12">
+        <ul class="breadcrumbs-custom">
+          <li><a href="{% url 'main.index' %}">Home</a></li>
+          <li><a href="{% url 'main.culture.overview' %}">Culture</a></li>
+          <li class="active">At Work</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section-top-55 section-bottom-60">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12 cell-md-8 cell-lg-9">
+        <div class="range">
+          <div class="cell-xs-12">
+            <div class="inset-md-right-15 shift-up-sm-10">
+              {% for atwork in atworks %}
+                  <div class='row margin-bottom-20'>
+                      <div class='col-md-4'><img class="img img-rounded" src="{% static atwork.img %}"></div>
+                      <div class='col-md-8'><p class="content-p left">{{ atwork.desc }}</p></div>
+                  </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cell-xs-12 cell-md-4 cell-lg-3 offset-top-60 offset-md-top-0">
+        <div class="inset-md-left-15 inset-md-right-15">
+          <div class="range">
+            <div class="cell-xs-12 cell-sm-6 cell-md-12 child-offset-41">
+              <nav class="page-nav">
+                <ul class="page-nav-list">
+                  <li><a href="{% url 'main.culture.overview' %}">Overview</a></li>
+                  <li class="active"><a href="{% url 'main.culture.atwork' %}">At work</a></li>
+                  <li><a href="{% url 'main.culture.offwork' %}">Off work</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 {% endblock body-content %}

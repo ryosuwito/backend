@@ -101,4 +101,4 @@ def send_reject(application):
         email_context={
             'name': application.name,
         },
-        recipients=[test_request.application.email, ])
+        recipients=[application.email, ])

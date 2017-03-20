@@ -1,26 +1,73 @@
 {% extends 'main/base.html' %}
+{% load static %}
 {% block body-content %}
-<div class="row margin-vert-30">
-  <div class="col-md-3">
-    <ul class="nav nav-tabs nav-stacked">
-      <li class="active"><a href="#fund-quan-res" data-toggle="tab">Fundamental Quantitative Researcher</a></li>
-      <li><a href="#quan-res" data-toggle="tab">Quantitative Researcher</a></li>
-      <li><a href="#quan-dev" data-toggle="tab">Front Desk Quant Developer</a></li>
-    </ul>
+<section data-on="false" data-lg-on="true" class="rd-parallax bg-river-bed">
+  <div data-speed="0.65" data-type="media" data-url="{% static 'main/img/bg-image-2.jpg' %}" class="rd-parallax-layer"></div>
+  <div data-speed="0" data-type="html" class="rd-parallax-layer">
+    <div class="shell text-center">
+      <div class="range">
+        <div class="cell-xs-12">
+          <div class="section-45 section-sm-top-60 section-sm-bottom-68">
+            <h2>Opening Jobs</h2>
+            <hr class="hr-block hr-white"/>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-md-9">
-    <div class="tab-content">
-      <div class="tab-pane fade in active" id="fund-quan-res">
-        {% include "main/snippet_job.html" with position=positions.0 %}
+</section>
+<section class="border-bottom border-bottom-gray-lighter">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12">
+        <ul class="breadcrumbs-custom">
+          <li><a href="{% url 'main.index' %}">Home</a></li>
+          <li><a href="{% url 'main.career.overview' %}">Career</a></li>
+          <li class="active">Opening Jobs</li>
+        </ul>
       </div>
-      <div class="tab-pane fade in" id="quan-res">
-        {% include "main/snippet_job.html" with position=positions.1 %}
-      </div>
-      <div class="tab-pane fade in" id="quan-dev">
-        {% include "main/snippet_job.html" with position=positions.2 %}
-      </div>
-    </div><!-- tab content -->
+    </div>
   </div>
-</div>
+</section>
+<section class="section-top-55 section-bottom-60">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12 cell-md-8 cell-lg-9">
+        <div class="responsive-tabs responsive-tabs-vertical responsive-tabs-default">
+          <ul class="resp-tabs-list" style="font-size: 16px;">
+            <li>Fundamental Quantitative Researcher</li>
+            <li>Quantitative Researcher</li>
+            <li>Front Desk Quant Developer</li>
+          </ul>
+          <div class="resp-tabs-container">
+            <div class="fadeIn animated">
+              {% include "main/snippet_job.html" with position=positions.0 %}
+            </div>
+            <div class="fadeIn animated">
+              {% include "main/snippet_job.html" with position=positions.1 %}
+            </div>
+            <div class="fadeIn animated">
+              {% include "main/snippet_job.html" with position=positions.2 %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cell-xs-12 cell-md-4 cell-lg-3 offset-top-60 offset-md-top-0">
+        <div class="inset-md-left-15 inset-md-right-15">
+          <div class="range">
+            <div class="cell-xs-12 cell-sm-6 cell-md-12 child-offset-41">
+              <nav class="page-nav">
+                <ul class="page-nav-list">
+                  <li><a href="{% url 'main.career.overview' %}">Overview</a></li>
+                  <li class="active"><a href="{% url 'main.career.jobs' %}">Opening Jobs</a></li>
+                  <li><a href="{% url 'main.career.apply' %}">Online Application</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock body-content %}
-
