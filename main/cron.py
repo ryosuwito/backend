@@ -23,7 +23,7 @@ def send_online_tests():
         try:
             if need_send_test_now(req):
                 send_test(req)
-            req.status = TestRequest.STATUS_SENT
-            req.save()
+                req.status = TestRequest.STATUS_SENT
+                req.save()
         except:
             pass
