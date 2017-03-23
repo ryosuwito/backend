@@ -48,10 +48,17 @@ def career_test(request, req_id, hashstr):
     if hashstr != test_request.hashstr:
         raise Http404("This link does not exist.")
 
-    form = TestRequestForm(instance=test_request)
+    form = TestRequestForm(instance=test_request) if test_request.allow_update() else None
+    if test_request.status == TestRequest.STATUS_SET:
+        is_set = test_request.datetime
+    else:
+        is_set = None
 
     if not request.POST:
-        return render(request, "main/career_testreq.html", { 'form': form })
+        return render(request, "main/career_testreq.html", {
+            'form': form,
+            'is_set': is_set
+        })
     else:
         # Handle POST Request
         form = TestRequestForm(request.POST, instance=test_request)
@@ -59,9 +66,14 @@ def career_test(request, req_id, hashstr):
             model_instance = form.save(commit=False);
             model_instance.status = TestRequest.STATUS_SET
             model_instance.save()
-            return render(request, "main/career_testreq.html", {'confirm_msg': True})
+            return render(request, "main/career_testreq.html", {
+                'form': TestRequestForm(instance=test_request),
+                'is_set': model_instance.datetime})
         else:
-            return render(request, "main/career_testreq.html", { 'form': form })
+            return render(request, "main/career_testreq.html", {
+                'form': form,
+                'is_set': is_set
+            })
 
 
 def career_overview(request):

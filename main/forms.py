@@ -18,13 +18,6 @@ class OnlineApplicationForm(forms.ModelForm):
                 'email': _('Email *'),
         }
 
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        # TODO: check if email existed
-        if email == "a@dytechlab.com":
-            raise forms.ValidationError("You already submit the application")
-        return email
-
 
 class TestRequestForm(forms.ModelForm):
     class Meta:
@@ -33,3 +26,9 @@ class TestRequestForm(forms.ModelForm):
         widgets = {
             'datetime': DateTimeInput()
         }
+
+    def __init__(self, *args, **kwargs):
+        super(TestRequestForm, self).__init__(*args, **kwargs)
+        if self.instance.pk:
+            if self.instance.application.position == OnlineApplication.DEVELOPER:
+                del self.fields['version']

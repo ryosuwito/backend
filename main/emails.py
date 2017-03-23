@@ -56,7 +56,6 @@ def send_online_application_summary(application):
         email_template="main/email_apply_summary.html",
         email_context={'application': application},
         recipients=[COMPANY_CAREER_EMAIL, ],
-        sender="dtlwebsite",
         files=application.resume.path)
 
 
@@ -80,6 +79,8 @@ def send_test(test_request):
     """
     send test file to candidate on scheduled datetime
     """
+    print test_request.application.resume.path
+
     send_templated_email(
         subject="written test: {}"
                 .format(test_request.application.get_position_display()),
@@ -88,7 +89,7 @@ def send_test(test_request):
             'name': test_request.application.name},
         recipients=[test_request.application.email, ],
         cc=[COMPANY_CAREER_EMAIL],
-        files="")
+        files=test_request.get_test_filepath())
 
 
 def send_reject(application):
