@@ -61,11 +61,10 @@
             <h3>Schedule Form</h3>
             {% if is_set %}
             <p>You already requested slot: {{ is_set }}
+            {% endif %}
+            {% if allow_update %}
             <p>You can still change your time slot up to 2 days prior your requested slot.</p>
             <br>
-            {% endif %}
-
-            {% if form %}
             <div class="row margin-vert-30">
               <div class="col-md-8">
                 {% include 'main/snippet_form.html' with form=form %}
