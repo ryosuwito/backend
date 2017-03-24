@@ -142,7 +142,7 @@ MAILER_EMAIL_MAX_BATCH = None
 MAILER_EMAIL_MAX_DEFERRED = None
 MAILER_EMAIL_THROTTLE = 0  # passed to time.sleep()
 
-COMPANY_CAREER_EMAIL = 'ynguyen@dytechlab.com'
+COMPANY_CAREER_EMAIL = 'dtlwebsite@dytechlab.com'
 TEST_FILES = {
     'DEV': {
         'EN': os.path.join(MEDIA_ROOT, 'developer-en.txt'),

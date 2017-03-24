@@ -44,7 +44,9 @@ def send_online_application_confirm(application):
             'name': application.name,
             'position': application.get_position_display()
         },
-        recipients=[application.email, ])
+        recipients=[application.email, ],
+        cc=[COMPANY_CAREER_EMAIL]
+    )
 
 
 def send_online_application_summary(application):
@@ -72,6 +74,7 @@ def send_test_request(test_request):
             'name': test_request.application.name,
             'req': test_request},
         recipients=[test_request.application.email, ],
+        cc=[COMPANY_CAREER_EMAIL]
     )
 
 
@@ -102,4 +105,6 @@ def send_reject(application):
         email_context={
             'name': application.name,
         },
-        recipients=[application.email, ])
+        recipients=[application.email, ],
+        cc=[COMPANY_CAREER_EMAIL]
+    )
