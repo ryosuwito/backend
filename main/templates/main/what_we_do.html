@@ -2,26 +2,75 @@
 {% load static %}
 
 {% block body-content %}
-  <div class="row margin-vert-30">
-    <div class="col-md-12">
-      <div class="row text-center">
-        <h2 class="margin-top-10">What We Do</h2>
-        <p style="margin: 0px 50px 0px 50px">Dynamic Technology Lab Pte. Ltd. (DTL) designs technological innovations to intelligently analyze information to uncover irrationality in the seemingly rational financial markets. By adopting a diverse range of ideas, we pursue the goal of continuously generating high risk-adjusted investment returns for our clients.</p>
-      </div>
-      <hr class="margin-vert-40">
-      <h2 class="headline">Our Investment Approach</h2>
-      <div class="row margin-top-40">
-        <div class="col-md-6">
-          <h3 class="margin-bottom-20">Trading around the clock</h3>
-          <img src="{% static 'main/img/portfolio-1.jpg' %}" style="height: 300px; width: 100%">
-          <p>We are active participants, trading a wide range of products on more than 200 electronic exchanges and other trading venues in about 40 countries around the world.</p>
-        </div>
-        <div class="col-md-6">
-          <h3 class="margin-bottom-20">Technology drives our business</h3>
-          <img src="{% static 'main/img/portfolio-2.jpg' %}" style="height: 300px; width: 100%">
-          <p>Technology is at the core of how we approach trading, we focus on quantitative analysis which enable us to stay competitive in the financial markets.</p>
+<section data-on="false" data-lg-on="true" class="rd-parallax bg-river-bed">
+  <div data-speed="0.65" data-type="media" data-url="{% static 'main/img/what/overview.jpg' %}" class="rd-parallax-layer"></div>
+  <div data-speed="0" data-type="html" class="rd-parallax-layer">
+    <div class="shell text-center">
+      <div class="range">
+        <div class="cell-xs-12">
+          <div class="section-45 section-sm-top-60 section-sm-bottom-68">
+            <h2>About Us</h2>
+            <hr class="hr-block hr-white"/>
+            <p style="margin: 20px 50px 0px 50px; font-size: 18px;">Dynamic Technology Lab Pte. Ltd. (DTL) designs technological innovations to intelligently analyze information to uncover irrationality in the seemingly rational financial markets. By adopting a diverse range of ideas, we pursue the goal of continuously generating high risk-adjusted investment returns for our clients.</p>
+          </div>
         </div>
       </div>
-    </div> <!-- end col-md-12 -->
+    </div>
   </div>
+</section>
+<section class="border-bottom border-bottom-gray-lighter">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12">
+        <ul class="breadcrumbs-custom">
+          <li><a href="index.html">Home</a></li>
+          <li class="active">About Us</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- About us-->
+<section class="section-top-55 section-bottom-85">
+  <div class="shell">
+    <h3>Our Investment Approach</h3>
+    <div class="range">
+      <div class="cell-xs-12 offset-top-25">
+        <div class="range">
+          <div class="cell-xs-12 cell-sm-8 cell-md-5">
+            <figure><img src="{% static 'main/img/portfolio-1.jpg' %}" style="height: 300px; width: 450px"/>
+            </figure>
+          </div>
+          <div class="cell-xs-12 cell-md-6 offset-top-30 offset-md-top-0">
+            <div class="inset-md-left-30 inset-lg-left-70">
+              <div class="service-body">
+                <h4 class="text-bold"><a href="#">Trading around the clock</a></h4>
+                <hr class="hr-block hr-left hr-curious-blue"/>
+                <p>We are active participants, trading a wide range of products on more than 200 electronic exchanges and other trading venues in about 40 countries around the world.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cell-xs-12 offset-top-25">
+        <div class="range">
+          <div class="cell-xs-12 cell-sm-8 cell-md-5">
+            <figure><img src="{% static 'main/img/portfolio-2.jpg' %}" style="height: 300px; width: 450px;"/>
+            </figure>
+          </div>
+          <div class="cell-xs-12 cell-md-6 offset-top-10 offset-md-top-0">
+            <div class="inset-md-left-30 inset-lg-left-70">
+              <div class="service-body">
+                <h4 class="text-bold"><a href="#">Technology drives our business</a></h4>
+                <hr class="hr-block hr-left hr-curious-blue"/>
+                <p>Technology is at the core of how we approach trading, we focus on quantitative analysis which enable us to stay competitive in the financial markets.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 {% endblock body-content %}

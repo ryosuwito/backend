@@ -6,7 +6,6 @@
 {% endblock head-extras %}
 
 {% block js-extras %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="http://momentjs.com/downloads/moment.js"></script>
 <script src="{% static 'main/js/bootstrap-datetimepicker.js' %}"></script>
 {{ form.media }}
@@ -14,8 +13,8 @@
     $(document).ready(function(){
         $('#id_datetime').datetimepicker({
           format: "YYYY-MM-DD HH:00",
-          daysOfWeekDisabled: [5, 6],
-          minDate: moment().subtract(1, 'days'),
+          daysOfWeekDisabled: [6, 7],
+          minDate: moment().subtract(0, 'days'),
           inline: true,
           sideBySide: true,
           enabledHours: [19, 20, 21, 22]
@@ -25,34 +24,77 @@
 {% endblock js-extras %}
 
 {% block body-content %}
-<div class="row margin-vert-30">
-  <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Information</h3>
+<section data-on="false" data-lg-on="true" class="rd-parallax bg-river-bed">
+  <div data-speed="0.65" data-type="media" data-url="{% static 'main/img/bg-image-2.jpg' %}" class="rd-parallax-layer"></div>
+  <div data-speed="0" data-type="html" class="rd-parallax-layer">
+    <div class="shell text-center">
+      <div class="range">
+        <div class="cell-xs-12">
+          <div class="section-45 section-sm-top-60 section-sm-bottom-68">
+            <h2>Schedule Written Test</h2>
+            <hr class="hr-block hr-white"/>
+          </div>
+        </div>
       </div>
-      <div class="panel-body">
-        <p>The time slots available in Singapore timezone as follow:</p>
-        <ul class="list-unstyle">
-          <li>Researcher: 7pm-10pm Mon-Fri</li>
-          <li>Developer: 7pm-9pm Mon-Fri</li>
+    </div>
+  </div>
+</section>
+<section class="border-bottom border-bottom-gray-lighter">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12">
+        <ul class="breadcrumbs-custom">
+          <li><a href="{% url 'main.index' %}">Home</a></li>
+          <li><a href="{% url 'main.career.overview' %}">Career</a></li>
+          <li class="active">Schedule Written Test</li>
         </ul>
-        <p>The test will be emailed to you at the selected date/time.</p>
-        <p>If you can't make it at any of above time please email:</p>
-        <ul class="list-unstyled"><li>
-            <i class="fa-envelope color-primary"></i>
-            <a href="mailto:careers@dytechlab.com">careers@dtytechlab.com</a>
-        </li></ul>
       </div>
     </div>
   </div>
-  <div class="col-md-8">
-    <div class="headline">
-      <h2>Online Test Request</h2>
+</section>
+<section class="section-top-55 section-bottom-60">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12 cell-md-8 cell-lg-9">
+        <div class="range">
+          <div class="cell-xs-12">
+            <h3>Schedule Form</h3>
+            {% if is_set %}
+            <p>You already requested slot: {{ is_set }}
+            {% endif %}
+            {% if allow_update %}
+            <p>You can still change your time slot up to 2 days prior your requested slot.</p>
+            <br>
+            <div class="row margin-vert-30">
+              <div class="col-md-8">
+                {% include 'main/snippet_form.html' with form=form %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="cell-xs-12 cell-md-4 cell-lg-3 offset-top-60 offset-md-top-0">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Information</h3>
+          </div>
+          <div class="panel-body">
+            <p>The time slots available in Singapore timezone as follow:</p>
+            <ul class="list-unstyle">
+              <li>7pm-10pm Mon-Fri</li>
+            </ul>
+            <p>The test will be emailed to you at the selected date/time.</p>
+            <p>If you can't make it at any of above time please email:</p>
+            <ul class="list-unstyled"><li>
+                <i class="fa-envelope color-primary"></i>
+                <a href="mailto:careers@dytechlab.com">careers@dytechlab.com</a>
+            </li></ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <br>
-    {% include 'main/snippet_form.html' with form=form %}
   </div>
-</div>
+</section>
 
 {% endblock body-content %}

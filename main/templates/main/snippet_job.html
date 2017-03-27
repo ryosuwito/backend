@@ -1,26 +1,26 @@
 {% load main_extras %}
 
-<h2 class="margin-bottom-30">{{position.title}}</h2>
-<h3 class="margin-vert-20">Job description: </h3>
+<h4>{{position.title}}</h4>
+<h5>Job description: </h5>
 {% for desc in position.desc %}
   {% if desc|is_string %}
   <p>{{desc}}</p>
   {% else %}
-    <ul>
+    <ul class="list-marked list-marked-spacing-lg">
     {% for subdesc in desc %}
-      <li>{{subdesc}}</li>
+      <li class="fa-check">{{subdesc}}</li>
     {% endfor %}
     </ul>
   {% endif %}
 {% endfor %}
-<h3 class="margin-vert-20">Qualification: </h3>
+<h5>Qualification: </h5>
 {% for qft in position.qualification %}
   {% if qft|is_string %}
   <p><em>{{qft}}</em></p>
   {% else %}
-    <ul>
+    <ul class="list-marked list-marked-spacing-lg">
     {% for subqft in qft %}
-      <li>{{subqft}}</li>
+      <li class="fa-check">{{subqft}}</li>
     {% endfor %}
     </ul>
   {% endif %}

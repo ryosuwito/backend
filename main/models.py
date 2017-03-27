@@ -1,22 +1,24 @@
 from __future__ import unicode_literals
+from datetime import datetime, timedelta
 
+from django.utils import timezone
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
-from main.hashes import gen_hashstr
-from main.emails import send_test_request
-import datetime
+
+from .hashes import gen_hashstr
+from .emails import send_test_request, send_reject
 
 
 def user_resume_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/{email}_filename
-    return '{}_{}'.format(instance.email, filename)
+    # file will be uploaded to MEDIA_ROOT/resumes/{email}_filename
+    return 'resumes/{}_{}'.format(instance.email, filename)
 
 
 class OnlineApplication(models.Model):
-    DEVELOPER = "Dev"
-    Q_RESEARCHER = "QRes"
-    FQ_RESEARCHER = "FQRes"
+    DEVELOPER = "DEV"
+    Q_RESEARCHER = "QRES"
+    FQ_RESEARCHER = "FQRES"
     POSITION_CHOICES = (
         (DEVELOPER, "Developer"),
         (Q_RESEARCHER, "Quantitative Researcher"),
@@ -30,10 +32,10 @@ class OnlineApplication(models.Model):
     APP_STATUS_FAIL_TEST = "FAIL_TEST"
     APP_STATUS_CHOICES = (
         (APP_STATUS_NEW, "NEW"),
-        (APP_STATUS_PASS_RESUME, "PASS_RESUME"),
-        (APP_STATUS_FAIL_RESUME, "FAIL_RESUME"),
-        (APP_STATUS_PASS_TEST, "PASS_TEST"),
-        (APP_STATUS_FAIL_TEST, "FAIL_TEST"),
+        (APP_STATUS_PASS_RESUME, "PASS RESUME"),
+        (APP_STATUS_FAIL_RESUME, "FAIL RESUME"),
+        (APP_STATUS_PASS_TEST, "PASS TEST"),
+        (APP_STATUS_FAIL_TEST, "FAIL TEST"),
     )
 
     position = models.CharField(
@@ -59,10 +61,12 @@ class OnlineApplication(models.Model):
 
     def on_update_status(self):
         if self.status == OnlineApplication.APP_STATUS_PASS_RESUME:
-            # if status --> YES, create a TestRequest & send link to candidate
+            # if status --> PASS_RESUME, create a TestRequest & send link to candidate
             test_request = TestRequest.createTestRequestForApplication(self)
             send_test_request(test_request)
-        elif self.status == OnlineApplication.APP_STATUS_FAIL_RESUME:
+        elif self.status in [
+                OnlineApplication.APP_STATUS_FAIL_RESUME,
+                OnlineApplication.APP_STATUS_FAIL_TEST]:
             send_reject(self)
 
     def save(self, *args, **kwargs):
@@ -118,7 +122,7 @@ class TestRequest(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "{} {}".format(self.application.position, self.datetime)
+        return "{}-{}-{}".format(self.application.email, self.application.position, self.datetime)
 
     def get_absolute_url(self):
         return reverse('main.career.test', kwargs={'req_id': self.id, 'hashstr': self.hashstr})
@@ -128,6 +132,19 @@ class TestRequest(models.Model):
             return self.datetime.strftime("%Y-%m-%d %H:%M")
         else:
             return '-'
+
+    def allow_update(self):
+        # allow update up to 2 days prior scheduled date
+        if self.status == TestRequest.STATUS_NEW:
+            return True
+        if self.status == TestRequest.STATUS_SENT:
+            return False
+        if self.status == TestRequest.STATUS_SET:
+            return (timezone.now() + timedelta(days=2)).date() <= self.datetime.date()
+
+    def get_test_filepath(self):
+        from django.conf import settings
+        return settings.TEST_FILES[self.application.position][self.version]
 
     @staticmethod
     def createTestRequestForApplication(application):
@@ -144,7 +161,6 @@ class TestRequest(models.Model):
 
 
 class Position(object):
-
     def __init__(self, title, desc, qualification):
         """
         title: string

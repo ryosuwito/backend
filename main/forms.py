@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 from django import forms
 from main.models import OnlineApplication, TestRequest
 import datetime
@@ -11,13 +12,11 @@ class OnlineApplicationForm(forms.ModelForm):
     class Meta:
         model = OnlineApplication
         exclude = ['created_at', 'status']
-
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        # TODO: check if email existed
-        if email == "a@dytechlab.com":
-            raise forms.ValidationError("You already submit the application")
-        return email
+        labels = {
+                'name': _('Name *'),
+                'position': _('Position *'),
+                'email': _('Email *'),
+        }
 
 
 class TestRequestForm(forms.ModelForm):
@@ -27,3 +26,9 @@ class TestRequestForm(forms.ModelForm):
         widgets = {
             'datetime': DateTimeInput()
         }
+
+    def __init__(self, *args, **kwargs):
+        super(TestRequestForm, self).__init__(*args, **kwargs)
+        if self.instance.pk:
+            if self.instance.application.position == OnlineApplication.DEVELOPER:
+                del self.fields['version']
