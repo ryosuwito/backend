@@ -1,0 +1,24 @@
+version: '2'
+services:
+  dtl_website:
+    container_name: dtl_website
+    build: .
+    command: /usr/src/app/gunicorn/start.sh
+    volumes:
+      - /usr/src/website_staticfiles
+      - /usr/src/website_uploads
+    env_file:
+      - ./gunicorn/deployment.env
+    expose:
+      - "8000"
+  nginx:
+    container_name: dtl_website_nginx
+    build: ./nginx
+    links:
+      - dtl_website
+    depends_on:
+      - dtl_website
+    volumes_from:
+      - dtl_website
+    ports:
+      - "0.0.0.0:8888:80"

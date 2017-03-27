@@ -23,8 +23,13 @@ SECRET_KEY = 'nk)^ano7tw499$)e(@mv*$2-c#cwh#4#17a$nu^s8yrl*tx$r)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DEBUG = False if os.environ.get('DJANGO_DEPLOYMENT') else True
 
-ALLOWED_HOSTS = ['*']
+
+if DEBUG:
+    ALLOWED_HOSTS = ['*', ]
+else:
+    ALLOWED_HOSTS = ['.dytechlab.com']
 
 
 # Application definition
@@ -119,13 +124,19 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+STATIC_ROOT = 'staticfiles/'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'main/static/')
+if not DEBUG:
+    STATIC_ROOT = '/usr/src/website_staticfiles'
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'main/static/')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'main/media/')
+if not DEBUG:
+    MEDIA_ROOT = '/usr/src/website_uploads'
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'main/media/')
 
 # Email settings
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
