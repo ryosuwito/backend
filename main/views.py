@@ -140,7 +140,7 @@ def career_jobs(request):
                     '''Maintaining, enhancing backtest simulator''',
                     '''Exploring big-data infrastructure for research''',
                     '''Execution algorithms research''',
-                    '''High frequency strategy research'''
+                    '''Working with researchers on high frequency strategies'''
                 ]
             ],
             [
@@ -189,11 +189,11 @@ def culture_atwork(request):
     atworks = [
         {
             'desc': 'Our hierarchy is flat. Juniors are encouraged to discuss, or even challenge the seniors. The firm has an open culture and any suggestions could be proposed directly to the founder or discussed. There is no such thing as a dumb idea. Major decision will be made by taking full consideration of everyone in the company.',
-            'img': 'main/img/inoffice/p1.jpg'
+            'img': 'main/img/blog/image1.jpg'
         },
         {
             'desc': 'Though significant amount of our work is done individually our work nature demands a lot of cooperation between researchers, data scientists, developers, traders and portfolio managers. We work together to achieve our shared goals.',
-            'img': 'main/img/inoffice/p2.jpg'
+            'img': 'main/img/blog/image1.jpg'
         },
         {
             'desc': 'To foster innovations we have weekly research presentations where all researchers get together to share their findings and ideas. There are also regular meetings where everyone discusses on how to improve our systems and data operations.',
@@ -222,7 +222,7 @@ def culture_offwork(request):
             'img': 'main/img/offoffice/p3.jpg'
         },
         {
-            'desc': 'Every Friday we go jogging to keep us healthy and energetic. You may also exploit your intelligence in the Texas Hold\'em games in weekends.',
+            'desc': 'Every tuesday and thursday we go jogging to keep us healthy and energetic. You may also exploit your intelligence in the Texas Hold\'em games in weekends.',
             'img': 'main/img/offoffice/p4.jpg'
         },
     ]
