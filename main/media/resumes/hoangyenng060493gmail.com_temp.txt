@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/export/scratch/trd_oper/sima/testserver.1.7.6/server/bundleman.py", line 114, in _complete_submit
+    sima_deps)
+  File "/export/scratch/trd_oper/sima/testserver.1.7.6/server/releaseman.py", line 170, in do_release
+    err = self.release_bundle(binfo, srcroot, simaver)
+  File "/export/scratch/trd_oper/sima/testserver.1.7.6/server/releaseman.py", line 144, in release_bundle
+    dryrun=dryrun)
+  File "/export/scratch/trd_oper/sima/testserver.1.7.6/server/releaseman.py", line 133, in send_release_req
+    response = urllib2.urlopen(req)
+  File "/usr/lib64/python2.7/urllib2.py", line 127, in urlopen
+    return _opener.open(url, data, timeout)
+  File "/usr/lib64/python2.7/urllib2.py", line 404, in open
+    response = self._open(req, data)
+  File "/usr/lib64/python2.7/urllib2.py", line 422, in _open
+    '_open', req)
+  File "/usr/lib64/python2.7/urllib2.py", line 382, in _call_chain
+    result = func(*args)
+  File "/usr/lib64/python2.7/urllib2.py", line 1214, in http_open
+    return self.do_open(httplib.HTTPConnection, req)
+  File "/usr/lib64/python2.7/urllib2.py", line 1187, in do_open
+    r = h.getresponse(buffering=True)
+  File "/usr/lib64/python2.7/httplib.py", line 1067, in getresponse
+    response.begin()
+  File "/usr/lib64/python2.7/httplib.py", line 409, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib64/python2.7/httplib.py", line 373, in _read_status
+    raise BadStatusLine(line)
+BadStatusLine: ''
+**************************************************
+SIM OUTPUT FOR REGION US
+**************************************************
+No output found for alpha_ftang_mrpca_5

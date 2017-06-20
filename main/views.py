@@ -218,11 +218,11 @@ def culture_offwork(request):
             'img': 'main/img/offoffice/p2.jpg'
         },
         {
-            'desc': 'We have many ways to entertain ourselves, e.g. diving, KTV, playing pool, playing chess and hiking etc. We encourage employees to pursue their hobbies off work.',
+            'desc': 'We have many ways to entertain ourselves, e.g. diving, KTV, playing pool, playing chess and hiking etc. We encourage employees to pursue their hobbies off work. Every tuesday and thursday we go jogging to keep us healthy and energetic. You may also exploit your intelligence in the Texas Hold\'em games in weekends.',
             'img': 'main/img/offoffice/p3.jpg'
         },
         {
-            'desc': 'Every tuesday and thursday we go jogging to keep us healthy and energetic. You may also exploit your intelligence in the Texas Hold\'em games in weekends.',
+            'desc': 'Every Tuesday and Thursday we go jogging to keep us healthy and energetic. The company encourages every employee to participate the StanChart Marathon annually and will cover the registry fee.',
             'img': 'main/img/offoffice/p4.jpg'
         },
     ]
