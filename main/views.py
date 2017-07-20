@@ -210,19 +210,19 @@ def culture_atwork(request):
 def culture_offwork(request):
     offworks = [
         {
-            'desc': 'On major holidays we arrange dinner/lunch parties. You could enjoy various delicious food and have fun with colleagues. You may even have the opportunities to eat abroad with the company.',
+            'desc': 'On major holidays we arrange dinner/lunch parties. You could enjoy various delicious food and have fun with colleagues.',
             'img': 'main/img/offoffice/p1.jpg'
         },
         {
-            'desc': 'You could enjoy the free sporting facilities nearby, e.g. tennis/table tennis/basketball courts, swimming pool and gym etc. Whatever you like you could always find someone to play within the company.',
+            'desc': 'You could enjoy the free sporting facilities nearby, e.g. tennis/ping pong/basketball courts, swimming pool and gym etc. Whatever you like you could always find someone to play within DTL.',
             'img': 'main/img/offoffice/p2.jpg'
         },
         {
-            'desc': 'We have many ways to entertain ourselves, e.g. diving, KTV, playing pool, playing chess and hiking etc. We encourage employees to pursue their hobbies off work. Every tuesday and thursday we go jogging to keep us healthy and energetic. You may also exploit your intelligence in the Texas Hold\'em games in weekends.',
+            'desc': 'We have many ways to entertain ourselves, e.g. diving, KTV, playing pool, playing chess and hiking etc. DTL encourages employees to pursue their hobbies off work. You may also exploit your intelligence in the Texas Hold\'em games in weekends.',
             'img': 'main/img/offoffice/p3.jpg'
         },
         {
-            'desc': 'Every Tuesday and Thursday we go jogging to keep us healthy and energetic. The company encourages every employee to participate the StanChart Marathon annually and will cover the registry fee.',
+            'desc': 'Every Tuesday and Thursday we go jogging to keep us healthy and energetic. DTL encourages every employee to participate the Standard Chartered Marathon annually and the registration fee is fully sponsored.',
             'img': 'main/img/offoffice/p4.jpg'
         },
     ]
