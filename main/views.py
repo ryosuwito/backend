@@ -29,9 +29,8 @@ def career_apply(request):
             model_instance.save()
             try:
                 handle_application_form(model_instance)
-                return render(request, "main/career_apply.html",
-                                {'confirm_msg': "Thank you for applying. An email will send to you shortly.",
-                                 'form': None})
+                return render(request, "main/career_apply_confirm.html",
+                              {'form': None})
             except:
                 print 'err', sys.exc_info()[0]
                 model_instance.delete()

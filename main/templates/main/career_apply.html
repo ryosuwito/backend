@@ -40,9 +40,8 @@
         <div class="range">
           <div class="cell-xs-12">
             <h3>Online Application</h3>
-            {% if confirm_msg %}
-            <p>{{ confirm_msg }}</p>
-            {% endif %}
+            {% block apply-confirm %}
+            {% endblock apply-confirm %}
 
             {% if form %}
             <div class="row margin-vert-30">
