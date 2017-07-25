@@ -82,12 +82,15 @@ def send_test(test_request):
     """
     send test file to candidate on scheduled datetime
     """
-    print test_request.application.resume.path
+    if test_request.application.is_role_dev():
+        email_template = "main/email_test_dev.html"
+    else:
+        email_template = "main/email_test_research.html"
 
     send_templated_email(
         subject="written test: {}"
                 .format(test_request.application.get_position_display()),
-        email_template="main/email_test.html",
+        email_template=email_template,
         email_context={
             'name': test_request.application.name},
         recipients=[test_request.application.email, ],

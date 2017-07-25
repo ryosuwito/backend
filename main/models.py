@@ -59,6 +59,13 @@ class OnlineApplication(models.Model):
     def __str__(self):
         return self.email
 
+    def is_role_dev(self):
+        return self.position in [OnlineApplication.DEVELOPER]
+
+    def is_role_researcher(self):
+        return self.position in [OnlineApplication.Q_RESEARCHER,
+                                 OnlineApplication.FQ_RESEARCHER]
+
     def on_update_status(self):
         if self.status == OnlineApplication.APP_STATUS_PASS_RESUME:
             # if status --> PASS_RESUME, create a TestRequest & send link to candidate
