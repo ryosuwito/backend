@@ -188,15 +188,15 @@ def culture_atwork(request):
     atworks = [
         {
             'desc': 'Our hierarchy is flat. Juniors are encouraged to discuss, or even challenge the seniors. The firm has an open culture and any suggestions could be proposed directly to the founder or discussed. There is no such thing as a dumb idea. Major decision will be made by taking full consideration of everyone in the company.',
-            'img': 'main/img/blog/image1.jpg'
+            'img': 'main/img/inoffice/at_work_1.svg'
         },
         {
             'desc': 'Though significant amount of our work is done individually our work nature demands a lot of cooperation between researchers, data scientists, developers, traders and portfolio managers. We work together to achieve our shared goals.',
-            'img': 'main/img/blog/image1.jpg'
+            'img': 'main/img/inoffice/at_work_2.jpg'
         },
         {
             'desc': 'To foster innovations we have weekly research presentations where all researchers get together to share their findings and ideas. There are also regular meetings where everyone discusses on how to improve our systems and data operations.',
-            'img': 'main/img/inoffice/p3.jpg'
+            'img': 'main/img/inoffice/at_work_3.jpg'
         },
         {
             'desc': 'We strive to maintain a casual and flexible working environment with strong intellectual stimulation. Our office dress code is casual, just make yourself comfortable. Fruits and snacks are provided too.',

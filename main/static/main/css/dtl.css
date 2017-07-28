@@ -1,63 +1,10 @@
-.dtl-color {
-    color: #39A4D1;
-}
-.margin-left-10 {
-  margin-left: 10px;
-}
-.margin-left-20 {
-  margin-left: 20px;
-}
-.margin-right-10 {
-  margin-right: 10px;
+body {
+    color: #000000;!important
 }
 
-/* # For Career overview
-================================================== */
-.left-top {
-	padding: 20px;
-	border-right: 3px solid lightblue;
-}
-.right-top {
-	padding: 20px;
-}
-.left-bottom {
-	border-right: 3px solid lightblue;
-	border-top: 3px solid lightblue;
-	padding: 20px;
-}
-.right-bottom {
-	border-top: 3px solid lightblue;
-	padding: 20px;
-}
-.content-p.left {
-	margin: 10px 10px 50px 10px;
-}
-.content-p.right {
-	margin: 50px 10px 10px 10px;
-}
-/* #Mobile (Landscape)
-================================================== */
-@media only screen and (max-width: 767px) {
-	.left-top {
-  	border-right: 0px solid lightblue;
-  }
-  .right-top {
-  	border-top: 3px solid lightblue;
-  }
-  .left-bottom {
-  	border-right: 0px solid lightblue;
-  }
-  .right-bottom {
-  	border-top: 3px solid lightblue;
-  }
-}
-
-/* # Hack for careers jobs
-================================================== */
-.nav.nav-tabs.nav-stacked > li:nth-child(3) > a {
-	border-bottom-color: #ffffff;
-}
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
-    background-color: #39A4D1;
-    color:white;
+.responsive-tabs-default .resp-accordion:hover, .responsive-tabs-default .resp-accordion.resp-tab-active, .responsive-tabs-default .resp-tabs-list > li:hover, .responsive-tabs-default .resp-tabs-list > li.resp-tab-active > a, a:active, a:focus {
+  font-weight: 400;
+  color: #fff;
+  background: #24a3d8;
+  border-color: #24a3d8;
 }
