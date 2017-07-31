@@ -25,7 +25,6 @@ SECRET_KEY = 'nk)^ano7tw499$)e(@mv*$2-c#cwh#4#17a$nu^s8yrl*tx$r)'
 DEBUG = True
 DEBUG = False if os.environ.get('DJANGO_DEPLOYMENT') else True
 
-
 if DEBUG:
     ALLOWED_HOSTS = ['*', ]
 else:
@@ -153,7 +152,7 @@ MAILER_EMAIL_MAX_BATCH = None
 MAILER_EMAIL_MAX_DEFERRED = None
 MAILER_EMAIL_THROTTLE = 0  # passed to time.sleep()
 
-COMPANY_CAREER_EMAIL = 'dtlwebsite@dytechlab.com'
+COMPANY_CAREER_EMAIL = 'careers@dytechlab.com'
 TEST_FILES = {
     'DEV': {
         'EN': os.path.join(MEDIA_ROOT, 'developer-en.txt'),
