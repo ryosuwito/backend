@@ -127,4 +127,3 @@ class TestRequestTestCase(TestCase):
 
         test_request.version = TestRequest.VER_CHINESE
         self.assertEqual(test_request.get_test_filepath(), settings.TEST_FILES['FQRES']['CN'])
-

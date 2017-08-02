@@ -165,7 +165,7 @@ def culture_overview(request):
     cultures = [
         {
             'desc': 'Value our greatest asset',
-            'content': 'We treat employees as the most valuable assets we have, and we try our best to provide opportunities for everyone to achieve and realize their potential. Every employee, regardless of position and experience, is well respected and is growing with the whole company.',
+            'content': 'Employees are our most valuable asset and we try our best to provide opportunities for everyone to achieve and realize their potential. All employees, regardless of their positions or experience, are well respected and grow with the company.',
         },
         {
             'desc': 'Never stop thinking',
@@ -177,7 +177,7 @@ def culture_overview(request):
         },
         {
             'desc': 'Work hard, play hard',
-            'content': 'Working is important but life is more than just work. We aim to make DTL a family to work and to live in. To reward ourselves from hard work we regularly organize programs to eat, to exercise, and to travel. We treat each other as both hard-working colleagues and interesting friends.'
+            'content': 'Working is important but life is more than just work. We regularly organize outings, team meals and other activities. We treat each other as both hardworking colleague and interesting friend.'
         },
     ]
 
@@ -187,20 +187,20 @@ def culture_overview(request):
 def culture_atwork(request):
     atworks = [
         {
-            'desc': 'Our hierarchy is flat. Juniors are encouraged to discuss, or even challenge the seniors. The firm has an open culture and any suggestions could be proposed directly to the founder or discussed. There is no such thing as a dumb idea. Major decision will be made by taking full consideration of everyone in the company.',
-            'img': 'main/img/inoffice/at_work_1.svg'
+            'desc': 'Our hierarchy is flat. Juniors are encouraged to discuss with or even challenge the seniors. The firm has an open culture and any suggestions could be proposed directly to the founder or discussed. There is no such thing as a dumb idea. Major decisions will be made by taking full consideration of everyone in the company.',
+            'img': 'main/img/Desktop/tangfengyang.003.jpeg'
         },
         {
-            'desc': 'Though significant amount of our work is done individually our work nature demands a lot of cooperation between researchers, data scientists, developers, traders and portfolio managers. We work together to achieve our shared goals.',
-            'img': 'main/img/inoffice/at_work_2.jpg'
+            'desc': 'Though a significant amount of work is done individually, our work nature demands a lot of cooperation among researchers, data scientists, developers, traders and portfolio managers. We work together to achieve our shared goals.',
+            'img': 'main/img/Desktop/tangfengyang.002.jpeg'
         },
         {
-            'desc': 'To foster innovations we have weekly research presentations where all researchers get together to share their findings and ideas. There are also regular meetings where everyone discusses on how to improve our systems and data operations.',
+            'desc': 'To foster a culture of innovation we have weekly research presentations where all researchers get together to share their findings and ideas. There are also regular meetings to discuss how to improve our systems and operations.',
             'img': 'main/img/inoffice/at_work_3.jpg'
         },
         {
-            'desc': 'We strive to maintain a casual and flexible working environment with strong intellectual stimulation. Our office dress code is casual, just make yourself comfortable. Fruits and snacks are provided too.',
-            'img': 'main/img/inoffice/p4.jpg'
+            'desc': 'We strive to maintain a casual and flexible working environment. We do not have any specific dress code. Fruits and snacks are provided too.',
+            'img': 'main/img/Desktop/tangfengyang.001.jpeg'
         },
     ]
     return render(request, "main/culture_atwork.html", { 'atworks': atworks})
@@ -213,15 +213,15 @@ def culture_offwork(request):
             'img': 'main/img/offoffice/p1.jpg'
         },
         {
-            'desc': 'You could enjoy the free sporting facilities nearby, e.g. tennis/ping pong/basketball courts, swimming pool and gym etc. Whatever you like you could always find someone to play within DTL.',
+            'desc': 'You could enjoy the sport facilities nearby, e.g. tennis/ping pong/basketball courts, swimming pool and gym etc. Whatever you like you could always find someone to play within DTL.',
             'img': 'main/img/offoffice/p2.jpg'
         },
         {
-            'desc': 'We have many ways to entertain ourselves, e.g. diving, KTV, playing pool, playing chess and hiking etc. DTL encourages employees to pursue their hobbies off work. You may also exploit your intelligence in the Texas Hold\'em games in weekends.',
+            'desc': 'We have many ways to entertain ourselves, e.g. diving, KTV, billiard, chess and hiking etc. DTL encourages employees to pursue their hobbies off work. You may also show off your intelligence in the Texas Hold\'em games in weekends.',
             'img': 'main/img/offoffice/p3.jpg'
         },
         {
-            'desc': 'Every Tuesday and Thursday we go jogging to keep us healthy and energetic. DTL encourages every employee to participate the Standard Chartered Marathon annually and the registration fee is fully sponsored.',
+            'desc': 'We go jogging regularly to stay healthy and energetic. DTL also sponsors every employee to participate in the Standard Chartered Marathon annually.',
             'img': 'main/img/offoffice/p4.jpg'
         },
     ]
