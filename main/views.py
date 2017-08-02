@@ -188,19 +188,19 @@ def culture_atwork(request):
     atworks = [
         {
             'desc': 'Our hierarchy is flat. Juniors are encouraged to discuss with or even challenge the seniors. The firm has an open culture and any suggestions could be proposed directly to the founder or discussed. There is no such thing as a dumb idea. Major decisions will be made by taking full consideration of everyone in the company.',
-            'img': 'main/img/Desktop/tangfengyang.003.jpeg'
+            'img': 'main/img/pool/tangfengyang.003.jpeg'
         },
         {
             'desc': 'Though a significant amount of work is done individually, our work nature demands a lot of cooperation among researchers, data scientists, developers, traders and portfolio managers. We work together to achieve our shared goals.',
-            'img': 'main/img/Desktop/tangfengyang.002.jpeg'
+            'img': 'main/img/pool/tangfengyang.002.jpeg'
         },
         {
             'desc': 'To foster a culture of innovation we have weekly research presentations where all researchers get together to share their findings and ideas. There are also regular meetings to discuss how to improve our systems and operations.',
-            'img': 'main/img/inoffice/at_work_3.jpg'
+            'img': 'main/img/pool/tangfengyang.004.jpeg'
         },
         {
             'desc': 'We strive to maintain a casual and flexible working environment. We do not have any specific dress code. Fruits and snacks are provided too.',
-            'img': 'main/img/Desktop/tangfengyang.001.jpeg'
+            'img': 'main/img/pool/tangfengyang.001.jpeg'
         },
     ]
     return render(request, "main/culture_atwork.html", { 'atworks': atworks})
