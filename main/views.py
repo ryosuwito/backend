@@ -77,16 +77,16 @@ def career_test(request, req_id, hashstr):
 def career_overview(request):
     why_dtl = [
         {
-            "desc": '''Learn from the best''',
+            "desc": '''Learn from the Best''',
             "content": '''Our employees are top-notch talents in their fields. Though they come with diverse background, they share a common drive to succeed. As DTL's new employee, you could learn from our experienced mentors. We strive to maintain a friendly, collegiate working environment to promote self-improvement and career development.'''},
         {
-            "desc": '''Receive thorough training''',
+            "desc": '''Receive thorough Training''',
             "content": '''A job offer at DTL is the start of our investment in you. Based on your background, we will develop specific programs and provide resources ( books, papers, tutorials etc. ) to help you build and enhance your skills in finance, mathematics, statistics and programming.'''},
         {
-            "desc": '''Share our success''',
+            "desc": '''Share Our Success''',
             "content": '''We are a specialized investment team with excellent track record. By joining us, you will grow together with the company. Your remuneration will be based on your performance and the company's performance as a whole. We offer highly competitive compensation packages.'''},
         {
-            "desc": '''Make a difference''',
+            "desc": '''Make A Difference''',
             "content": '''You can really make a difference even during entry-level as you will be tasked with challenging yet interesting assignments. We strive to help you in every way to facilitate innovation and brainstorm fresh ideas which are the key to our success.'''}
     ]
     return render(request, "main/career_overview.html", {'why_dtl': why_dtl})
@@ -164,19 +164,19 @@ def career_jobs(request):
 def culture_overview(request):
     cultures = [
         {
-            'desc': 'Value our greatest asset',
+            'desc': 'Value Our Greatest Aasset',
             'content': 'Employees are our most valuable asset and we try our best to provide opportunities for everyone to achieve and realize their potential. All employees, regardless of their positions or experience, are well respected and grow together with the company.',
         },
         {
-            'desc': 'Never stop thinking',
+            'desc': 'Never Stop Thinking',
             'content': 'To stand out in fiercely competitive markets we always keep a sharp mind, generate fresh ideas, and stand ready to solve complex problems. All innovative ideas are fully recognized and highly rewarded.'
         },
         {
-            'desc': 'Focus on cutting-edge tech',
+            'desc': 'Focus on Cutting-edge Tech',
             'content': 'At DTL all the works are technology-oriented. We consider ourselves more as engineers or scientists than financial practitioners. Our success depends on the continuous focus on adopting the latest technology in computer science, math, statistics, and finance.'
         },
         {
-            'desc': 'Work hard, play hard',
+            'desc': 'Work Hard, Play Hard',
             'content': 'Working is important but life is more than just work. We regularly organize team events like outings, dining parties and sports events. To each other, we are both hardworking colleagues at work and close friends in life.'
         },
     ]
