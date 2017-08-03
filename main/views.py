@@ -221,7 +221,7 @@ def culture_offwork(request):
             'img': 'main/img/offoffice/p3.jpg'
         },
         {
-            'desc': 'DTL also sponsors interested employees to participate in the annual Standard Chartered Marathon.',
+            'desc': 'Our employees go jogging on a regular basis. DTL also sponsors interested employees to participate in the annual Standard Chartered Marathon.',
             'img': 'main/img/offoffice/p4.jpg'
         },
     ]
