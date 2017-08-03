@@ -78,16 +78,16 @@ def career_overview(request):
     why_dtl = [
         {
             "desc": '''Learn from the best''',
-            "content": '''Our employees are the best and brightest in their fields and though they came from diverse background, they share a common drive to succeed. As DTL's new employee, you could learn from our experienced mentors. We strive to maintain a friendly, collegiate working environment to promote self-improvement and career development.'''},
+            "content": '''Our employees are top-notch talents in their fields. Though they come with diverse background, they share a common drive to succeed. As DTL's new employee, you could learn from our experienced mentors. We strive to maintain a friendly, collegiate working environment to promote self-improvement and career development.'''},
         {
             "desc": '''Receive thorough training''',
             "content": '''A job offer at DTL is the start of our investment in you. Based on your background, we will develop specific programs and provide resources ( books, papers, tutorials etc. ) to help you build and enhance your skills in finance, mathematics, statistics and programming.'''},
         {
             "desc": '''Share our success''',
-            "content": '''We are a specialized investment team with excellent track record, and by joining us, you will share the success of the firm. Your compensation will be aligned with your performance and the firm's performance. We offer very competitive package and benefits.'''},
+            "content": '''We are a specialized investment team with excellent track record. By joining us, you will grow together with the company. Your remuneration will be based on your performance and the company's performance as a whole. We offer highly competitive compensation packages.'''},
         {
             "desc": '''Make a difference''',
-            "content": '''You could really make a difference even as an entry-level staff, by taking on great responsibilities. Your job will be challenging but interesting, and we will provide every help to facilitate innovation. You are strongly encouraged to bring in fresh ideas to contribute to our success.'''}
+            "content": '''You can really make a difference even during entry-level as you will be tasked with challenging yet interesting assignments. We strive to help you in every way to facilitate innovation and brainstorm fresh ideas which are the key to our success.'''}
     ]
     return render(request, "main/career_overview.html", {'why_dtl': why_dtl})
 
@@ -152,7 +152,7 @@ def career_jobs(request):
                 '''The following skills are bonus:''',
                 [
                     '''Familiar with Linux kernel''',
-                    '''Experience with hardware development, e.g. NIC, video card etc.''',
+                    '''Experience with hardware development, e.g. NIC, GPU, and FPGA etc.''',
                     '''System administration experience'''
                 ]
             ]
@@ -165,19 +165,19 @@ def culture_overview(request):
     cultures = [
         {
             'desc': 'Value our greatest asset',
-            'content': 'Employees are our most valuable asset and we try our best to provide opportunities for everyone to achieve and realize their potential. All employees, regardless of their positions or experience, are well respected and grow with the company.',
+            'content': 'Employees are our most valuable asset and we try our best to provide opportunities for everyone to achieve and realize their potential. All employees, regardless of their positions or experience, are well respected and grow together with the company.',
         },
         {
             'desc': 'Never stop thinking',
-            'content': 'To stand out in fiercely competitive markets we always keep a sharp mind, generate fresh ideas, and are ready to solve complex problems. All innovative ideas are fully recognized and highly rewarded.'
+            'content': 'To stand out in fiercely competitive markets we always keep a sharp mind, generate fresh ideas, and stand ready to solve complex problems. All innovative ideas are fully recognized and highly rewarded.'
         },
         {
             'desc': 'Focus on cutting-edge tech',
-            'content': 'At DTL all the works are technology-oriented. We consider ourselves more as engineers or scientists than financial practitioners. Our success depends on the continuous focus on applying the latest technology in computer science, math, statistics, and finance.'
+            'content': 'At DTL all the works are technology-oriented. We consider ourselves more as engineers or scientists than financial practitioners. Our success depends on the continuous focus on adopting the latest technology in computer science, math, statistics, and finance.'
         },
         {
             'desc': 'Work hard, play hard',
-            'content': 'Working is important but life is more than just work. We regularly organize outings, team meals and other activities. We treat each other as both hardworking colleague and interesting friend.'
+            'content': 'Working is important but life is more than just work. We regularly organize team events like outings, dining parties and sports events. To each other, we are both hardworking colleagues at work and close friends in life.'
         },
     ]
 
@@ -187,7 +187,7 @@ def culture_overview(request):
 def culture_atwork(request):
     atworks = [
         {
-            'desc': 'Our hierarchy is flat. Juniors are encouraged to discuss with or even challenge the seniors. The firm has an open culture and any suggestions could be proposed directly to the founder or discussed. There is no such thing as a dumb idea. Major decisions will be made by taking full consideration of everyone in the company.',
+            'desc': 'We maintain a flat management structure. Juniors are encouraged to discuss with or challenge the seniors for ideas. With an open culture, any suggestions could be brought up to senior management and major decisions will be made with full consideration of all employees in the company.',
             'img': 'main/img/pool/tangfengyang.003.jpeg'
         },
         {
@@ -199,7 +199,7 @@ def culture_atwork(request):
             'img': 'main/img/pool/tangfengyang.004.jpeg'
         },
         {
-            'desc': 'We strive to maintain a casual and flexible working environment. We do not have any specific dress code. Fruits and snacks are provided too.',
+            'desc': 'We strive to maintain a casual, flexible and comfortable working environment to maximize productivity. We do not have any specific dress code and plenty of refreshments like fruits and snacks is provided.',
             'img': 'main/img/pool/tangfengyang.001.jpeg'
         },
     ]
@@ -209,19 +209,19 @@ def culture_atwork(request):
 def culture_offwork(request):
     offworks = [
         {
-            'desc': 'On major holidays we arrange dinner/lunch parties. You could enjoy various delicious food and have fun with colleagues.',
+            'desc': 'We organize regular dining parties on festive occasions or to celebrate the joining of new colleagues.',
             'img': 'main/img/offoffice/p1.jpg'
         },
         {
-            'desc': 'You could enjoy the sport facilities nearby, e.g. tennis/ping pong/basketball courts, swimming pool and gym etc. Whatever you like you could always find someone to play within DTL.',
+            'desc': 'There are plenty of sports facilities nearby including tennis/ping pong/basketball courts, swimming pool and gym etc. Our employees play all sorts of sports so you could always find someone to play with.',
             'img': 'main/img/offoffice/p2.jpg'
         },
         {
-            'desc': 'We have many ways to entertain ourselves, e.g. diving, KTV, billiard, chess and hiking etc. DTL encourages employees to pursue their hobbies off work. You may also show off your intelligence in the Texas Hold\'em games in weekends.',
+            'desc': 'There are many ways for entertainment like KTV, billiard, chess or Texas Hold\'em. If you would like to explore the wild, hiking and diving are also accessible. DTL encourages employees to pursue their hobbies off work.',
             'img': 'main/img/offoffice/p3.jpg'
         },
         {
-            'desc': 'We go jogging regularly to stay healthy and energetic. DTL also sponsors every employee to participate in the Standard Chartered Marathon annually.',
+            'desc': 'DTL also sponsors interested employees to participate in the annual Standard Chartered Marathon.',
             'img': 'main/img/offoffice/p4.jpg'
         },
     ]
