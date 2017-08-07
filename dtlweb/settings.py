@@ -155,15 +155,15 @@ MAILER_EMAIL_THROTTLE = 0  # passed to time.sleep()
 COMPANY_CAREER_EMAIL = 'careers@dytechlab.com'
 TEST_FILES = {
     'DEV': {
-        'EN': os.path.join(MEDIA_ROOT, 'developer-en.txt'),
+        'EN': os.path.join(MEDIA_ROOT, 'developer-en.pdf'),
     },
     'QRES': {
-        'EN': os.path.join(MEDIA_ROOT, 'researcher-en.txt'),
-        'CN': os.path.join(MEDIA_ROOT, 'researcher-cn.txt'),
+        'EN': os.path.join(MEDIA_ROOT, 'researcher-en.pdf'),
+        'CN': os.path.join(MEDIA_ROOT, 'researcher-cn.pdf'),
     },
     'FQRES': {
-        'EN': os.path.join(MEDIA_ROOT, 'researcher-en.txt'),
-        'CN': os.path.join(MEDIA_ROOT, 'researcher-cn.txt'),
+        'EN': os.path.join(MEDIA_ROOT, 'researcher-en.pdf'),
+        'CN': os.path.join(MEDIA_ROOT, 'researcher-cn.pdf'),
     }
 }
 
