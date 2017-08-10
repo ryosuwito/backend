@@ -1,5 +1,5 @@
 import sys
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from main.models import TestRequest, Position
 from main.forms import OnlineApplicationForm, TestRequestForm
 from main.emails import send_online_application_confirm, send_online_application_summary
@@ -42,7 +42,7 @@ def career_apply(request):
 def career_test(request, req_id, hashstr):
     test_request = get_object_or_404(TestRequest, pk=req_id)
     if test_request.status == TestRequest.STATUS_SENT:
-        raise Http404("The test request is expired. Email was sent to you. If you did not receive \
+        return HttpResponse("The test request is expired. Email was sent to you. If you did not receive \
                 the email, please send us email via careers@dytechlab.com.")
     if hashstr != test_request.hashstr:
         raise Http404("This link does not exist.")

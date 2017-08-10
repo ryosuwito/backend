@@ -136,7 +136,7 @@ class TestRequest(models.Model):
 
     def get_datetime(self):
         if self.datetime:
-            return self.datetime.strftime("%Y-%m-%d %H:%M")
+            return self.datetime
         else:
             return '-'
 

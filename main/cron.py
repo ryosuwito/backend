@@ -17,7 +17,6 @@ def need_send_test_now(test_request):
 
 
 def send_online_tests():
-    print 'Scan TestRequest database and send test file to candidates via email.'
     test_requests = TestRequest.objects.all()
     for req in test_requests:
         try:

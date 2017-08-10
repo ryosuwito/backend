@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load bootstrap3 %}
 
 {% block head-extras %}
 <link rel="stylesheet" href="{% static 'main/css/bootstrap-datetimepicker.css' %}" rel="stylesheet">
@@ -60,27 +61,52 @@
           <div class="cell-xs-12">
             <h3>Schedule Form</h3>
             {% if is_set %}
-            <p>You already requested slot: {{ is_set }} (GST)
+            <p>You already requested slot: {{ is_set }} (Singapore Time)
             {% endif %}
             {% if allow_update %}
-            <p>You can still change your time slot up to 2 days prior your requested slot.</p>
-            <br>
+            <p>You can still change your time slot up to 2 days prior your requested slot.</p><br>
             <div class="row margin-vert-30">
               <div class="col-md-8">
-                {% include 'main/snippet_form.html' with form=form %}
+                <form method="post" class="form">
+                  {% csrf_token %}
+                  {% bootstrap_form form layout="vertical"%}
+                  {%buttons %}
+                  {% endbuttons %}
+                </form>
+                  <button type="button" class="pull-right btn btn-primary"
+                      data-toggle="modal" data-target="#confirm-submit">Submit</button>
+        <div class="modal fade" id="confirm-submit" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                Confirm Submit
+              </div>
+              <div class="modal-body">
+                Are you sure you want to schedule written test at <p id="confirm-datetime"></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="submit" class="btn btn-success success">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
               </div>
             </div>
             {% endif %}
+
+
           </div>
         </div>
       </div>
+
       <div class="cell-xs-12 cell-md-4 cell-lg-4 offset-top-60 offset-md-top-0">
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">Information</h3>
           </div>
           <div class="panel-body">
-            <p>The test will be emailed to you at the selected date/time (<strong>GST</strong>).</p>
+            <p>The test will be emailed to you at the selected date/time (<strong>Singapore Time</strong>).</p>
             <p>If you have any questions or want to reschedule within 2 days of the test requested previously, please email:</p>
             <ul class="list-unstyled">
               <li>

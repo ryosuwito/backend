@@ -4,7 +4,7 @@ from main.models import OnlineApplication, TestRequest
 import datetime
 
 from functools import partial
-DateTimeInput = partial(forms.DateTimeInput, {'class': 'datetime'})
+DateTimeInput = partial(forms.DateTimeInput, {'class': 'datetime', 'type': 'hidden'})
 
 
 class OnlineApplicationForm(forms.ModelForm):
