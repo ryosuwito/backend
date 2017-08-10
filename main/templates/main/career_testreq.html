@@ -20,11 +20,44 @@
           keepOpen: true,
           debug: true,
         });
+
+    $('#submit').click(function() {
+        alert('submitting');
+        $('#schedule-form').submit();
     });
+
+    $('#submitBtn').click(function() {
+        $("#confirm-datetime").text($("#id_datetime").val());
+    });
+
+  });
 </script>
 {% endblock js-extras %}
 
 {% block body-content %}
+  <!-- <button type="button" class="pull-right btn btn-primary" id="submitBtn" -->
+  <!--     data-toggle="modal" data-target="#confirm-submit">Submit</button> -->
+  <!--       <div class="modal" id="confirm-submit" role="dialog" style="margin-top: 100px;" -->
+  <!--         tabindex="-1" aria-hidden="true"> -->
+  <!--         <div class="modal-dialog"> -->
+  <!--           <div class="modal-content"> -->
+  <!--             <div class="modal-header"> -->
+  <!--               Confirm Schedule Written Test -->
+  <!--             </div> -->
+  <!--             <div class="modal-body"> -->
+  <!--               Are you sure you want to schedule written test at: -->
+  <!--               <p><span id="confirm-datetime"></span> (Singapore time).<p> -->
+  <!--               <p>You can still change your time slot up to 2 days prior your requested slot.<p> -->
+  <!--               <p>If you have any questions or want to reschedule within 2 days of the test requested previously, -->
+  <!--                  please email: <a href="mailto:careers@dytechlab.com">careers@dytechlab.com</a></p> -->
+  <!--             </div> -->
+  <!--             <div class="modal-footer"> -->
+  <!--               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> -->
+  <!--             </div> -->
+  <!--           </div> -->
+  <!--         </div> -->
+  <!--       </div> -->
+
 <section data-on="false" data-lg-on="true" class="rd-parallax bg-river-bed">
   <div data-speed="0.65" data-type="media" data-url="{% static 'main/img/bg-image-2.jpg' %}" class="rd-parallax-layer"></div>
   <div data-speed="0" data-type="html" class="rd-parallax-layer">
@@ -61,36 +94,15 @@
           <div class="cell-xs-12">
             <h3>Schedule Form</h3>
             {% if is_set %}
-            <p>You already requested slot: {{ is_set }} (Singapore Time)
+            <p>You already requested slot: <strong>{{ is_set }} (Singapore Time)</strong>
             {% endif %}
+            <p>The test will be emailed to you at the selected date/time. </p>
+            <p>You can still change your time slot up to 2 days prior your requested slot.</p>
+            <p>If you have any questions or want to reschedule within 2 days of the test requested previously, please email:<a class="active" href="mailto:careers@dytechlab.com">careers@dytechlab.com</a></p>
             {% if allow_update %}
-            <p>You can still change your time slot up to 2 days prior your requested slot.</p><br>
-            <div class="row margin-vert-30">
+            <div class="row margin-vert-30" style="margin-top: 40px;">
               <div class="col-md-8">
-                <form method="post" class="form">
-                  {% csrf_token %}
-                  {% bootstrap_form form layout="vertical"%}
-                  {%buttons %}
-                  {% endbuttons %}
-                </form>
-                  <button type="button" class="pull-right btn btn-primary"
-                      data-toggle="modal" data-target="#confirm-submit">Submit</button>
-        <div class="modal fade" id="confirm-submit" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                Confirm Submit
-              </div>
-              <div class="modal-body">
-                Are you sure you want to schedule written test at <p id="confirm-datetime"></p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" id="submit" class="btn btn-success success">Submit</button>
-              </div>
-            </div>
-          </div>
-        </div>
+                {% include 'main/snippet_form.html' with form=form %}
               </div>
             </div>
             {% endif %}
@@ -100,23 +112,23 @@
         </div>
       </div>
 
-      <div class="cell-xs-12 cell-md-4 cell-lg-4 offset-top-60 offset-md-top-0">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Information</h3>
-          </div>
-          <div class="panel-body">
-            <p>The test will be emailed to you at the selected date/time (<strong>Singapore Time</strong>).</p>
-            <p>If you have any questions or want to reschedule within 2 days of the test requested previously, please email:</p>
-            <ul class="list-unstyled">
-              <li>
-                <span class="glyphicon glyphicon-envelope"></span>
-                <a href="mailto:careers@dytechlab.com">careers@dytechlab.com</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <!-- <div class="cell-xs-12 cell-md-4 cell-lg-4 offset-top-60 offset-md-top-0"> -->
+      <!--   <div class="panel panel-primary"> -->
+      <!--     <div class="panel-heading"> -->
+      <!--       <h3 class="panel-title">Information</h3> -->
+      <!--     </div> -->
+      <!--     <div class="panel-body"> -->
+      <!--       <p>The test will be emailed to you at the selected date/time (<strong>Singapore Time</strong>).</p> -->
+      <!--       <p>If you have any questions or want to reschedule within 2 days of the test requested previously, please email:</p> -->
+      <!--       <ul class="list-unstyled"> -->
+      <!--         <li> -->
+      <!--           <span class="glyphicon glyphicon-envelope"></span> -->
+      <!--           <a href="mailto:careers@dytechlab.com">careers@dytechlab.com</a> -->
+      <!--         </li> -->
+      <!--       </ul> -->
+      <!--     </div> -->
+      <!--   </div> -->
+      <!-- </div> -->
     </div>
   </div>
 </section>
