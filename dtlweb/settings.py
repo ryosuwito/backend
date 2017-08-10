@@ -22,13 +22,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'nk)^ano7tw499$)e(@mv*$2-c#cwh#4#17a$nu^s8yrl*tx$r)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 DEBUG = False if os.environ.get('DJANGO_DEPLOYMENT') else True
+DEBUG = False
 
 if DEBUG:
     ALLOWED_HOSTS = ['*', ]
 else:
-    ALLOWED_HOSTS = ['.dytechlab.com']
+    ALLOWED_HOSTS = ['localhost', '.dytechlab.com']
 
 
 # Application definition
@@ -44,10 +44,12 @@ INSTALLED_APPS = [
     'bootstrap3',
     'django_crontab',
     'mailer',
+    'whitenoise'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -56,6 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
 ]
+
 
 ROOT_URLCONF = 'dtlweb.urls'
 
@@ -127,13 +130,13 @@ USE_TZ = True
 STATIC_ROOT = 'staticfiles/'
 STATIC_URL = '/static/'
 if not DEBUG:
-    STATIC_ROOT = '/usr/src/website_staticfiles'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'main/static/')
 
 MEDIA_URL = '/media/'
 if not DEBUG:
-    MEDIA_ROOT = '/usr/src/website_uploads'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'main/media/')
 
@@ -173,16 +176,59 @@ CRONJOBS = [
         ('* * * * *', 'main.cron.send_online_tests'),
         # cronjob every minute, try to send mails currently in message queue. if any
         # failure, they will be marked deferred and will not be attempted again by send_mail
-        ('* * * * *', 'django.core.management.call_command', ['send_mail']),
+        ('* * * * *', 'django.core.management.call_command', ['send_mail'], {'c': 1}),
         # cronjob every 20 min, retry on send_email failure. Deferred mail will be added back
         # to normal queue and attempted again on the next send_mail
-        ('0,20,40 * * * *', 'django.core.management.call_command', ['retry_deferred']),
+        ('0,20,40 * * * *', 'django.core.management.call_command', ['retry_deferred'], {'c': 1}),
         # delete mail log for entries older than 30 days
-        ('0 0 * * *', 'django.core.management.call_command', ['purge_mail_log', 30]),
+        ('0 0 * * *', 'django.core.management.call_command', ['purge_mail_log', 30], {'c': 1}),
 ]
 
 # bootstrap3 settings
 BOOTSTRAP3 = {
     'set_placeholder': False,
     'required_css_class': 'bootstrap3-required',
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[%(levelname)s] %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+            },
+        'simple': {
+            'format': '[%(levelname)s] %(message)s'
+            },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'errorfile': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'error.log',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['errorfile', 'console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'main': {
+            'handlers': ['errorfile'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    }
 }

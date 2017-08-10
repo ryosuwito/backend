@@ -25,3 +25,6 @@ six==1.10.0
 texttable==0.8.7
 websocket-client==0.40.0
 wsgiref==0.1.2
+mock==2.0.0
+whitenoise==3.3.0
+gunicorn==19.7.1

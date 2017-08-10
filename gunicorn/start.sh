@@ -4,4 +4,4 @@ NUM_WORKERS=4
 cd /usr/src/app/
 python manage.py migrate
 python manage.py collectstatic --noinput
-gunicorn dtlweb.wsgi:application --bind 0.0.0.0:8000 --name dtlweb_app -w $NUM_WORKERS
+gunicorn dtlweb.wsgi:application --bind 0.0.0.0:8888 --name dtlweb_app -w $NUM_WORKERS
