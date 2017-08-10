@@ -23,7 +23,6 @@ SECRET_KEY = 'nk)^ano7tw499$)e(@mv*$2-c#cwh#4#17a$nu^s8yrl*tx$r)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.environ.get('DJANGO_DEPLOYMENT') else True
-DEBUG = False
 
 if DEBUG:
     ALLOWED_HOSTS = ['*', ]
@@ -127,7 +126,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-STATIC_ROOT = 'staticfiles/'
 STATIC_URL = '/static/'
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -155,7 +153,11 @@ MAILER_EMAIL_MAX_BATCH = None
 MAILER_EMAIL_MAX_DEFERRED = None
 MAILER_EMAIL_THROTTLE = 0  # passed to time.sleep()
 
-COMPANY_CAREER_EMAIL = 'careers@dytechlab.com'
+if DEBUG:
+    COMPANY_CAREER_EMAIL = 'careers_test@dytechlab.com'
+else:
+    COMPANY_CAREER_EMAIL = 'careers@dytechlab.com'
+
 TEST_FILES = {
     'DEV': {
         'EN': os.path.join(MEDIA_ROOT, 'developer-en.pdf'),

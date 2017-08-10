@@ -19,17 +19,13 @@ python manage.py createsuperuser
 # setup cronjobs
 python manage.py crontab add (see result, you may need to run several times to resolve conflicts)
 
-python manage.py runserver
+```
+# Run server locally
+```
+python manage.py runserver 8888
 ```
 
-# Run website on localhost (for ftang & mhua)
-```bash
-git pull origin master
-source env/bin/activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+# Deploy to production
 ```
-* Close any page with localhost:8000 you opened before
-* Open your browser (in incognito or private mode): localhost:8000
-* Remember to open in private mode browser to avoid css caching
+./gunicorn/start.sh
+```
