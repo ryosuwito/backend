@@ -7,5 +7,5 @@ pip install -r requirements.txt
 export DJANGO_DEPLOYMENT=1
 python manage.py migrate
 python manage.py collectstatic --noinput
-kill $(lsof -t -i:8888)
-gunicorn dtlweb.wsgi:application --bind 0.0.0.0:8888 --name dtlweb_app -w $NUM_WORKERS
+kill $(lsof -t -i:80)
+gunicorn dtlweb.wsgi:application --bind 0.0.0.0:80 --name dtlweb_app -w $NUM_WORKERS
