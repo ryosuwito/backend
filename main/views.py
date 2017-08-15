@@ -139,12 +139,12 @@ def career_jobs(request):
                     '''Maintaining, enhancing backtest simulator''',
                     '''Exploring big-data infrastructure for research''',
                     '''Execution algorithms research''',
-                    '''Working with researchers on high frequency strategies'''
+                    '''Working with researchers on high-frequency strategies'''
                 ]
             ],
             [
                 [
-                    '''Expert programming skills in some well known language, along with knowledge on computer system, e.g. networking, threading, etc.''',
+                    '''Expert programming skills in some well-known language, along with knowledge on computer system, e.g. networking, threading, etc.''',
                     '''Ability to write sizable applications and manage complexity''',
                     '''Effective communicator and decision maker''',
                     '''Linux experience''',
