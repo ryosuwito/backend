@@ -164,7 +164,7 @@ def career_jobs(request):
 def culture_overview(request):
     cultures = [
         {
-            'desc': 'Value Our Greatest Aasset',
+            'desc': 'Value Our Greatest Asset',
             'content': 'Employees are our most valuable asset and we try our best to provide opportunities for everyone to achieve and realize their potential. All employees, regardless of their positions or experience, are well respected and grow together with the company.',
         },
         {
