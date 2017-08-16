@@ -4,11 +4,11 @@
 {% block breadscrumb %}
 {% endblock breadscrumb %}
 
-{% block body-content %}
-<section>
-<div data-min-height="400px" class="swiper-container swiper-slider-1">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide bg-gray-lighter"><img src="{% static 'main/img/slideshow/slide4.jpg' %}" alt="" width="1"/>
+{% block swiper %}
+<div data-min-height="200px" class="swiper-container swiper-slider-1">
+  <div class="swiper-wrapper" style="min-height: 200px">
+    <div class="swiper-slide bg-gray-lighter">
+      <img src="{% static 'main/img/slideshow/slide4.jpg' %}" alt="" style="max-width: 100%; height:auto"/>
       <div class="swiper-slide-caption">
       </div>
     </div>
@@ -19,14 +19,17 @@
   <!--   <div class="swiper-button-next"></div> -->
   <!-- </div> -->
 </div>
+{% endblock swiper %}
+
+{% block body-content %}
 <section class="section-top-60 section-bottom-55">
   <div class="shell">
     <div class="range range-sm-center">
       <div class="cell-xs-12 cell-sm-5 cell-lg-6">
         <div class="product">
           <h4><a href="#">Dynamic Technology Lab Pte. Ltd.</a></h4>
-          <p>DTL is a quantitative trading firm engaged in equity trading.<br>
-             We have significant presence in global market with over<br>
+          <p style="padding: 0 10 0 10">DTL is a quantitative trading firm engaged in equity trading.
+             We have significant presence in global market with over
              600M USD daily trading volume in the world's major exchanges.</p>
           <a href="{% url 'main.what' %}" class="link link-inline link-medium link-icon link-icon-right"><span class="icon icon-xs icon-curious-blue fa-angle-right"></span>Learn More</a>
         </div>
@@ -34,14 +37,13 @@
       <div class="cell-xs-12 cell-sm-5 cell-lg-6 offset-top-56 offset-sm-top-0">
         <div class="product">
           <h4><a href="#">Interested in Joining Our Company?</a></h4>
-          <p>We aim to attract the best and brightest around the world<br>
-             and train them to be the best in the industry. We are <br>
+          <p style="padding: 0px 20px 0px 20px">We aim to attract the best and brightest around the world
+             and train them to be the best in the industry. We are
              always looking for great people to join us.</p>
           <a href="{% url 'main.career.overview' %}" class="link link-inline link-medium link-icon link-icon-right"><span class="icon icon-xs icon-curious-blue fa-angle-right"></span>Explore Careers</a>
         </div>
       </div>
     </div>
   </div>
-</section>
 </section>
 {% endblock body-content %}
