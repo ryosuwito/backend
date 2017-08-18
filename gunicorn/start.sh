@@ -4,7 +4,6 @@ NUM_WORKERS=4
 # cd /usr/src/app/
 source env/bin/activate
 pip install -r requirements.txt
-export DJANGO_DEPLOYMENT=1
 python manage.py migrate
 python manage.py collectstatic --noinput
 kill $(lsof -t -i:80)

@@ -16,24 +16,25 @@ python manage.py migrate
 # create superuser (for login admin panel)
 python manage.py createsuperuser
 
-# setup cronjobs
-python manage.py crontab add (see result, you may need to run several times to resolve conflicts)
-
 ```
 # Run server locally
 ```
+source env/bin/activate
+
+# setup cronjobs in development
+python manage.py --settings=dtlweb.settings.dev crontab add (see result, you may need to run several times to resolve conflicts)
+
 python manage.py runserver 8888
 ```
 
 # Deploy to production
 ```
 source env/bin/activate
-export DJANGO_DEPLOYMENT=1
 
-# setup cronjob
-python manage.py crontab add (see result, you may need to run several times to resolve conflicts)
+# setup cronjob in production
+python manage.py --settings=dtlweb.settings.prod crontab add (see result, you may need to run several times to resolve conflicts)
 
-# run server (note that the port will be 8888)
+# run server
 ./gunicorn/start.sh
 
 # put all you test files (i.e developer-en.pdf) to ./media/ folder instead of ./main/media/ folder
