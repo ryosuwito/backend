@@ -33120,6 +33120,10 @@ html:not(.lt-ie10) .not-animated {
   line-height: 1;
 }
 
+.rd-navbar-brand > img {
+  max-height: 70px;
+}
+
 .rd-navbar-brand .brand-name, .rd-navbar-brand .brand-name:focus, .rd-navbar-brand .brand-name:active, .rd-navbar-brand .brand-name:hover {
   color: #000;
 }
@@ -34403,6 +34407,10 @@ html:not(.lt-ie10) .not-animated {
 
 .rd-navbar-fixed .rd-navbar-brand > * {
   font-size: 30px;
+}
+
+.rd-navbar-fixed .rd-navbar-brand > img {
+  max-height: 50px;
 }
 
 .rd-navbar-fixed .rd-navbar-brand .brand-name {
