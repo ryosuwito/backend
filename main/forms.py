@@ -38,7 +38,7 @@ class TestRequestForm(forms.ModelForm):
         dt = self.cleaned_data['datetime']
         if dt < timezone.now():
             raise forms.ValidationError("The time has already passed")
-        weekno = dt.weekday()
-        if weekno >= 5:
-            raise forms.ValidationError("Please choose weekday (Monday to Friday) only")
+        # weekno = dt.weekday()
+        # if weekno >= 5:
+        #     raise forms.ValidationError("Please choose weekday (Monday to Friday) only")
         return dt
