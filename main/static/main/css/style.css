@@ -1307,7 +1307,7 @@ output {
   color: #999;
   background-color: #f4f7f9;
   background-image: none;
-  border: 1px solid transparent;
+  border: 1px solid LightGray;
   border-radius: 3px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -1317,7 +1317,7 @@ output {
 }
 
 .form-control:focus {
-  border-color: transparent;
+  border-color: LightGray;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6);
@@ -39781,7 +39781,7 @@ a.pswp__share--download:hover {
 
 .select2-container .select2-search--inline .select2-search__field {
   box-sizing: border-box;
-  border: none;
+  border: 1px solid LightGray;
   margin-top: 5px;
   padding: 0;
 }
@@ -39860,7 +39860,7 @@ a.pswp__share--download:hover {
 }
 
 .select2-close-mask {
-  border: 0;
+  border: 1px solid black;
   margin: 0;
   padding: 0;
   display: block;
@@ -39894,7 +39894,7 @@ a.pswp__share--download:hover {
 
 .select2-container--bootstrap .select2-selection {
   background-color: #f4f7f9;
-  border: 1px solid transparent;
+  border: 1px solid LightGray;
   border-radius: 3px;
   color: #999;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
@@ -39904,7 +39904,7 @@ a.pswp__share--download:hover {
 
 .select2-container--bootstrap .select2-search--dropdown .select2-search__field {
   background-color: #f4f7f9;
-  border: 1px solid transparent;
+  border: 1px solid LightGray;
   border-radius: 3px;
   color: #999;
   font-family: "Roboto", Helvetica, Arial, sans-serif;

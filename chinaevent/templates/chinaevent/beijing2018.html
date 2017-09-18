@@ -1,0 +1,110 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block body-content %}
+<section data-on="false" data-lg-on="true" class="rd-parallax bg-river-bed">
+  <div data-speed="0.65" data-type="media" data-url="{% static 'main/img/bg-image-2.jpg' %}" class="rd-parallax-layer"></div>
+  <div data-speed="0" data-type="html" class="rd-parallax-layer">
+    <div class="shell text-center">
+      <div class="range">
+        <div class="cell-xs-12">
+          <div class="section-45 section-sm-top-60 section-sm-bottom-68">
+            <h2>Careers</h2>
+            <hr class="hr-block hr-white"/>
+            <p style="margin: 20px 80px 0px 80px; font-size: 18px;">
+              Dynamic Technology Lab Pte. Ltd. (DTL) aims to attract the best and brightest, and to train them to be the best in the industry. We are looking for smart, creative and detail-oriented individuals, with intellectual curiosity and enthusiasm, to explore principles behind financial markets.</p>
+            </p>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="border-bottom border-bottom-gray-lighter">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12">
+        <ul class="breadcrumbs-custom">
+          <li><a href="{% url 'main.index' %}">Home</a></li>
+          <li><a href="{% url 'main.career.overview' %}">Careers</a></li>
+          <li class="active">2018 China Campus Recruiting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section-top-55 section-bottom-60">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12 cell-md-8 cell-lg-9">
+        <h3>2018 Beijing Campus Recruiting</h3>
+
+        <h4>Career Talks</h4>
+        <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="by_uni_map">
+            <!--116.363116,39.966326-->
+        </div>
+
+        </br>
+
+        <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="qh_uni_map">
+            <!--39.996826, 116.332154-->
+        </div>
+
+        <h4>Written test</h4>
+        <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="bd_uni_map">
+            <!--116.317169,39.994895-->
+        </div>
+
+        </br>
+
+        <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="bj_written_test">
+            <!-- 116.316982,39.998808 -->
+        </div>
+       </div>
+    </div>
+  </div>
+</section>
+
+{% endblock body-content %}
+
+{% block js-extras %}
+<script type="text/javascript">
+function initialize() {
+    var mapPositions = [
+        {'id': 'bd_uni_map', 'position': [116.317169, 39.994795]},
+        {'id': 'by_uni_map', 'position': [116.363116, 39.965926]},
+        {'id': 'qh_uni_map', 'position': [116.338753, 40.002436]},
+        {'id': 'bj_written_test', 'position': [116.316982, 39.998658]}
+    ];
+    var maps = [];
+    var markers = [];
+    var centers = [];
+    var href = location.href;
+
+    for (var i = 0; i < mapPositions.length; i++) {
+        maps[i] = new BMap.Map(mapPositions[i].id);
+        // a hack to deal with maps within tabs
+        if (href.indexOf('#written_test') != -1 && i < 3) {
+            centers[i] = new BMap.Point(mapPositions[i].position[0] - 0.0027, mapPositions[i].position[1] + 0.0012);
+        } else if (href.indexOf('#written_test') == -1 && i == 3) {
+            centers[i] = new BMap.Point(mapPositions[i].position[0] - 0.0027, mapPositions[i].position[1] + 0.0012);
+        } else {
+            centers[i] = new BMap.Point(mapPositions[i].position[0], mapPositions[i].position[1]);
+        }
+        markers[i] = new BMap.Point(mapPositions[i].position[0], mapPositions[i].position[1]);
+        maps[i].centerAndZoom(centers[i], 18);
+        maps[i].addOverlay(new BMap.Marker(markers[i]));
+        maps[i].addControl(new BMap.NavigationControl());
+        maps[i].addControl(new BMap.ScaleControl());
+    }
+}
+
+function loadScript() {
+    var script = document.createElement("script");
+    script.src = "http://api.map.baidu.com/api?v=2.0&ak={{ api_key }}&callback=initialize";
+    document.body.appendChild(script);
+}
+
+window.onload = loadScript;
+</script>
+{% endblock js-extras %}

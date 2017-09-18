@@ -1,0 +1,103 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block body-content %}
+<section data-on="false" data-lg-on="true" class="rd-parallax bg-river-bed">
+  <div data-speed="0.65" data-type="media" data-url="{% static 'main/img/bg-image-2.jpg' %}" class="rd-parallax-layer"></div>
+  <div data-speed="0" data-type="html" class="rd-parallax-layer">
+    <div class="shell text-center">
+      <div class="range">
+        <div class="cell-xs-12">
+          <div class="section-45 section-sm-top-60 section-sm-bottom-68">
+            <h2>Careers</h2>
+            <hr class="hr-block hr-white"/>
+            <p style="margin: 20px 80px 0px 80px; font-size: 18px;">
+              Dynamic Technology Lab Pte. Ltd. (DTL) aims to attract the best and brightest, and to train them to be the best in the industry. We are looking for smart, creative and detail-oriented individuals, with intellectual curiosity and enthusiasm, to explore principles behind financial markets.</p>
+            </p>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="border-bottom border-bottom-gray-lighter">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12">
+        <ul class="breadcrumbs-custom">
+          <li><a href="{% url 'main.index' %}">Home</a></li>
+          <li><a href="{% url 'main.career.overview' %}">Careers</a></li>
+          <li class="active">2018 China Campus Recruiting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section-top-55 section-bottom-60">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12 cell-md-8 cell-lg-9">
+        <div class="range">
+          <div class="cell-xs-12">
+            <h3>Written Test Registration</h3>
+            {% block register-confirm %}
+            {% endblock register-confirm %}
+
+            <p>We are going to hold written tests in three universities:</p>
+            <ul class="">
+              <li class="unit unit-horizontal unit-spacing-lg">
+                <div class="unit-left">
+                  <span class="icon icon-sm icon-picton-blue fa-university"></span>
+                  Peking University (find time and location: <a href="{% url 'chinaevent.beijing2018' %}" class="">Beijing</a>)
+                </div>
+              </li>
+              <li class="unit unit-horizontal unit-spacing-lg">
+                <div class="unit-left">
+                  <span class="icon icon-sm icon-picton-blue fa-university"></span>
+                  Shanghai Jiaotong University (find time and location: <a href="{% url 'chinaevent.beijing2018' %}" class="">Shanghai</a>)
+                </div>
+              </li>
+              <li class="unit unit-horizontal unit-spacing-lg">
+                <div class="unit-left">
+                  <span class="icon icon-sm icon-picton-blue fa-university"></span>
+                  Fudan University (find time and location: <a href="" class="{% url 'chinaevent.beijing2018' %}">Shanghai</a>)
+                </div>
+              </li>
+
+            </ul>
+            {% if form %}
+            <p>Kindly fill in the below registration form if you are interested, make sure you choose correctly your prefered sites.</p>
+            <p>If you have any question, please email: <a class="active" href="mailto:careers@dytechlab.com">careers@dytechlab.com</a></p>
+            <div class="cell-xs-12 offset-top-25">
+            </div>
+            <div class="row margin-vert-30">
+              <div class="col-md-8">
+                {% include 'main/snippet_form.html' with form=form multipart=True %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Left sidebar-- !>
+      <div class="cell-xs-12 cell-md-4 cell-lg-3 offset-top-60 offset-md-top-0">
+        <div class="inset-md-left-15 inset-md-right-15">
+          <div class="range">
+            <div class="cell-xs-12 cell-sm-6 cell-md-12 child-offset-41">
+              <nav class="page-nav">
+                <ul class="page-nav-list">
+                  <li><a href="{% url 'main.career.overview' %}">Overview</a></li>
+                  <li><a href="{% url 'main.career.jobs' %}">Opening Jobs</a></li>
+                  <li class="active"><a href="{% url 'main.career.apply' %}">Online Application</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock body-content %}
