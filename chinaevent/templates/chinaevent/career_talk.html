@@ -26,41 +26,85 @@
       <div class="cell-xs-12">
         <ul class="breadcrumbs-custom">
           <li><a href="{% url 'main.index' %}">Home</a></li>
-          <li><a href="{% url 'main.career.overview' %}">Careers</a></li>
-          <li class="active">2018 China Campus Recruiting</li>
+          <li><a href="{% url 'chinaevent.career_talk' %}">2018 China Campus Recruiting</a></li>
+          <li class="active">Carreer Talks</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
-<section class="section-top-55 section-bottom-60">
+
+<section class="section-top-55 section-bottom-40">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12">
+        <h3>Career Talks</h3>
+        {% for city, test in tests.items %}
+        <h4>{{city}}</h4>
+        <div class="table-mobile">
+          <table class="table table-curious-blue table-bordered">
+            <thead>
+              <tr>
+                <th>University</th>
+                <th>Location</th>
+                <th>Time</th>
+                <th>Map Link</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for item in test %}
+              <tr>
+                <td>{{ item.university }}</td>
+                <td>{{ item.location }}</td>
+                <td>{{ item.time }}</td>
+                <td><a href="#{{ item.mapid }}">Link</a></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-bottom-60">
   <div class="shell">
     <div class="range">
       <div class="cell-xs-12 cell-md-8 cell-lg-9">
-        <h3>2018 Beijing Campus Recruiting</h3>
-
-        <h4>Career Talks</h4>
-        <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="by_uni_map">
-            <!--116.363116,39.966326-->
+        <h3>Career Talks Location & Map</h3>
+        <span class="anchor-link" id="loc1"></span>
+        <div class="section-25">
+            <h4>Location 1</h4>
+            <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="by_uni_map">
+                <!--116.363116,39.966326-->
+            </div>
         </div>
 
-        </br>
-
-        <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="qh_uni_map">
-            <!--39.996826, 116.332154-->
+        <span class="anchor-link" id="loc2"></span>
+        <div class="section-25">
+            <h4>Location 2</h4>
+            <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="qh_uni_map">
+                <!--39.996826, 116.332154-->
+            </div>
         </div>
 
-        <h4>Written test</h4>
-        <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="bd_uni_map">
-            <!--116.317169,39.994895-->
+        <span class="anchor-link" id="loc3"></span>
+        <div class="section-25">
+            <h4>Location 3</h4>
+            <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="bd_uni_map">
+                <!--116.317169,39.994895-->
+            </div>
         </div>
 
-        </br>
-
-        <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="bj_written_test">
-            <!-- 116.316982,39.998808 -->
+        <span class="anchor-link" id="loc4"></span>
+        <div class="section-25">
+            <h4>Location 4</h4>
+            <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="bj_written_test">
+                <!-- 116.316982,39.998808 -->
+            </div>
         </div>
-       </div>
     </div>
   </div>
 </section>
@@ -103,7 +147,12 @@ function loadScript() {
     var script = document.createElement("script");
     script.src = "http://api.map.baidu.com/api?v=2.0&ak={{ api_key }}&callback=initialize";
     document.body.appendChild(script);
-}
+
+    // this hack to avoid Navbar hides initial content when jumping to in-page anchor
+    var shiftWindow = function() { scrollBy(-120, 0) };
+        if (location.hash) shiftWindow();
+        window.addEventListener("hashchange", shiftWindow);
+    }
 
 window.onload = loadScript;
 </script>

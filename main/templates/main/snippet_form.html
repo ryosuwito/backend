@@ -1,6 +1,6 @@
 {% load bootstrap3 %}
 
-<form method="post" class="form" {% if multipart %}enctype="multipart/form-data"{% endif %}>
+<form method="post" {% if action %}action="{{ action }}"{% endif %}class="form" {% if multipart %}enctype="multipart/form-data"{% endif %}>
   {% csrf_token %}
   {% bootstrap_form form layout="vertical"%}
   {%buttons %}

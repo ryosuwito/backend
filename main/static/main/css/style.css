@@ -1304,10 +1304,10 @@ output {
   padding: 11px 29px;
   font-size: 15px;
   line-height: 1.6;
-  color: #999;
+  color: #4E4E4E;
   background-color: #f4f7f9;
   background-image: none;
-  border: 1px solid LightGray;
+  border: 1px solid #c4c4c4;
   border-radius: 3px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -1317,7 +1317,7 @@ output {
 }
 
 .form-control:focus {
-  border-color: LightGray;
+  border-color: #c4c4c4;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6);
@@ -1436,6 +1436,7 @@ input[type="search"] {
   margin-bottom: 0;
   font-weight: normal;
   cursor: pointer;
+  color: #666
 }
 
 .radio input[type="radio"],
@@ -1774,7 +1775,7 @@ select[multiple].input-lg,
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;
-  color: #a6a6a6;
+  color: #5F5D5D ;
 }
 
 @media (min-width: 768px) {
@@ -22375,7 +22376,12 @@ label {
   margin-bottom: 0;
   font-size: 14px;
   font-weight: 300;
-  color: #666;
+  color: #4E4E4E;
+}
+
+.control-label {
+  font-weight: 350;
+  color: black;
 }
 
 .lt-ie-10 input,
@@ -27992,9 +27998,8 @@ th {
 }
 
 .table > thead > tr > th {
-  padding: 31px 23px;
   vertical-align: middle;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
   border-bottom: 0;
 }
@@ -28044,7 +28049,7 @@ th {
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > th,
 .table-bordered > tfoot > tr > td {
-  border: 1px solid #ebebeb;
+  border: 1px solid #c4c4c4;
 }
 
 .table-bordered > thead > tr > th,
@@ -39781,7 +39786,7 @@ a.pswp__share--download:hover {
 
 .select2-container .select2-search--inline .select2-search__field {
   box-sizing: border-box;
-  border: 1px solid LightGray;
+  border: 1px solid #c4c4c4;
   margin-top: 5px;
   padding: 0;
 }
@@ -39894,7 +39899,7 @@ a.pswp__share--download:hover {
 
 .select2-container--bootstrap .select2-selection {
   background-color: #f4f7f9;
-  border: 1px solid LightGray;
+  border: 1px solid #c4c4c4;
   border-radius: 3px;
   color: #999;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
@@ -39904,7 +39909,7 @@ a.pswp__share--download:hover {
 
 .select2-container--bootstrap .select2-search--dropdown .select2-search__field {
   background-color: #f4f7f9;
-  border: 1px solid LightGray;
+  border: 1px solid #c4c4c4;
   border-radius: 3px;
   color: #999;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
@@ -40088,7 +40093,7 @@ a.pswp__share--download:hover {
 }
 
 .select2-container--bootstrap .select2-selection--single .select2-selection__rendered {
-  color: #999;
+  color: #4E4E4E;
   padding: 0;
 }
 

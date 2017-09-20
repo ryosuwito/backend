@@ -18,7 +18,7 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
             return "None"
 
     get_scheduled_test.short_description = "Scheduled Test"
-    list_display = ('name', 'university', 'email', 'position', 'status', get_scheduled_test)
+    list_display = ('name', 'university', 'email', 'position', 'status', get_scheduled_test, 'info_src')
     list_editable = ('status',)
     list_filter = ('status',)
 

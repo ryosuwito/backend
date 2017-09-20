@@ -50,6 +50,7 @@ class OnlineApplication(models.Model):
     email = models.EmailField(max_length=100, unique=True)
     resume = models.FileField(max_length=100, blank=True,
                               upload_to=user_resume_path)
+    info_src = models.CharField(max_length=200, null=False, blank=False, default="N.A")
 
     # Additional fields for admin management
     status = models.CharField(

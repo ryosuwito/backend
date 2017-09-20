@@ -57,10 +57,15 @@
                         <li><a href="{% url 'main.career.overview' %}">Overview</a></li>
                         <li><a href="{% url 'main.career.jobs' %}">Opening jobs</a></li>
                         <li><a href="{% url 'main.career.apply' %}">Online application</a></li>
-                        <li><a href="{% url 'chinaevent.register' %}">2018 China Campus Recruiting</a></li>
                       </ul>
                     </li>
                     <li><a href="{% url 'main.contact' %}">Contacts</a></li>
+                    <li><a href="">2018 China Campus Recruiting</a>
+                      <ul class="rd-navbar-dropdown">
+                        <li><a href="{% url 'chinaevent.career_talk' %}">Career Talks</a></li>
+                        <li><a href="{% url 'chinaevent.register' %}">Written Tests</a></li>
+                      </ul>
+                    </li>
                   </ul>
                 </div>
               </div>

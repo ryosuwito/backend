@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-NUM_WORKERS=4
+NUM_WORKERS=8
 # /etc/init.d/postfix start
 # cd /usr/src/app/
 source env/bin/activate
 pip install -r requirements.txt
+python manage.py makemigrations
 python manage.py migrate
 python manage.py collectstatic --noinput
 kill $(lsof -t -i:80)
