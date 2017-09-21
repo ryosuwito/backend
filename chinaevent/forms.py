@@ -28,17 +28,16 @@ INFO_SRC_CHOICES = (
 
 class RegistrationForm(forms.ModelForm):
     info_src = InfoSourceField(choices=INFO_SRC_CHOICES,
-                                label="你从哪里得到我们的招聘信息?")
+                                label="你从哪里得到我们的招聘信息* (多选)")
     class Meta:
         model = Candidate
         fields = ['site', 'email', 'name', 'university', 'major', 'info_src']
         labels = {
-            'site': _('学校*'),
+            'site': _('笔试地点*'),
             'email': _('电子邮箱*'),
             'name': _('姓名*'),
             'university': _('学校'),
             'major': _('专业'),
-            'info_src': _('你从哪里得到我们的招聘信息?')
         }
 
     def clean_email(self):
