@@ -18,10 +18,10 @@ class OptionalChoiceWidget(forms.MultiWidget):
         #this might need to be tweaked if the name of a choice != value of a choice
         if value: #indicates we have a updating object versus new one
             if value in [x[0] for x in self.widgets[0].choices]:
-                 return [value,""] # make it set the pulldown to choice
+                 return [value, ""] # make it set the pulldown to choice
             else:
-                 return ["",value] # keep pulldown to blank, set freetext
-        return ["",""] # default for new object
+                 return ["", value] # keep pulldown to blank, set freetext
+        return ["", ""] # default for new object
 
 
 class InfoSourceField(forms.MultiValueField):
@@ -49,20 +49,25 @@ class InfoSourceField(forms.MultiValueField):
         """ sets the two fields as not required but will
             enforce that (at least) one is set in compress
         """
-        fields = (forms.ChoiceField(widget=forms.RadioSelect,
-                                    choices=choices or InfoSourceField.INFO_SRC_CHOICES,
-                                    required=False),
+        fields = (forms.MultipleChoiceField(
+                        widget=forms.CheckboxSelectMultiple,
+                        choices=choices or InfoSourceField.INFO_SRC_CHOICES,
+                        required=False),
                   forms.CharField(required=False))
         self.widget = OptionalChoiceWidget(widgets=[f.widget for f in fields])
         super(InfoSourceField,self).__init__(required=False, fields=fields, *args, **kwargs)
         self.label = label or 'Where do you get our recruitment information ? *'
 
     def compress(self, data_list):
-        """ return the choicefield value if selected or charfield value
+        """ generate and return value of the field from choicefield value and charfield value
             (if both empty, will throw exception """
         if not data_list:
-            raise ValidationError('Please select a choice or specify in text box')
-        return data_list[0] or data_list[1]
+            raise ValidationError('Please select at least one choice or specify in the text box')
+        if not data_list[1] or data_list[1] == "":
+            all_data = data_list[0]
+        else:
+            all_data = data_list[0] + [data_list[1]]
+        return ','.join(all_data)
 
 
 class OnlineApplicationForm(forms.ModelForm):
