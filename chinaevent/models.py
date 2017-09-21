@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.db import models
@@ -8,9 +10,9 @@ class Candidate(models.Model):
     FDU = 'FDU'
     SJTU = 'SJTU'
     SITE_CHOICES = (
-        (PKU, "Perking"),
-        (FDU, "FDU"),
-        (SJTU, "SJTU")
+        (PKU, "北京大学"),
+        (FDU, "复旦大学"),
+        (SJTU, "上海交通大学")
     )
     email = models.EmailField(max_length=100, unique=True)
     site = models.CharField(
