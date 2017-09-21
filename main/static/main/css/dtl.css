@@ -15,3 +15,8 @@ body {
   margin-top: -100px;
   visibility: hidden;
 }
+
+p.overview-text {
+  font-size: 18px;
+  margin: 3% 5% 0% 5%;
+}
