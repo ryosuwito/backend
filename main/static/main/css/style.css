@@ -10798,7 +10798,7 @@ address {
 }
 
 .bg-image-1 {
-  background-image: url("../images/bg-image-1.jpg");
+  background-image: url("../img/bg-image-1.jpg");
 }
 
 @media (min-width: 992px) {
@@ -12018,7 +12018,7 @@ html .page .btn.btn-xxl .icon {
   position: absolute;
   width: 17px;
   height: 17px;
-  background-image: url("../images/decoration-border.png");
+  background-image: url("../img/decoration-border.png");
   will-change: transform, top, left, right, bottom;
   pointer-events: none;
   transition: .23s all ease;
@@ -35159,7 +35159,7 @@ html.boxed .rd-navbar--is-clone {
   opacity: 0;
   visibility: hidden;
   transition: .3s all ease;
-  background: url(../images/preloader.gif) no-repeat rgba(255, 255, 255, 0.8) center center;
+  background: url(../img/preloader.gif) no-repeat rgba(255, 255, 255, 0.8) center center;
   z-index: 6;
 }
 
@@ -35725,7 +35725,7 @@ html.boxed .rd-navbar--is-clone {
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  background: url(../images/preloader.png) no-repeat center center;
+  background: url(../img/preloader.png) no-repeat center center;
   background-position: -648px 0;
   animation: 0.7s sprite-animation steps(12) infinite;
   opacity: 0;
@@ -37672,7 +37672,7 @@ div.rd-search-results-live.active {
 
 .progress-bar-sky-blue {
   border-radius: 8px;
-  background: url("../images/gradient-1.png") repeat-x;
+  background: url("../img/gradient-1.png") repeat-x;
   -webkit-background-size: auto 100%;
   background-size: auto 100%;
   -webkit-box-shadow: none;
@@ -37927,7 +37927,7 @@ div.rd-search-results-live.active {
 }
 
 .slick-loading .slick-list {
-  background: #fff url("./../images/ajax-loader.gif") center center no-repeat;
+  background: #fff url("./../img/ajax-loader.gif") center center no-repeat;
 }
 
 /* Icons */
@@ -39165,7 +39165,7 @@ html[class*="ie"] .dtp-hand, html[class*="ie"] .dtp-hour-hand {
 .pswp__button,
 .pswp__button--arrow--left:before,
 .pswp__button--arrow--right:before {
-  background: url(../images/photoswipe-controls.png) 0 0 no-repeat;
+  background: url(../img/photoswipe-controls.png) 0 0 no-repeat;
   background-size: 264px 88px;
   width: 44px;
   height: 44px;
@@ -39176,7 +39176,7 @@ html[class*="ie"] .dtp-hand, html[class*="ie"] .dtp-hour-hand {
   .pswp--svg .pswp__button,
   .pswp--svg .pswp__button--arrow--left:before,
   .pswp--svg .pswp__button--arrow--right:before {
-    background-image: url(../images/photoswipe-controls.svg);
+    background-image: url(../img/photoswipe-controls.png);
   }
   .pswp--svg .pswp__button--arrow--left,
   .pswp--svg .pswp__button--arrow--right {
@@ -39484,7 +39484,7 @@ a.pswp__share--download:hover {
 
 .pswp__preloader--active .pswp__preloader__icn {
   /* We use .gif in browsers that don't support CSS animation */
-  background: url(../images/preloader.gif) 0 0 no-repeat;
+  background: url(../img/preloader.gif) 0 0 no-repeat;
 }
 
 .pswp--css_animation .pswp__preloader--active {

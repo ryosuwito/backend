@@ -2,8 +2,9 @@ from .const import *
 
 # Overwrite any const settings here
 DEBUG = False
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-ALLOWED_HOSTS = ['localhost', '.dytechlab.com']
+ALLOWED_HOSTS = ['.dytechlab.com', 'localhost']
 
 TEST_FILES = {
     'DEV': {
