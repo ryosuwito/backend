@@ -5,25 +5,25 @@ from .forms import RegistrationForm
 
 
 WRITTEN_TEST_2018 = {
-    'Beijing': [
+    '北京': [
         {
-            'university': 'Perking 大学 (PKU)',
-            'location': 'Center 212',
-            'time': '2017 Oct 15th, 2:30 pm',
+            'university': '北京大学',
+            'location': '理科一号楼1114',
+            'time': '2017年10月14日，09:00-12:00',
             'mapid': 'loc1'
         },
     ],
-    'Shanghai': [
+    '上海': [
         {
-            'university': 'Fudan University (FDU)',
-            'location': 'Center 212',
-            'time': '2017 Oct 15th, 2:30 pm',
+            'university': '复旦大学',
+            'location': '张江校区软件楼102第二会议室',
+            'time': '2017年10月14日, 09:00-12:00',
             'mapid': 'loc2'
         },
         {
-            'university': 'Shanghai Jiaotong University (SJTU)',
-            'location': 'Center 212',
-            'time': '2017 Oct 15th, 2:30 pm',
+            'university': '上海交通大学',
+            'location': '闵行校区数学楼一楼大会议室',
+            'time': '2017年10月14日, 09:00-12:00',
             'mapid': 'loc3'
         },
     ]
@@ -31,31 +31,31 @@ WRITTEN_TEST_2018 = {
 
 
 CAREER_TALK_2018 = {
-    'Beijing': [
+    '北京': [
         {
-            'university': 'Perking (PKU)',
-            'location': 'Center 212',
-            'time': '2017 Oct 15th, 2:30 pm',
+            'university': '北京大学',
+            'location': '新太阳学生中心212',
+            'time': '2017年10月09日, 14:00-16:00',
             'mapid': 'loc1'
         },
         {
-            'university': 'Another Beijing University (PKU)',
-            'location': 'Center 212',
-            'time': '2017 Oct 15th, 2:30 pm',
+            'university': '清华大学',
+            'location': '伟伦楼501',
+            'time': '2017年10月12日, 19:00-21:00',
             'mapid': 'loc2'
         },
     ],
-    'Shanghai': [
+    '上海': [
         {
-            'university': 'Fudan University (FDU)',
-            'location': 'Center 212',
-            'time': '2017 Oct 15th, 2:30 pm',
+            'university': '复旦大学',
+            'location': '张江校区第二教学楼2301教室',
+            'time': '2017年10月10日, 19:00-21:00',
             'mapid': 'loc3'
         },
         {
-            'university': 'Shanghai Jiaotong University (SJTU)',
-            'location': 'Center 212',
-            'time': '2017 Oct 15th, 2:30 pm',
+            'university': '上海交通大学',
+            'location': '闵行校区数学楼一楼大会议室',
+            'time': '2017年10月11日, 19:00-21:00',
             'mapid': 'loc4'
         },
     ]
