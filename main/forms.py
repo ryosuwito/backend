@@ -45,7 +45,7 @@ class InfoSourceField(forms.MultiValueField):
         ("", "Others, please specify")
     )
 
-    def __init__(self, choices=None, max_length=200, *args, **kwargs):
+    def __init__(self, label=None, choices=None, max_length=200, *args, **kwargs):
         """ sets the two fields as not required but will
             enforce that (at least) one is set in compress
         """
@@ -55,7 +55,7 @@ class InfoSourceField(forms.MultiValueField):
                   forms.CharField(required=False))
         self.widget = OptionalChoiceWidget(widgets=[f.widget for f in fields])
         super(InfoSourceField,self).__init__(required=False, fields=fields, *args, **kwargs)
-        self.label = 'Where do you get our recruitment information ? *'
+        self.label = label or 'Where do you get our recruitment information ? *'
 
     def compress(self, data_list):
         """ return the choicefield value if selected or charfield value

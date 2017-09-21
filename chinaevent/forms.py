@@ -6,14 +6,14 @@ from chinaevent.models import Candidate
 from main.forms import InfoSourceField
 
 
-CAMPUS_TALK = u"大学 Ca"
-CAMPUS_POSTER = "Campus Recruitment Poster"
-UNI_CAREER_WEB = "University Career Center Website"
-DEPARTMENT_CAREER_WEB = "Department Career Center Website"
-COMPANY_WEB = "Company Website"
-SCHOOL_EMAIL = "School Emails"
-FRIENDS = "Friends"
-BBS = "BBS"
+CAMPUS_TALK = "校园宣讲会"
+CAMPUS_POSTER = "校园宣传海报"
+UNI_CAREER_WEB = "学校招聘信息"
+DEPARTMENT_CAREER_WEB = "学院招聘网站"
+COMPANY_WEB = "公司官网"
+SCHOOL_EMAIL = "电子邮件宣传"
+FRIENDS = "朋友推荐"
+BBS = "校园BBS"
 INFO_SRC_CHOICES = (
     (CAMPUS_TALK, CAMPUS_TALK),
     (CAMPUS_POSTER, CAMPUS_POSTER),
@@ -23,18 +23,21 @@ INFO_SRC_CHOICES = (
     (SCHOOL_EMAIL, SCHOOL_EMAIL),
     (FRIENDS, FRIENDS),
     (BBS, BBS),
-    ("", "Others, please specify")
+    ("", "其他，请注明")
 )
 
 class RegistrationForm(forms.ModelForm):
-    info_src = InfoSourceField(choices=INFO_SRC_CHOICES)
+    info_src = InfoSourceField(choices=INFO_SRC_CHOICES,
+                                label="你从哪里得到我们的招聘信息?")
     class Meta:
         model = Candidate
         fields = ['site', 'email', 'name', 'university', 'major', 'info_src']
         labels = {
-            'site': _('现场 *'),
-            'email': _('Email *'),
-            'name': _('Name *'),
+            'site': _('学校*'),
+            'email': _('电子邮箱*'),
+            'name': _('姓名*'),
+            'university': _('学校'),
+            'major': _('专业'),
         }
 
     def clean_email(self):

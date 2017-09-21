@@ -26,8 +26,8 @@
       <div class="cell-xs-12">
         <ul class="breadcrumbs-custom">
           <li><a href="{% url 'main.index' %}">Home</a></li>
-          <li><a href="{% url 'chinaevent.career_talk' %}">2018 China Campus Recruiting</a></li>
-          <li class="active">Carreer Talks</li>
+          <li><a href="{% url 'chinaevent.career_talk' %}">2018中国招聘</a></li>
+          <li class="active">校园宣讲会</li>
         </ul>
       </div>
     </div>
@@ -37,33 +37,45 @@
 <section class="section-top-55 section-bottom-40">
   <div class="shell">
     <div class="range">
-      <div class="cell-xs-12">
-        <h3>Career Talks</h3>
+      <div class="cell-xs-12 cell-md-8 cell-lg-9">
+        <h3>校园宣讲会</h3>
         {% for city, test in tests.items %}
         <h4>{{city}}</h4>
         <div class="table-mobile">
           <table class="table table-curious-blue table-bordered">
             <thead>
               <tr>
-                <th>University</th>
-                <th>Location</th>
-                <th>Time</th>
-                <th>Map Link</th>
+                <th width="20%">学校</th>
+                <th width="40%">地点</th>
+                <th width="40%">时间</th>
               </tr>
             </thead>
             <tbody>
             {% for item in test %}
               <tr>
                 <td>{{ item.university }}</td>
-                <td>{{ item.location }}</td>
+                <td><a href="#{{ item.mapid }}">{{ item.location }}</a></td>
                 <td>{{ item.time }}</td>
-                <td><a href="#{{ item.mapid }}">Link</a></td>
               </tr>
             {% endfor %}
             </tbody>
           </table>
         </div>
         {% endfor %}
+      </div>
+      <div class="cell-xs-12 cell-md-4 cell-lg-3 offset-top-60 offset-md-top-0">
+        <div class="inset-md-left-15 inset-md-right-15">
+          <div class="range">
+            <div class="cell-xs-12 cell-sm-6 cell-md-12 child-offset-41">
+              <nav class="page-nav">
+                <ul class="page-nav-list">
+                  <li class="active"><a href="{% url 'chinaevent.career_talk' %}">校园宣讲会</a></li>
+                  <li><a href="{% url 'chinaevent.register' %}">现场笔试注册</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -73,35 +85,35 @@
   <div class="shell">
     <div class="range">
       <div class="cell-xs-12 cell-md-8 cell-lg-9">
-        <h3>Career Talks Location & Map</h3>
+        <h3>地图</h3>
         <span class="anchor-link" id="loc1"></span>
         <div class="section-25">
-            <h4>Location 1</h4>
-            <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="by_uni_map">
+            <h4>北京大学，新太阳学生中心212</h4>
+            <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="pku_talk_map">
                 <!--116.363116,39.966326-->
             </div>
         </div>
 
         <span class="anchor-link" id="loc2"></span>
         <div class="section-25">
-            <h4>Location 2</h4>
-            <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="qh_uni_map">
+            <h4>清华大学，伟伦楼501</h4>
+            <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="thu_talk_map">
                 <!--39.996826, 116.332154-->
             </div>
         </div>
 
         <span class="anchor-link" id="loc3"></span>
         <div class="section-25">
-            <h4>Location 3</h4>
-            <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="bd_uni_map">
+            <h4>复旦大学，张江校区第二教学楼2301教室</h4>
+            <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="fdu_talk_map">
                 <!--116.317169,39.994895-->
             </div>
         </div>
 
         <span class="anchor-link" id="loc4"></span>
         <div class="section-25">
-            <h4>Location 4</h4>
-            <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="bj_written_test">
+            <h4>上海交通大学，闵行校区数学楼一楼大会议室</h4>
+            <div class="map" style="border: 1px solid; width: 100%; height: 400px;" id="sjtu_talk_test">
                 <!-- 116.316982,39.998808 -->
             </div>
         </div>
@@ -115,10 +127,10 @@
 <script type="text/javascript">
 function initialize() {
     var mapPositions = [
-        {'id': 'bd_uni_map', 'position': [116.317169, 39.994795]},
-        {'id': 'by_uni_map', 'position': [116.363116, 39.965926]},
-        {'id': 'qh_uni_map', 'position': [116.338753, 40.002436]},
-        {'id': 'bj_written_test', 'position': [116.316982, 39.998658]}
+        {'id': 'pku_talk_map', 'position': [116.317169, 39.994795]},
+        {'id': 'thu_talk_map', 'position': [116.338611,40.00525]},
+        {'id': 'fdu_talk_map', 'position': [121.605084,31.19714]},
+        {'id': 'sjtu_talk_test', 'position': [121.434525,31.028602]}
     ];
     var maps = [];
     var markers = [];

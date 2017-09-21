@@ -5,12 +5,12 @@ from django.db import models
 
 class Candidate(models.Model):
     PKU = 'PKU'
-    SJTU = 'SJTU'
     FDU = 'FDU'
+    SJTU = 'SJTU'
     SITE_CHOICES = (
-        (PKU, "PKU"),
-        (SJTU, "SJTU"),
-        (FDU, "FDU")
+        (PKU, "Perking"),
+        (FDU, "FDU"),
+        (SJTU, "SJTU")
     )
     email = models.EmailField(max_length=100, unique=True)
     site = models.CharField(
