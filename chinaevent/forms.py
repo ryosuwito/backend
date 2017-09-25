@@ -31,12 +31,13 @@ class RegistrationForm(forms.ModelForm):
                                 label="你从哪里得到我们的招聘信息* (多选)")
     class Meta:
         model = Candidate
-        fields = ['site', 'email', 'name', 'university', 'major', 'info_src']
+        fields = ['site', 'email', 'name', 'university', 'school', 'major', 'info_src']
         labels = {
             'site': _('笔试地点*'),
             'email': _('电子邮箱*'),
             'name': _('姓名*'),
             'university': _('学校'),
+            'school': _('院系'),
             'major': _('专业'),
         }
 

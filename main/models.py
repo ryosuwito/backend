@@ -46,6 +46,7 @@ class OnlineApplication(models.Model):
         default=DEVELOPER)
     name = models.CharField(max_length=30)
     university = models.CharField(max_length=100, null=True, blank=True)
+    school = models.CharField(max_length=200, null=True, blank=True)
     major = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(max_length=100, unique=True)
     resume = models.FileField(max_length=100, blank=True,
