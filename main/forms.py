@@ -82,6 +82,9 @@ class OnlineApplicationForm(forms.ModelForm):
             'position': _('Position *'),
             'email': _('Email *'),
         }
+        widgets = {
+            'position': forms.RadioSelect
+        }
 
 
 class TestRequestForm(forms.ModelForm):
