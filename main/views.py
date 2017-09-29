@@ -1,10 +1,16 @@
 import sys
+import os
+import mimetypes
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.http import Http404
+
+from wsgiref.util import FileWrapper
+
 from main.models import TestRequest, Position
 from main.forms import OnlineApplicationForm, TestRequestForm
 from main.emails import send_online_application_confirm, send_online_application_summary
-from django.views.decorators.clickjacking import xframe_options_exempt
-from django.http import Http404
 
 
 def index(request):
@@ -235,3 +241,14 @@ def what_we_do(request):
 
 def contact(request):
     return render(request, "main/contact.html")
+
+
+def download_resume(request, file_name):
+    file_path = os.path.join(settings.MEDIA_ROOT, 'resumes', file_name)
+    file_wrapper = FileWrapper(file(file_path,'rb'))
+    file_mimetype = mimetypes.guess_type(file_path)
+    response = HttpResponse(file_wrapper, content_type=file_mimetype )
+    response['X-Sendfile'] = file_path
+    response['Content-Length'] = os.stat(file_path).st_size
+    response['Content-Disposition'] = 'attachment; filename=%s' % file_name
+    return response

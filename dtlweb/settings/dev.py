@@ -14,7 +14,7 @@ COMPANY_CAREER_EMAIL = 'ynguyen@dytechlab.com'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3_test'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3_dev'),
     }
 }
 

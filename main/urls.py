@@ -26,5 +26,7 @@ urlpatterns = [
     ),
     url(r'^contact$', views.contact, name='main.contact'),
     url(r'^what$', views.what_we_do, name='main.what'),
+    url(r'^media/resumes/(?P<file_name>.+)$', views.download_resume,
+        name='main.download_resume'),
 ]
 
