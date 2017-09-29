@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template import loader, Context

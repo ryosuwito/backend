@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys
 import os
@@ -8,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 
 from wsgiref.util import FileWrapper
 
@@ -249,11 +248,20 @@ def contact(request):
 
 @login_required
 def download_resume(request, file_name):
+    import glob
     file_path = os.path.join(settings.MEDIA_ROOT, 'resumes', file_name)
+    if not os.path.isfile(file_path):
+        # get the first file start with file_name
+        for fn in glob.glob('{}*'.format(file_path)):
+            file_path = fn
+            break
+    if not os.path.isfile(file_path):
+        raise Http404()
+
     file_wrapper = FileWrapper(file(file_path,'rb'))
     file_mimetype = mimetypes.guess_type(file_path)
-    response = HttpResponse(file_wrapper, content_type=file_mimetype )
+    response = HttpResponse(file_wrapper, content_type=file_mimetype)
     response['X-Sendfile'] = file_path
     response['Content-Length'] = os.stat(file_path).st_size
-    response['Content-Disposition'] = 'attachment; filename=%s' % smart_text(file_name)
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(os.path.basename(file_path))
     return response
