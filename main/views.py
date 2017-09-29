@@ -5,6 +5,8 @@ from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.utils.encoding import smart_text
 
 from wsgiref.util import FileWrapper
 
@@ -243,6 +245,7 @@ def contact(request):
     return render(request, "main/contact.html")
 
 
+@login_required
 def download_resume(request, file_name):
     file_path = os.path.join(settings.MEDIA_ROOT, 'resumes', file_name)
     file_wrapper = FileWrapper(file(file_path,'rb'))
@@ -250,5 +253,5 @@ def download_resume(request, file_name):
     response = HttpResponse(file_wrapper, content_type=file_mimetype )
     response['X-Sendfile'] = file_path
     response['Content-Length'] = os.stat(file_path).st_size
-    response['Content-Disposition'] = 'attachment; filename=%s' % file_name
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_text(file_name)
     return response
