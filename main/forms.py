@@ -93,6 +93,7 @@ class TestRequestForm(forms.ModelForm):
         model = TestRequest
         exclude = ['hashstr', 'application', 'created_at', 'status']
         widgets = {
+            'version': forms.RadioSelect,
             'datetime': DateTimeInput()
         }
 
