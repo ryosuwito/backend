@@ -152,7 +152,7 @@ class TestRequest(models.Model):
         if self.status == TestRequest.STATUS_SENT:
             return False
         if self.status == TestRequest.STATUS_SET:
-            return (timezone.now() + timedelta(days=2)).date() <= self.datetime.date()
+            return (timezone.now() + timedelta(days=2)) <= self.datetime
 
     def get_test_filepath(self):
         from django.conf import settings

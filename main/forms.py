@@ -111,3 +111,9 @@ class TestRequestForm(forms.ModelForm):
         # if weekno >= 5:
         #     raise forms.ValidationError("Please choose weekday (Monday to Friday) only")
         return dt
+
+    def clean(self):
+        if self.instance and self.instance.pk:
+            if not self.instance.allow_update():
+                raise forms.ValidationError(
+                    "You cannot change time of the test")

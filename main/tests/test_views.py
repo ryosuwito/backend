@@ -26,7 +26,7 @@ class TestRequestViewTest(TestCase):
     def setUp(self):
         pass
 
-    def test_retrive_testrequest(self):
+    def test_retrieve_testrequest(self):
         pass
 
     def test_update_testrequest(self):
