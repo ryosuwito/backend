@@ -57,8 +57,6 @@ def career_apply(request):
 def career_apply_intern(request, template="main/career_apply_intern.html"):
 
     def handle_intern_application_form(application):
-        # send confirmation email to candidate
-        send_online_application_confirm(application)
         # auto update status of the application to PASS_RESUME
         application.status = OnlineApplication.APP_STATUS_PASS_RESUME
         application.save()

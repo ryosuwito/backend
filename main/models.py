@@ -22,21 +22,6 @@ def get_test_filepath(test_request, version=None):
     return settings.TEST_FILES[test_request.application.position].get(version)
 
 
-def get_list_of_valid_intern_email():
-    from django.conf import settings
-    file_path = settings.FILE_INTERN_EMAILS
-    with open(file_path, 'r') as f:
-        headers = f.readline().strip().split(',')
-        valid_list = []
-        email_col = headers.index('Email')
-        for line in f:
-            try:
-                valid_list.append(line.strip().decode('utf-8').split(',')[email_col].strip())
-            except:
-                raise
-        return valid_list
-
-
 class OnlineApplication(models.Model):
     DEVELOPER = "DEV"
     Q_RESEARCHER = "QRES"
@@ -86,7 +71,7 @@ class OnlineApplication(models.Model):
         default=APP_STATUS_NEW)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.email
 
     def is_role_dev(self):
@@ -162,7 +147,7 @@ class TestRequest(models.Model):
     # Additional fields for admin management
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
+    def __unicode__(self):
         return "{}-{}-{}".format(self.application.email, self.application.position, self.datetime)
 
     def get_absolute_url(self):
@@ -195,6 +180,15 @@ class TestRequest(models.Model):
                 hashstr=gen_hashstr(application.email))
             test_request.save()
             return test_request
+
+
+class InternCandidate(models.Model):
+    chinese_name = models.CharField(max_length=30)
+    english_name = models.CharField(max_length=30)
+    email = models.EmailField(max_length=100, unique=True)
+
+    def __unicode__(self):
+        return u"{}: {}({})".format(self.email, self.chinese_name, self.english_name)
 
 
 class Position(object):

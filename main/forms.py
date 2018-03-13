@@ -8,8 +8,7 @@ from django.core.exceptions import ValidationError
 from django import forms
 from django.conf import settings
 
-from .models import OnlineApplication, TestRequest, get_test_filepath, \
-                    get_list_of_valid_intern_email
+from .models import OnlineApplication, TestRequest, InternCandidate, get_test_filepath
 
 
 DateTimeInput = partial(forms.DateTimeInput, {'class': 'datetime', 'type': 'hidden'})
@@ -109,8 +108,8 @@ class InternApplicationForm(OnlineApplicationForm):
 
     def clean_email(self):
         email = self.cleaned_data['email']
-        valid_list = get_list_of_valid_intern_email()
-        if email not in valid_list:
+        valid = InternCandidate.objects.filter(email=email)
+        if valid.count() == 0:
             raise forms.ValidationError(
                 "This email is not valid for the position at the moment"
             )
