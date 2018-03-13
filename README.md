@@ -20,23 +20,24 @@ python manage.py createsuperuser
 ```
 source env/bin/activate
 
+python manage.py runserver <port>
+
 # setup cronjobs in development
 # pls see result, you may need to run several times to resolve conflicts
 python manage.py crontab add --settings=dtlweb.settings.dev
 
-python manage.py runserver <port>
 ```
 
 # Deploy to production
 ```
 source env/bin/activate
 
+# run server
+./gunicorn/start.sh
+
 # setup cronjob in production
 # pls see result, you may need to run several times to resolve conflicts
 python manage.py crontab add --settings=dtlweb.settings.prod
-
-# run server
-./gunicorn/start.sh
 
 # put all you test files (i.e developer-en.pdf, ...) to ./media/ folder.
 ```
