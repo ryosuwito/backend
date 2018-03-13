@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-NUM_WORKERS=8
+NUM_WORKERS=16
 # /etc/init.d/postfix start
 # cd /usr/src/app/
 source env/bin/activate
