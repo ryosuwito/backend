@@ -19,9 +19,10 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
             return "None"
 
     get_scheduled_test.short_description = "Scheduled Test"
-    list_display = ('name', 'university', 'school', 'major', 'email', 'position', 'status', get_scheduled_test, 'info_src')
+    list_display = ('name', 'university', 'school', 'major', 'email',
+                    'position', 'status', get_scheduled_test, 'info_src')
     list_editable = ('status',)
-    list_filter = ('status',)
+    list_filter = ('position', 'status')
 
 
 @admin.register(TestRequest)
@@ -29,3 +30,4 @@ class TestRequest(admin.ModelAdmin):
     list_display = ('application', 'get_absolute_url', 'version', 'get_datetime', 'status')
     list_selected_related = ('application')
     list_display_links = ('application',)
+    list_filter=('application__position',)

@@ -8,7 +8,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 
 from .hashes import gen_hashstr
-from .emails import send_test_request, send_reject
 
 
 def user_resume_path(instance, filename):
@@ -16,14 +15,40 @@ def user_resume_path(instance, filename):
     return 'resumes/{}_{}'.format(instance.email, filename)
 
 
+def get_test_filepath(test_request, version=None):
+    from django.conf import settings
+    if version is None:
+        version = test_request.version
+    return settings.TEST_FILES[test_request.application.position].get(version)
+
+
+def get_list_of_valid_intern_email():
+    from django.conf import settings
+    file_path = settings.FILE_INTERN_EMAILS
+    with open(file_path, 'r') as f:
+        headers = f.readline().strip().split(',')
+        valid_list = []
+        email_col = headers.index('Email')
+        for line in f:
+            try:
+                valid_list.append(line.strip().decode('utf-8').split(',')[email_col].strip())
+            except:
+                raise
+        return valid_list
+
+
 class OnlineApplication(models.Model):
     DEVELOPER = "DEV"
     Q_RESEARCHER = "QRES"
     FQ_RESEARCHER = "FQRES"
+    INTERN_Q_RESEARCHER = 'INTERN_QRES'
     POSITION_CHOICES = (
         (DEVELOPER, "Developer"),
         (Q_RESEARCHER, "Quantitative Researcher"),
         (FQ_RESEARCHER, "Fundamental Quantitative Researcher"),
+    )
+    INTERN_POSITION_CHOICES = (
+        (INTERN_Q_RESEARCHER, "Quantitative Researcher (Intern)"),
     )
 
     APP_STATUS_NEW = "NEW"
@@ -43,7 +68,7 @@ class OnlineApplication(models.Model):
 
     position = models.CharField(
         max_length=20,
-        choices=POSITION_CHOICES,
+        choices=(POSITION_CHOICES + INTERN_POSITION_CHOICES),
         default=DEVELOPER)
     name = models.CharField(max_length=30)
     university = models.CharField(max_length=100, null=True, blank=True)
@@ -71,7 +96,11 @@ class OnlineApplication(models.Model):
         return self.position in [OnlineApplication.Q_RESEARCHER,
                                  OnlineApplication.FQ_RESEARCHER]
 
+    def is_role_intern(self):
+        return self.position == OnlineApplication.INTERN_Q_RESEARCHER
+
     def on_update_status(self):
+        from .emails import send_test_request, send_reject
         if self.status == OnlineApplication.APP_STATUS_PASS_RESUME:
             # if status --> PASS_RESUME, create a TestRequest & send link to candidate
             test_request = TestRequest.createTestRequestForApplication(self)
@@ -153,10 +182,6 @@ class TestRequest(models.Model):
             return False
         if self.status == TestRequest.STATUS_SET:
             return (timezone.now() + timedelta(days=2)) <= self.datetime
-
-    def get_test_filepath(self):
-        from django.conf import settings
-        return settings.TEST_FILES[self.application.position][self.version]
 
     @staticmethod
     def createTestRequestForApplication(application):

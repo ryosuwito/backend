@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import sys
 import os
+import logging
 import mimetypes
+import traceback
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -11,9 +13,12 @@ from django.utils.encoding import smart_str
 
 from wsgiref.util import FileWrapper
 
-from main.models import TestRequest, Position
-from main.forms import OnlineApplicationForm, TestRequestForm
+from main.models import TestRequest, Position, OnlineApplication
+from main.forms import OnlineApplicationForm, TestRequestForm, InternApplicationForm
 from main.emails import send_online_application_confirm, send_online_application_summary
+
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -29,7 +34,8 @@ def career_apply(request):
         send_online_application_confirm(application)
 
     if not request.POST:
-        return render(request, "main/career_apply.html", {'form': OnlineApplicationForm() })
+        return render(request, "main/career_apply.html", {
+            'form': OnlineApplicationForm() })
     else:
         # Handle POST request
         form = OnlineApplicationForm(request.POST, request.FILES)
@@ -41,11 +47,41 @@ def career_apply(request):
                 return render(request, "main/career_apply_confirm.html",
                               {'form': None})
             except:
-                print 'err', sys.exc_info()[0]
+                logger.error(traceback.format_exc())
                 model_instance.delete()
                 return render(request, "main/career_apply.html", {'form': form})
         else:
             return render(request, "main/career_apply.html", {'form': form})
+
+
+def career_apply_intern(request, template="main/career_apply_intern.html"):
+
+    def handle_intern_application_form(application):
+        # send confirmation email to candidate
+        send_online_application_confirm(application)
+        # auto update status of the application to PASS_RESUME
+        application.status = OnlineApplication.APP_STATUS_PASS_RESUME
+        application.save()
+
+    if not request.POST:
+        return render(request, template, {
+            'form': InternApplicationForm() })
+    else:
+        # Handle POST request
+        form = InternApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            model_instance = form.save(commit=False)
+            model_instance.save()
+            try:
+                handle_intern_application_form(model_instance)
+                return render(request, "main/career_apply_confirm.html",
+                              {'form': None})
+            except:
+                logger.error(traceback.format_exc())
+                model_instance.delete()
+                return render(request, template, {'form': form})
+        else:
+            return render(request, template, {'form': form})
 
 
 def career_test(request, req_id, hashstr):

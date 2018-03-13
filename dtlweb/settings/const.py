@@ -195,7 +195,7 @@ LOGGING = {
             'propagate': False,
         },
         'main': {
-            'handlers': ['errorfile'],
+            'handlers': ['errorfile', 'console'],
             'level': 'ERROR',
             'propagate': False,
         },

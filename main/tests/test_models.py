@@ -9,9 +9,9 @@ from django.utils import timezone
 from django.test import TestCase
 from django.core.files import File
 
-from main import models
+from main import models, emails
 
-from main.models import OnlineApplication, TestRequest
+from main.models import OnlineApplication, TestRequest, get_test_filepath
 from main.emails import send_test_request, send_reject
 
 FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
@@ -41,7 +41,7 @@ class OnlineApplicationTestCase(TestCase):
         self.application.save()
         self.application.on_update_status.assert_called_once_with()
 
-    @mock.patch('main.models.send_test_request', mock.Mock())
+    @mock.patch('main.emails.send_test_request', mock.Mock())
     def test_on_update_status_to_PASS_RESUME(self):
         with self.assertRaises(TestRequest.DoesNotExist):
             test_request = TestRequest.objects.get(application=self.application)
@@ -52,21 +52,21 @@ class OnlineApplicationTestCase(TestCase):
         test_request = TestRequest.objects.get(application=self.application)
         self.assertIsNotNone(test_request)
 
-        models.send_test_request.assert_called_once_with(test_request)
+        emails.send_test_request.assert_called_once_with(test_request)
 
-    @mock.patch('main.models.send_reject', mock.Mock())
+    @mock.patch('main.emails.send_reject', mock.Mock())
     def test_on_update_status_to_FAIL_RESUME(self):
         send_reject = mock.Mock()
         self.application.status = OnlineApplication.APP_STATUS_FAIL_RESUME
         self.application.on_update_status()
-        models.send_reject.assert_called_once_with(self.application)
+        emails.send_reject.assert_called_once_with(self.application)
 
-    @mock.patch('main.models.send_reject', mock.Mock())
+    @mock.patch('main.emails.send_reject', mock.Mock())
     def test_on_update_status_to_FAIL_TEST(self):
         send_reject = mock.Mock()
         self.application.status = OnlineApplication.APP_STATUS_FAIL_TEST
         self.application.on_update_status()
-        models.send_reject.assert_called_once_with(self.application)
+        emails.send_reject.assert_called_once_with(self.application)
 
 
 class TestRequestTestCase(TestCase):
@@ -102,7 +102,7 @@ class TestRequestTestCase(TestCase):
         test_request.status = TestRequest.STATUS_SET
         test_request.datetime = timezone.now() + timedelta(days=3)
         self.assertTrue(test_request.allow_update())
-        test_request.datetime = timezone.now() + timedelta(days=2)
+        test_request.datetime = timezone.now() + timedelta(days=2) + timedelta(seconds=10)
         self.assertTrue(test_request.allow_update())
         test_request.datetime = timezone.now() + timedelta(days=1)
         self.assertFalse(test_request.allow_update())
@@ -117,13 +117,13 @@ class TestRequestTestCase(TestCase):
             application=application,
             version = TestRequest.VER_ENGLISH
         )
-        self.assertEqual(test_request.get_test_filepath(), settings.TEST_FILES['DEV']['EN'])
+        self.assertEqual(get_test_filepath(test_request), settings.TEST_FILES['DEV']['EN'])
 
         application.position = OnlineApplication.Q_RESEARCHER
-        self.assertEqual(test_request.get_test_filepath(), settings.TEST_FILES['QRES']['EN'])
+        self.assertEqual(get_test_filepath(test_request), settings.TEST_FILES['QRES']['EN'])
 
         application.position = OnlineApplication.FQ_RESEARCHER
-        self.assertEqual(test_request.get_test_filepath(), settings.TEST_FILES['FQRES']['EN'])
+        self.assertEqual(get_test_filepath(test_request), settings.TEST_FILES['FQRES']['EN'])
 
         test_request.version = TestRequest.VER_CHINESE
-        self.assertEqual(test_request.get_test_filepath(), settings.TEST_FILES['FQRES']['CN'])
+        self.assertEqual(get_test_filepath(test_request), settings.TEST_FILES['FQRES']['CN'])

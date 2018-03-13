@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+import os
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template import loader, Context
 from django.utils.html import strip_tags
+
+from .models import get_test_filepath
 
 
 COMPANY_CAREER_EMAIL = settings.COMPANY_CAREER_EMAIL
@@ -37,7 +40,6 @@ def send_online_application_confirm(application):
     """
     send email to applicants indicating the application is received
     """
-    print 'send application confirm'
     send_templated_email(
         subject="job application - {}".format(application.get_position_display()),
         email_template="main/email_apply_confirm.html",
@@ -85,8 +87,13 @@ def send_test(test_request):
     """
     if test_request.application.is_role_dev():
         email_template = "main/email_test_dev.html"
-    else:
+    elif test_request.application.is_role_researcher():
         email_template = "main/email_test_research.html"
+    elif test_request.application.is_role_intern():
+        email_template = "main/email_test_intern.html"
+
+    file_test = get_test_filepath(test_request)
+    assert (os.path.isfile(file_test))
 
     send_templated_email(
         subject="written test: {}"
@@ -96,7 +103,7 @@ def send_test(test_request):
             'name': test_request.application.name},
         recipients=[test_request.application.email, ],
         cc=[COMPANY_CAREER_EMAIL],
-        files=test_request.get_test_filepath())
+        files=file_test)
 
 
 def send_reject(application):

@@ -3,21 +3,22 @@ from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.utils import timezone
 import datetime
-
-from .models import OnlineApplication, TestRequest
-
 from functools import partial
-DateTimeInput = partial(forms.DateTimeInput, {'class': 'datetime', 'type': 'hidden'})
-
-
 from django.core.exceptions import ValidationError
 from django import forms
+from django.conf import settings
+
+from .models import OnlineApplication, TestRequest, get_test_filepath, \
+                    get_list_of_valid_intern_email
+
+
+DateTimeInput = partial(forms.DateTimeInput, {'class': 'datetime', 'type': 'hidden'})
 
 
 class OptionalChoiceWidget(forms.MultiWidget):
     def decompress(self, value):
         #this might need to be tweaked if the name of a choice != value of a choice
-        if value: #indicates we have a updating object versus new one
+        if value: # indicates we have a updating object versus new one
             if value in [x[0] for x in self.widgets[0].choices]:
                  return [value, ""] # make it set the pulldown to choice
             else:
@@ -72,6 +73,10 @@ class InfoSourceField(forms.MultiValueField):
 
 
 class OnlineApplicationForm(forms.ModelForm):
+    position = forms.ChoiceField(
+        choices=OnlineApplication.POSITION_CHOICES,
+        widget=forms.RadioSelect,
+        initial=OnlineApplication.POSITION_CHOICES[0][0])
     resume = forms.FileField()
     info_src = InfoSourceField()
 
@@ -83,9 +88,33 @@ class OnlineApplicationForm(forms.ModelForm):
             'position': _('Position *'),
             'email': _('Email *'),
         }
+
+
+class InternApplicationForm(OnlineApplicationForm):
+    position = forms.ChoiceField(
+        choices=OnlineApplication.INTERN_POSITION_CHOICES,
+        widget=forms.RadioSelect,
+        initial=OnlineApplication.INTERN_POSITION_CHOICES[0][0])
+
+    class Meta:
+        model = OnlineApplication
+        exclude = ['created_at', 'status']
+        labels = {
+            'name': _('Name *'),
+            'email': _('Email *'),
+        }
         widgets = {
             'position': forms.RadioSelect
         }
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        valid_list = get_list_of_valid_intern_email()
+        if email not in valid_list:
+            raise forms.ValidationError(
+                "This email is not valid for the position at the moment"
+            )
+        return email
 
 
 class TestRequestForm(forms.ModelForm):
@@ -100,8 +129,14 @@ class TestRequestForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(TestRequestForm, self).__init__(*args, **kwargs)
         if self.instance.pk:
-            if self.instance.application.position == OnlineApplication.DEVELOPER:
+            version_valid_choices = filter(
+               lambda v: get_test_filepath(self.instance, version=v[0]) is not None,
+               self.fields['version'].choices)
+            print(version_valid_choices)
+            if len(version_valid_choices) < 2:
                 del self.fields['version']
+            else:
+                self.fields['version'].choices = version_valid_choices
 
     def clean_datetime(self):
         dt = self.cleaned_data['datetime']
