@@ -5,10 +5,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'main/static/')
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'main/media/')
-
 COMPANY_CAREER_EMAIL = 'ynguyen@dytechlab.com'
 
 DATABASES = {
