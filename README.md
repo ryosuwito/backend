@@ -42,6 +42,22 @@ python manage.py crontab add --settings=dtlweb.settings.prod
 # put all you test files (i.e developer-en.pdf, ...) to ./media/ folder.
 ```
 
+
+# Update test files
+
+- Check configuration in `dtlweb/settings/prod.py`.
+- Currently all test files are kept in `media/` folder, and put to git repository too
+in order to have version control of those test files.
+
+- To update, just replace the file in `media/` folder, push to git and pull the change
+on the deployment server.
+
+
+# Other Notes
+
+- Resumes are kepts in `media/resumes` folder.
+
+
 # Run unittest
 ```
 source env/bin/activate
