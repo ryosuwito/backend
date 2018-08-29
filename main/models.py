@@ -28,7 +28,7 @@ class OnlineApplication(models.Model):
     FQ_RESEARCHER = "FQRES"
     INTERN_Q_RESEARCHER = 'INTERN_QRES'
     POSITION_CHOICES = (
-        (DEVELOPER, "Developer"),
+        (DEVELOPER, "Developer/Data Engineer/Operation Specialist"),
         (Q_RESEARCHER, "Quantitative Researcher"),
         (FQ_RESEARCHER, "Fundamental Quantitative Researcher"),
     )
