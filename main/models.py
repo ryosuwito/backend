@@ -24,11 +24,15 @@ def get_test_filepath(test_request, version=None):
 
 class OnlineApplication(models.Model):
     DEVELOPER = "DEV"
+    DATA_ENGINEER = 'DATA_ENGINEER'
+    OPERATION_SPECIALIST = 'OP_SPECIALIST'
     Q_RESEARCHER = "QRES"
     FQ_RESEARCHER = "FQRES"
     INTERN_Q_RESEARCHER = 'INTERN_QRES'
     POSITION_CHOICES = (
-        (DEVELOPER, "Developer/Data Engineer/Operation Specialist"),
+        (DEVELOPER, "Developer"),
+        (DATA_ENGINEER, "Data Engineer"),
+        (OPERATION_SPECIALIST, "Operation Specialist"),
         (Q_RESEARCHER, "Quantitative Researcher"),
         (FQ_RESEARCHER, "Fundamental Quantitative Researcher"),
     )

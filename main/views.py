@@ -199,7 +199,55 @@ def career_jobs(request):
                     '''System administration experience'''
                 ]
             ]
-        )
+        ),
+		Position(
+			"Data Engineer",
+            [
+				'''Data Engineers coordinate with researchers to develop and manage data inventories and design framework to facilitate efficient processing of large-scale data. They monitor and maintain data production on a daily basis.''',
+			],
+			[
+                [
+                    '''Highly detail-oriented''',
+                    '''Strong problem-solving skills in python and good understanding of data structure/algorithms''',
+                    '''Ability to prioritize work and multi-task''',
+                    '''Ability to take responsibility and work well as a team member''',
+                    '''Comfortable with Linux''',
+                ],
+                '''The following skills are bonus:''',
+                [
+                    '''Knowledge on database and big data tools like hadoop, spark''',
+                    '''Web development experience''',
+                    '''Experience with large data (>100G)''',
+                ]
+            ]
+		),
+        Position(
+            "Operation Specialist",
+            [
+				'''Operation specialists are responsible for the global trading operation around the clock. They also work with researchers for deployment-related works''',
+                '''Typical responsibilities include:''',
+                [
+                    '''Development and maintenance of data and jobs across cluster''',
+                    '''Global trading activities monitoring''',
+                    '''New broker/market onboarding''',
+                    '''Maintenance of backtesting platform''',
+                ]
+            ],
+            [
+                [
+                    '''Familiar with Linux commands''',
+                    '''Good programming skills, especially in bash and python''',
+                    '''Love to automate the daily work by programming as much as possible''',
+                    '''Strong problem-solving skills''',
+                ],
+                '''The following skills are bonus:''',
+                [
+                    '''Interests in stock markets''',
+                    '''Familiar with popular relation and/or NoSQL databases''',
+                    '''System administrator experience''',
+                ]
+            ]
+        ),
     ]
     return render(request, "main/career_job_opening.html", {'positions': positions})
 

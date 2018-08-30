@@ -3,7 +3,7 @@ from .const import *
 # Overwrite any settings variables of base here
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['ynguyen-pc.dtl', 'localhost']
 
 COMPANY_CAREER_EMAIL = 'ynguyen@dytechlab.com'
 
