@@ -1,13 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import sys
 import os
 import traceback
+import logging
 
 from django.utils import timezone
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from models import TestRequest
 from emails import send_test
+
+
+logger = logging.getLogger(__name__)
 
 
 def need_send_test_now(test_request):
@@ -28,4 +33,4 @@ def send_online_tests():
                 req.status = TestRequest.STATUS_SENT
                 req.save()
         except:
-            pass
+            logger.error(traceback.format_exc())

@@ -131,7 +131,6 @@ class TestRequestForm(forms.ModelForm):
             version_valid_choices = filter(
                lambda v: get_test_filepath(self.instance, version=v[0]) is not None,
                self.fields['version'].choices)
-            print(version_valid_choices)
             if len(version_valid_choices) < 2:
                 del self.fields['version']
             else:

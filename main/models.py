@@ -19,7 +19,7 @@ def get_test_filepath(test_request, version=None):
     from django.conf import settings
     if version is None:
         version = test_request.version
-    return settings.TEST_FILES[test_request.application.position].get(version)
+    return settings.TEST_FILES.get(test_request.application.position, {}).get(version)
 
 
 class OnlineApplication(models.Model):
@@ -87,6 +87,12 @@ class OnlineApplication(models.Model):
 
     def is_role_intern(self):
         return self.position == OnlineApplication.INTERN_Q_RESEARCHER
+
+    def is_role_data_engine(self):
+        return self.position == OnlineApplication.DATA_ENGINEER
+
+    def is_role_operation(self):
+        return self.position == OnlineApplication.OPERATION_SPECIALIST
 
     def on_update_status(self):
         from .emails import send_test_request, send_reject

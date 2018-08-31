@@ -27,10 +27,19 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
 
 @admin.register(TestRequest)
 class TestRequestAdmin(admin.ModelAdmin):
-    list_display = ('application', 'get_absolute_url', 'version', 'get_datetime', 'status')
+    def get_position(obj):
+        if not obj.application:
+            return 'NO APPLICATION FOUND'
+        return obj.application.position
+
+    get_position.short_description = 'Position'
+
+    list_display = ('application', get_position, 'get_absolute_url',
+                    'version', 'get_datetime', 'status')
     list_selected_related = ('application')
     list_display_links = ('application',)
     list_filter=('application__position',)
+
 
 
 @admin.register(InternCandidate)

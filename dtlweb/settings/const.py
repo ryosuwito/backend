@@ -139,6 +139,32 @@ MAILER_EMAIL_THROTTLE = 0  # passed to time.sleep()
 
 COMPANY_CAREER_EMAIL = 'careers@dytechlab.com'
 
+TEST_FILES = {
+    'DEV': {
+        'EN': os.path.join(MEDIA_ROOT, 'developer-en.pdf'),
+    },
+    'QRES': {
+        'EN': os.path.join(MEDIA_ROOT, 'researcher-en.pdf'),
+        'CN': os.path.join(MEDIA_ROOT, 'researcher-cn.pdf'),
+    },
+    'FQRES': {
+        'EN': os.path.join(MEDIA_ROOT, 'researcher-en.pdf'),
+        'CN': os.path.join(MEDIA_ROOT, 'researcher-cn.pdf'),
+    },
+    'INTERN_QRES': {
+        'EN': os.path.join(MEDIA_ROOT, 'intern-researcher-en.pdf'),
+    },
+    'DATA_ENGINEER': {
+        'EN': os.path.join(MEDIA_ROOT, 'data-engineer-en.pdf'),
+    },
+    'OP_SPECIALIST': {
+        'EN': os.path.join(MEDIA_ROOT, 'data-engineer-en.pdf'),
+    },
+}
+
+FILE_INTERN_EMAILS = os.path.join(MEDIA_ROOT, 'intern-list.csv')
+
+
 # Crontab settings
 CRONJOBS = [
         # cronjob every minute, try to send online tests that are scheduled today
