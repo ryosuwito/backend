@@ -155,10 +155,10 @@ TEST_FILES = {
         'EN': os.path.join(MEDIA_ROOT, 'intern-researcher-en.pdf'),
     },
     'DATA_ENGINEER': {
-        'EN': os.path.join(MEDIA_ROOT, 'data-engineer-en.pdf'),
+        'EN': os.path.join(MEDIA_ROOT, 'dtl-project.pdf'),
     },
     'OP_SPECIALIST': {
-        'EN': os.path.join(MEDIA_ROOT, 'data-engineer-en.pdf'),
+        'EN': os.path.join(MEDIA_ROOT, 'dtl-project.pdf'),
     },
 }
 
