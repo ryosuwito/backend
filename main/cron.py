@@ -33,4 +33,4 @@ def send_online_tests():
                 req.status = TestRequest.STATUS_SENT
                 req.save()
         except:
-            logger.error(traceback.format_exc())
+            logger.error("{}: {}".format(req, traceback.format_exc()))

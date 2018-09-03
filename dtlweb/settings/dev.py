@@ -14,4 +14,5 @@ DATABASES = {
     }
 }
 
-# Declare variables that are depended on other variables here
+ADMINS = [('careers-admin', COMPANY_CAREER_EMAIL)]
+SERVER_EMAIL = COMPANY_CAREER_EMAIL
