@@ -23,7 +23,7 @@ source env/bin/activate
 python manage.py runserver <port> --settings=dtlweb.settings.dev
 
 # setup cronjobs in development
-# pls see result, you may need to run several times to resolve conflicts
+# pls see result, you may need to run 2 times to resolve conflicts
 python manage.py crontab add --settings=dtlweb.settings.dev
 
 ```
@@ -39,9 +39,6 @@ source env/bin/activate
 
 # setup cronjob in production
 # pls see result, you may need to run several times to resolve conflicts
-
-python manage.py crontab add --settings=dtlweb.settings.prod
-
 ```
 
 
