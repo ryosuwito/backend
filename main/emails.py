@@ -69,7 +69,7 @@ def send_test_request(test_request):
     send email to applicants with test request link for them to schedule test
     """
     from main.models import OnlineApplication
-    template = "main/email_test_request.html",
+    template = "main/email_test_request.html"
     if test_request.application.is_role_data_engine() \
         or test_request.application.is_role_operation():
         template = "main/email_test_request_for_data_engineer.html"
