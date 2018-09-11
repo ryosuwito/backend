@@ -2,4 +2,5 @@
 
 ## 20180911
 
-- Add destroy option in document update api
+- Put Quantitative Researcher (Internship) position into main application page
+
