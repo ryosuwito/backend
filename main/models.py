@@ -202,7 +202,7 @@ class InternCandidate(models.Model):
 
 
 class Position(object):
-    def __init__(self, title, desc, qualification):
+    def __init__(self, title, desc, qualification, location=None, duration=None):
         """
         title: string
         desc: []
@@ -211,3 +211,5 @@ class Position(object):
         self.title = title
         self.desc = desc
         self.qualification = qualification
+        self.location = location
+        self.duration = duration

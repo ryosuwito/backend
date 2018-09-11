@@ -255,13 +255,6 @@ def career_jobs(request):
 					"""Focus on research topics with the guidance of senior researchers""",
 					"""Implement trading signals and quantitative strategies""",
 				],
-
-                """Intern Duration:""",
-                [
-                    """Full-time: at least 2 months""",
-                    """Part-time: at least 3 days per week for a minimum of 4 months""",
-                ],
-                """Location: Shanghai""",
             ],
             [
                 [
@@ -279,6 +272,13 @@ def career_jobs(request):
 					"""Familiar with at least one scripting language, e.g. Python, MATLAB, etc.""",
                 ],
 				"""Return offer will be given upon exceptional performance during internship."""
+            ],
+            location=["Shanghai"],
+            duration=[
+                [
+                    """Full-time: at least 2 months""",
+                    """Part-time: at least 3 days per week for a minimum of 4 months""",
+                ]
             ]
         ),
     ]
