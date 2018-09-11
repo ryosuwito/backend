@@ -120,17 +120,17 @@ def career_test(request, req_id, hashstr):
 def career_overview(request):
     why_dtl = [
         {
-            "desc": '''Learn from the Best''',
-            "content": '''Our employees are top-notch talents in their fields. Though they come with diverse background, they share a common drive to succeed. As DTL's new employee, you could learn from our experienced mentors. We strive to maintain a friendly, collegiate working environment to promote self-improvement and career development.'''},
+            "desc": """Learn from the Best""",
+            "content": """Our employees are top-notch talents in their fields. Though they come with diverse background, they share a common drive to succeed. As DTL's new employee, you could learn from our experienced mentors. We strive to maintain a friendly, collegiate working environment to promote self-improvement and career development."""},
         {
-            "desc": '''Receive thorough Training''',
-            "content": '''A job offer at DTL is the start of our investment in you. Based on your background, we will develop specific programs and provide resources ( books, papers, tutorials etc. ) to help you build and enhance your skills in finance, mathematics, statistics and programming.'''},
+            "desc": """Receive thorough Training""",
+            "content": """A job offer at DTL is the start of our investment in you. Based on your background, we will develop specific programs and provide resources ( books, papers, tutorials etc. ) to help you build and enhance your skills in finance, mathematics, statistics and programming."""},
         {
-            "desc": '''Share Our Success''',
-            "content": '''We are a specialized investment team with excellent track record. By joining us, you will grow together with the company. Your remuneration will be based on your performance and the company's performance as a whole. We offer highly competitive compensation packages.'''},
+            "desc": """Share Our Success""",
+            "content": """We are a specialized investment team with excellent track record. By joining us, you will grow together with the company. Your remuneration will be based on your performance and the company's performance as a whole. We offer highly competitive compensation packages."""},
         {
-            "desc": '''Make A Difference''',
-            "content": '''You can really make a difference even during entry-level as you will be tasked with challenging yet interesting assignments. We strive to help you in every way to facilitate innovation and brainstorm fresh ideas which are the key to our success.'''}
+            "desc": """Make A Difference""",
+            "content": """You can really make a difference even during entry-level as you will be tasked with challenging yet interesting assignments. We strive to help you in every way to facilitate innovation and brainstorm fresh ideas which are the key to our success."""}
     ]
     return render(request, "main/career_overview.html", {'why_dtl': why_dtl})
 
@@ -139,113 +139,146 @@ def career_jobs(request):
     positions = [
         Position(
             "Fundamental Quantitative Researcher",
-            ['''The fundamental quantitative researchers develop trading ideas using fundamental and quantitative analysis. A mixed background of finance, programming and statistics is preferred for this position.'''],
+            ["""The fundamental quantitative researchers develop trading ideas using fundamental and quantitative analysis. A mixed background of finance, programming and statistics is preferred for this position."""],
             [
                 [
-                    '''Recent Master/PhD from a finance, accounting, economics or related field. Bachelors with exceptional performance will also be considered''',
-                    '''Key interest in financial markets''',
-                    '''Attention to detail''',
-                    '''Excellent analytical and financial skills''',
+                    """Recent Master/PhD from a finance, accounting, economics or related field. Bachelors with exceptional performance will also be considered""",
+                    """Key interest in financial markets""",
+                    """Attention to detail""",
+                    """Excellent analytical and financial skills""",
                 ],
-                '''The following skills are bonus in recruitment and are required before on board''',
+                """The following skills are bonus in recruitment and are required before on board""",
                 [
-                    '''Intermediate programming skills''',
-                    '''Comfortable with Linux/Unix''',
+                    """Intermediate programming skills""",
+                    """Comfortable with Linux/Unix""",
                 ]
             ]
         ),
         Position(
             "Quantitative Researcher",
-            ['''The quantitative researchers design and backtest trading models, which form the most important elements in the final trading strategies. They work in groups or independently, depending on the projects and/or the researchers' preference. Creativity and innovation are what we are looking for in this position.'''],
+            ["""The quantitative researchers design and backtest trading models, which form the most important elements in the final trading strategies. They work in groups or independently, depending on the projects and/or the researchers' preference. Creativity and innovation are what we are looking for in this position."""],
             [
                 [
-                    '''Recent Master/PhD from a science, engineering, or related field. Bachelors with exceptional performance will also be considered''',
-                    '''Solid background in mathematics''',
-                    '''Strong programming skills''',
-                    '''Strong problem solving and quantitative skills''',
-                    '''Possess the desire and will to learn complicated topics, to solve difficult problems, and to handle tedious tasks carefully''',
+                    """Recent Master/PhD from a science, engineering, or related field. Bachelors with exceptional performance will also be considered""",
+                    """Solid background in mathematics""",
+                    """Strong programming skills""",
+                    """Strong problem solving and quantitative skills""",
+                    """Possess the desire and will to learn complicated topics, to solve difficult problems, and to handle tedious tasks carefully""",
                 ],
-                '''The following skills are bonus in recruitment and are required before on board:''',
+                """The following skills are bonus in recruitment and are required before on board:""",
                 [
-                    '''Comfortable with Linux/Unix''',
-                    '''Familiar with at least one scripting language, e.g. python, awk, etc'''
+                    """Comfortable with Linux/Unix""",
+                    """Familiar with at least one scripting language, e.g. python, awk, etc"""
                 ]
             ]
         ),
         Position(
             "Front Desk Quant Developer",
             [
-                '''The front desk quant developers maintain our trading/research capabilities in global markets and innovate how we do them.''',
-                '''Typical responsibilities include:''',
+                """The front desk quant developers maintain our trading/research capabilities in global markets and innovate how we do them.""",
+                """Typical responsibilities include:""",
                 [
-                    '''Optimizing the performance of various components of the trading system''',
-                    '''Maintaining, enhancing backtest simulator''',
-                    '''Exploring big-data infrastructure for research''',
-                    '''Execution algorithms research''',
-                    '''Working with researchers on high-frequency strategies'''
+                    """Optimizing the performance of various components of the trading system""",
+                    """Maintaining, enhancing backtest simulator""",
+                    """Exploring big-data infrastructure for research""",
+                    """Execution algorithms research""",
+                    """Working with researchers on high-frequency strategies"""
                 ]
             ],
             [
                 [
-                    '''Expert programming skills in some well-known language, along with knowledge on computer system, e.g. networking, threading, etc.''',
-                    '''Ability to write sizable applications and manage complexity''',
-                    '''Effective communicator and decision maker''',
-                    '''Linux experience''',
+                    """Expert programming skills in some well-known language, along with knowledge on computer system, e.g. networking, threading, etc.""",
+                    """Ability to write sizable applications and manage complexity""",
+                    """Effective communicator and decision maker""",
+                    """Linux experience""",
                 ],
-                '''The following skills are bonus:''',
+                """The following skills are bonus:""",
                 [
-                    '''Familiar with Linux kernel''',
-                    '''Experience with hardware development, e.g. NIC, GPU, and FPGA etc.''',
-                    '''System administration experience'''
+                    """Familiar with Linux kernel""",
+                    """Experience with hardware development, e.g. NIC, GPU, and FPGA etc.""",
+                    """System administration experience"""
                 ]
             ]
         ),
 		Position(
 			"Data Engineer",
             [
-				'''Data Engineers coordinate with researchers to develop and manage data inventories and design framework to facilitate efficient processing of large-scale data. They monitor and maintain data production on a daily basis.''',
+				"""Data Engineers coordinate with researchers to develop and manage data inventories and design framework to facilitate efficient processing of large-scale data. They monitor and maintain data production on a daily basis.""",
 			],
 			[
                 [
-                    '''Highly detail-oriented''',
-                    '''Strong problem-solving skills in python and good understanding of data structure/algorithms''',
-                    '''Ability to prioritize work and multi-task''',
-                    '''Ability to take responsibility and work well as a team member''',
-                    '''Comfortable with Linux''',
+                    """Highly detail-oriented""",
+                    """Strong problem-solving skills in python and good understanding of data structure/algorithms""",
+                    """Ability to prioritize work and multi-task""",
+                    """Ability to take responsibility and work well as a team member""",
+                    """Comfortable with Linux""",
                 ],
-                '''The following skills are bonus:''',
+                """The following skills are bonus:""",
                 [
-                    '''Knowledge on database and big data tools like hadoop, spark''',
-                    '''Web development experience''',
-                    '''Experience with large data (>100G)''',
+                    """Knowledge on database and big data tools like hadoop, spark""",
+                    """Web development experience""",
+                    """Experience with large data (>100G)""",
                 ]
             ]
 		),
         Position(
             "Operation Specialist",
             [
-				'''Operation specialists are responsible for the global trading operation around the clock. They also work with researchers for deployment-related works''',
-                '''Typical responsibilities include:''',
+				"""Operation specialists are responsible for the global trading operation around the clock. They also work with researchers for deployment-related works""",
+                """Typical responsibilities include:""",
                 [
-                    '''Development and maintenance of data and jobs across cluster''',
-                    '''Global trading activities monitoring''',
-                    '''New broker/market onboarding''',
-                    '''Maintenance of backtesting platform''',
+                    """Development and maintenance of data and jobs across cluster""",
+                    """Global trading activities monitoring""",
+                    """New broker/market onboarding""",
+                    """Maintenance of backtesting platform""",
                 ]
             ],
             [
                 [
-                    '''Familiar with Linux commands''',
-                    '''Good programming skills, especially in bash and python''',
-                    '''Love to automate the daily work by programming as much as possible''',
-                    '''Strong problem-solving skills''',
+                    """Familiar with Linux commands""",
+                    """Good programming skills, especially in bash and python""",
+                    """Love to automate the daily work by programming as much as possible""",
+                    """Strong problem-solving skills""",
                 ],
-                '''The following skills are bonus:''',
+                """The following skills are bonus:""",
                 [
-                    '''Interests in stock markets''',
-                    '''Familiar with popular relation and/or NoSQL databases''',
-                    '''System administrator experience''',
+                    """Interests in stock markets""",
+                    """Familiar with popular relation and/or NoSQL databases""",
+                    """System administrator experience""",
                 ]
+            ]
+        ),
+        Position(
+            "Quantitative Researcher (Internship)",
+            [
+                [
+					"""Focus on research topics with the guidance of senior researchers""",
+					"""Implement trading signals and quantitative strategies""",
+				],
+
+                """Intern Duration:""",
+                [
+                    """Full-time: at least 2 months""",
+                    """Part-time: at least 3 days per week for a minimum of 4 months""",
+                ],
+                """Location: Shanghai""",
+            ],
+            [
+                [
+					"""Master or PhD in Mathematics, Physics, Economics, Finance, Computer Engineering, Engineering, or other related fields from top universities. Applicants with a Bachelor’s degree and exceptional performance will also be considered""",
+					"""Strong mathematical and statistical skills""",
+					"""Good programming skills""",
+					"""Excellent problem-solving skills""",
+					"""Detail-oriented with the ability to handle tedious tasks carefully""",
+					"""Proactive and eager to learn complicated topics""",
+
+                ],
+                """The following skills are bonus and you will be required to complete learning projects before onboarding:""",
+                [
+					"""Experience with Linux/Unix""",
+					"""Familiar with at least one scripting language, e.g. Python, MATLAB, etc.""",
+                ],
+				"""Return offer will be given upon exceptional performance during internship."""
             ]
         ),
     ]

@@ -22,9 +22,12 @@ source env/bin/activate
 
 python manage.py runserver <port> --settings=dtlweb.settings.dev
 
-# setup cronjobs in development
-# pls see result, you may need to run 2 times to resolve conflicts
-python manage.py crontab add --settings=dtlweb.settings.dev
+# Open manage.py, change default environment to development
+# manage.py
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dtlweb.settings.dev")
+
+# Run server
+./scripts/dev/runserver.sh
 
 ```
 

@@ -37,7 +37,7 @@ class OnlineApplication(models.Model):
         (FQ_RESEARCHER, "Fundamental Quantitative Researcher"),
     )
     INTERN_POSITION_CHOICES = (
-        (INTERN_Q_RESEARCHER, "Quantitative Researcher (Intern)"),
+        (INTERN_Q_RESEARCHER, "Quantitative Researcher (Internship)"),
     )
 
     APP_STATUS_NEW = "NEW"

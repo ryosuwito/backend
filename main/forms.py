@@ -73,7 +73,7 @@ class InfoSourceField(forms.MultiValueField):
 
 class OnlineApplicationForm(forms.ModelForm):
     position = forms.ChoiceField(
-        choices=OnlineApplication.POSITION_CHOICES,
+        choices=(OnlineApplication.POSITION_CHOICES + OnlineApplication.INTERN_POSITION_CHOICES),
         widget=forms.RadioSelect,
         initial=OnlineApplication.POSITION_CHOICES[0][0])
     resume = forms.FileField()
@@ -87,6 +87,16 @@ class OnlineApplicationForm(forms.ModelForm):
             'position': _('Position *'),
             'email': _('Email *'),
         }
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        applications = OnlineApplication.objects.filter(email=email)
+        if applications.count() > 0:
+            position = application = applications.first().get_position_display()
+            raise forms.ValidationError(
+                "You've already applied for %s position before." % position
+            )
+        return email
 
 
 class InternApplicationForm(OnlineApplicationForm):
