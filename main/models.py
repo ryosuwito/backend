@@ -29,6 +29,7 @@ class OnlineApplication(models.Model):
     Q_RESEARCHER = "QRES"
     FQ_RESEARCHER = "FQRES"
     INTERN_Q_RESEARCHER = 'INTERN_QRES'
+    INTERN_DATA_ENGINEER = 'INTERN_DATA_ENGINEER'
     POSITION_CHOICES = (
         (DEVELOPER, "Developer"),
         (DATA_ENGINEER, "Data Engineer"),
@@ -38,6 +39,7 @@ class OnlineApplication(models.Model):
     )
     INTERN_POSITION_CHOICES = (
         (INTERN_Q_RESEARCHER, "Quantitative Researcher (Internship)"),
+        (INTERN_DATA_ENGINEER, "Data Engineer (Internship)"),
     )
 
     APP_STATUS_NEW = "NEW"
@@ -84,15 +86,6 @@ class OnlineApplication(models.Model):
     def is_role_researcher(self):
         return self.position in [OnlineApplication.Q_RESEARCHER,
                                  OnlineApplication.FQ_RESEARCHER]
-
-    def is_role_intern(self):
-        return self.position == OnlineApplication.INTERN_Q_RESEARCHER
-
-    def is_role_data_engine(self):
-        return self.position == OnlineApplication.DATA_ENGINEER
-
-    def is_role_operation(self):
-        return self.position == OnlineApplication.OPERATION_SPECIALIST
 
     def on_update_status(self):
         from .emails import send_test_request, send_reject
@@ -202,7 +195,8 @@ class InternCandidate(models.Model):
 
 
 class Position(object):
-    def __init__(self, title, desc, qualification, location=None, duration=None):
+    def __init__(self, title, desc, qualification,
+                 location=None, duration=None):
         """
         title: string
         desc: []

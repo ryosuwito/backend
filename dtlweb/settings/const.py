@@ -160,6 +160,9 @@ TEST_FILES = {
     'OP_SPECIALIST': {
         'EN': os.path.join(MEDIA_ROOT, 'dtl-project.pdf'),
     },
+    'INTERN_DATA_ENGINEER': {
+        'EN': os.path.join(MEDIA_ROOT, 'dtl-project.pdf'),
+    },
 }
 
 FILE_INTERN_EMAILS = os.path.join(MEDIA_ROOT, 'intern-list.csv')

@@ -5,7 +5,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template import loader, Context
 from django.utils.html import strip_tags
 
-from .models import get_test_filepath
+from .models import get_test_filepath, OnlineApplication
 
 
 COMPANY_CAREER_EMAIL = settings.COMPANY_CAREER_EMAIL
@@ -68,10 +68,12 @@ def send_test_request(test_request):
     """
     send email to applicants with test request link for them to schedule test
     """
-    from main.models import OnlineApplication
     template = "main/email_test_request.html"
-    if test_request.application.is_role_data_engine() \
-        or test_request.application.is_role_operation():
+
+    if test_request.application.position in [
+            OnlineApplication.DATA_ENGINEER,
+            OnlineApplication.OPERATION_SPECIALIST,
+            OnlineApplication.INTERN_DATA_ENGINEER]:
         template = "main/email_test_request_for_data_engineer.html"
 
     send_templated_email(
@@ -92,10 +94,12 @@ def send_test(test_request):
     """
     if test_request.application.is_role_researcher():
         email_template = "main/email_test_research.html"
-    elif test_request.application.is_role_intern():
-        email_template = "main/email_test_intern.html"
-    elif test_request.application.is_role_data_engine() \
-        or test_request.application.is_role_operation():
+    elif test_request.application.position == OnlineApplication.INTERN_Q_RESEARCHER:
+        email_template = "main/email_test_intern_researcher.html"
+    elif test_request.application.position in [
+            OnlineApplication.DATA_ENGINEER,
+            OnlineApplication.OPERATION_SPECIALIST,
+            OnlineApplication.INTERN_DATA_ENGINEER]:
         email_template = "main/email_test_data_engineer.html"
     elif test_request.application.is_role_dev():
         email_template = "main/email_test_dev.html"
