@@ -108,9 +108,10 @@
                   </div>
                 </div>
             {% else %}
-              {{ form_msg }}
+                <font color="red">{{ form_msg }}</font>
             {% endif %}
           </div>
+          {% if show_online_schedule_link %}
           </br>
           <div>
             <font color="red">If you could not attend the onsite test, please click the link to schedule an online written test below.
@@ -119,6 +120,7 @@
                 <a href="{{ test_req_link }}" class="link link-inline"><b>Online Written Test Schedule Link</b></a>
             </p>
           </div>
+          {% endif %}
       </div>
     </div>
   </div>

@@ -63,13 +63,13 @@ def register(request, req_id, hashstr):
             'career_talks': CAREER_TALK,
             'tests': WRITTEN_TEST,
             'test_req_link': test_request.get_absolute_url(),
-
+            'show_online_schedule_link': True,
         }
-        print(test_request.application.test_site)
         if test_request.application.test_site not in ['', None]:
             context['form'] = None
             context['form_msg'] = 'You already registered for site: %s'\
                 % SITE_CHOICES_MAP[test_request.application.test_site]
+            context['show_online_schedule_link'] = False
 
         return context
 
