@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 20180920
+
+Changes:
+
+OnlineApplication model: add field is_onsite_recruiment, test_site
+update chinaevent app for china recruiting 2019
+
 ## 20180913
 
 - Add position: Data Engineer (Internship)
