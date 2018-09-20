@@ -8,7 +8,8 @@ from django.core.exceptions import ValidationError
 from django import forms
 from django.conf import settings
 
-from .models import OnlineApplication, TestRequest, InternCandidate, get_test_filepath
+from .models import OnlineApplication, TestRequest,\
+        InternCandidate, get_test_filepath
 
 
 DateTimeInput = partial(forms.DateTimeInput, {'class': 'datetime', 'type': 'hidden'})
@@ -16,7 +17,8 @@ DateTimeInput = partial(forms.DateTimeInput, {'class': 'datetime', 'type': 'hidd
 
 class OptionalChoiceWidget(forms.MultiWidget):
     def decompress(self, value):
-        #this might need to be tweaked if the name of a choice != value of a choice
+        # this might need to be tweaked if the name of a
+        # choice != value of a choice
         if value: # indicates we have a updating object versus new one
             if value in [x[0] for x in self.widgets[0].choices]:
                  return [value, ""] # make it set the pulldown to choice
@@ -47,8 +49,9 @@ class InfoSourceField(forms.MultiValueField):
     )
 
     def __init__(self, label=None, choices=None, max_length=200, *args, **kwargs):
-        """ sets the two fields as not required but will
-            enforce that (at least) one is set in compress
+        """
+        sets the two fields as not required but will
+        enforce that (at least) one is set in compress
         """
         fields = (forms.MultipleChoiceField(
                         widget=forms.CheckboxSelectMultiple,
@@ -60,8 +63,11 @@ class InfoSourceField(forms.MultiValueField):
         self.label = label or 'Where do you get our recruitment information ? *'
 
     def compress(self, data_list):
-        """ generate and return value of the field from choicefield value and charfield value
-            (if both empty, will throw exception """
+        """
+        generate and return value of the field from choicefield
+        value and charfield value
+        (if both empty, will throw exception
+        """
         if not data_list:
             raise ValidationError('Please select at least one choice or specify in the text box')
         if not data_list[1] or data_list[1] == "":
@@ -81,12 +87,19 @@ class OnlineApplicationForm(forms.ModelForm):
 
     class Meta:
         model = OnlineApplication
-        exclude = ['created_at', 'status']
+        fields = [
+            'position', 'name', 'university', 'school',
+            'major', 'email', 'resume', 'info_src'
+        ]
         labels = {
             'name': _('Name *'),
             'position': _('Position *'),
             'email': _('Email *'),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(OnlineApplicationForm, self).__init__(*args, **kwargs)
+        self.fields['resume'].help_text = 'Please make sure no chinese character in your file name'
 
     def clean_email(self):
         email = self.cleaned_data['email']

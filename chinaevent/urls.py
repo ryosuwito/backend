@@ -6,6 +6,6 @@ from . import views
 
 urlpatterns = [
     url(r'^career_talk$', views.career_talk, name='chinaevent.career_talk'),
-    url(r'^register$', views.register, name='chinaevent.register'),
+    url(r'^register/(?P<req_id>[0-9]+)/(?P<hashstr>[\w:]+)$', views.register, name='chinaevent.register'),
 ]
 

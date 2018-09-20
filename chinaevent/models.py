@@ -4,6 +4,18 @@ from __future__ import unicode_literals
 from django.db import models
 
 
+PKU = 'PKU'
+FDU = 'FDU'
+SJTU = 'SJTU'
+SITE_CHOICES = {
+    (PKU, "北京大学"),
+    (FDU, "复旦大学"),
+    (SJTU, "上海交通大学")
+}
+
+SITE_CHOICES_MAP = dict((k, v) for k, v in SITE_CHOICES)
+
+
 class Candidate(models.Model):
     PKU = 'PKU'
     FDU = 'FDU'

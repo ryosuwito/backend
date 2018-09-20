@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'django_crontab',
     'mailer',
-    'whitenoise'
+    'whitenoise',
 ]
 
 MIDDLEWARE = [
@@ -138,6 +138,7 @@ MAILER_EMAIL_MAX_DEFERRED = None
 MAILER_EMAIL_THROTTLE = 0  # passed to time.sleep()
 
 COMPANY_CAREER_EMAIL = 'careers@dytechlab.com'
+
 
 TEST_FILES = {
     'DEV': {

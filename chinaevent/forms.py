@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django import forms
 from chinaevent.models import Candidate
 from main.forms import InfoSourceField
+from main.models import OnlineApplication
 
 
 CAMPUS_TALK = "校园宣讲会"
@@ -31,7 +32,9 @@ class RegistrationForm(forms.ModelForm):
                                 label="你从哪里得到我们的招聘信息* (多选)")
     class Meta:
         model = Candidate
-        fields = ['site', 'email', 'name', 'university', 'school', 'major', 'info_src']
+        fields = [
+            'site', 'email', 'name', 'university', 'school', 'major', 'info_src'
+        ]
         labels = {
             'site': _('笔试地点*'),
             'email': _('电子邮箱*'),
@@ -47,3 +50,16 @@ class RegistrationForm(forms.ModelForm):
         if candidates:
             raise forms.ValidationError("You already registered for the event.")
         return email
+
+
+class OnsiteRegistrationForm(forms.ModelForm):
+    test_site = forms.ChoiceField(
+        choices=Candidate.SITE_CHOICES)
+    class Meta:
+        model = OnlineApplication
+        fields = [
+            'test_site'
+        ]
+        labels = {
+            'test_site': _('Written Test Site'),
+        }

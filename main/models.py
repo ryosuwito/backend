@@ -77,6 +77,10 @@ class OnlineApplication(models.Model):
         default=APP_STATUS_NEW)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    # if the application is for onsite event
+    is_onsite_recruiment = models.BooleanField(default=False)
+    test_site = models.CharField(max_length=50, null=True, blank=True)
+
     def __unicode__(self):
         return self.email
 
@@ -154,7 +158,16 @@ class TestRequest(models.Model):
         return "{}-{}-{}".format(self.application.email, self.application.position, self.datetime)
 
     def get_absolute_url(self):
-        return reverse('main.career.test', kwargs={'req_id': self.id, 'hashstr': self.hashstr})
+        return reverse(
+            'main.career.test',
+            kwargs={'req_id': self.id, 'hashstr': self.hashstr}
+        )
+
+    def get_onsite_absolute_url(self):
+        return reverse(
+            'chinaevent.register',
+            kwargs={'req_id': self.id, 'hashstr': self.hashstr}
+        )
 
     def get_datetime(self):
         if self.datetime:

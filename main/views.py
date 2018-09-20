@@ -85,16 +85,20 @@ def career_apply_intern(request, template="main/career_apply_intern.html"):
 def career_test(request, req_id, hashstr):
     test_request = get_object_or_404(TestRequest, pk=req_id)
     if test_request.status == TestRequest.STATUS_SENT:
-        return HttpResponse("The test request is expired. Email was sent to you. If you did not receive \
-                the email, please send us email via careers@dytechlab.com.")
+        return HttpResponse(
+            "The test request is expired. Email was sent to you. If you did not receive \
+            the email, please send us email via careers@dytechlab.com.")
     if hashstr != test_request.hashstr:
         raise Http404("This link does not exist.")
 
+    template = "main/career_testreq.html"
+    form = TestRequestForm(instance=test_request)
+
     if not request.POST:
-        form = TestRequestForm(instance=test_request)
-        return render(request, "main/career_testreq.html", {
+        return render(request, template, {
             'form': form,
-            'is_set': test_request.datetime if test_request.status == TestRequest.STATUS_SET else None,
+            'is_set': test_request.datetime\
+                      if test_request.status == TestRequest.STATUS_SET else None,
             'allow_update': test_request.allow_update()
         })
     else:
@@ -104,17 +108,20 @@ def career_test(request, req_id, hashstr):
             model_instance = form.save(commit=False);
             model_instance.status = TestRequest.STATUS_SET
             model_instance.save()
-            return render(request, "main/career_testreq.html", {
+            return render(request, template, {
                 'form': TestRequestForm(instance=test_request),
                 'is_set': model_instance.datetime,
                 'allow_update': model_instance.allow_update()
             })
         else:
-            return render(request, "main/career_testreq.html", {
+            return render(request, template, {
                 'form': form,
-                'is_set': test_request.datetime if test_request.status == TestRequest.STATUS_SET else None,
+                'is_set': test_request.datetime\
+                          if test_request.status == TestRequest.STATUS_SET else None,
                 'allow_update': test_request.allow_update()
             })
+
+
 
 
 def career_jobs(request):

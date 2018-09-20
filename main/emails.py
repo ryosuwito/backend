@@ -76,13 +76,18 @@ def send_test_request(test_request):
             OnlineApplication.INTERN_DATA_ENGINEER]:
         template = "main/email_test_request_for_data_engineer.html"
 
+    if test_request.application.is_role_researcher()\
+        and test_request.application.is_onsite_recruiment:
+            template = "main/email_test_request_onsite.html"
+
     send_templated_email(
         subject="test scheduling: {}"
                 .format(test_request.application.get_position_display()),
         email_template=template,
         email_context={
             'name': test_request.application.name,
-            'req': test_request},
+            'req': test_request,
+        },
         recipients=[test_request.application.email, ],
         cc=[COMPANY_CAREER_EMAIL]
     )
