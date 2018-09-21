@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 20180921
+
+Changes:
+
+Admin Online Application allow `is_onsite_recruiment` editable
+
+
 ## 20180920
 
 Changes:

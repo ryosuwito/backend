@@ -22,7 +22,7 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
     list_display = ('name', 'university', 'school', 'major', 'email',
                     'position', 'status', get_scheduled_test, 'info_src',
                     'is_onsite_recruiment', 'test_site',)
-    list_editable = ('status',)
+    list_editable = ('status', 'is_onsite_recruiment',)
     list_filter = ('position', 'status')
 
 
