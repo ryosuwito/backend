@@ -32,27 +32,31 @@ CAREER_TALK = [
         'university': '北京大学宣讲会',
         'location': '新太阳学生中心212室',
         'time': '2018年10月19日, 19:00 - 21:00',
+        'mapid': 'loc1',
     },
     {
         'university': '清华大学交流会',
         'location': 'FIT楼1-312',
         'time': '2018年10月17日, 19:00 - 21:00',
+        'mapid': 'loc2',
     },
     {
         'university': '复旦大学宣讲会',
         'location': '邯郸校区光华楼主楼1501',
         'time': '2018年10月15日, 19:00 - 21:00',
+        'mapid': 'loc3',
     },
     {
         'university': '上海交通大学宣讲会',
         'location': '闵行校区数学楼一楼大会议室',
         'time': '2018年10月16日, 19:00 - 21:00',
+        'mapid': 'loc4',
     },
 ]
 
 
 def career_talk(request):
-    return render(request, "chinaevent/career_talk.html", { 'tests': CAREER_TALK })
+    return render(request, "chinaevent/career_talk.html", { 'talks': CAREER_TALK })
 
 
 def register(request, req_id, hashstr):
