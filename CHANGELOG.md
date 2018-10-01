@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 20181001
+
+Changed:
+
+- Add china recruitment 2019 career talks page
+
 ## 20180921
 
 Changes:
