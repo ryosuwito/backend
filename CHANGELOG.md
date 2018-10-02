@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 20181002
+
+Changed:
+
+- email test data engineer template
+
+
 ## 20181001
 
 Changed:
