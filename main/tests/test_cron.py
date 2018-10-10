@@ -43,7 +43,7 @@ class CronTestCase(TestCase):
         self.test_request.save()
         self.assertTrue(need_send_test_now(self.test_request))
 
-        self.test_request.datetime = timezone.now() + timedelta(minutes=1)
+        self.test_request.datetime = timezone.now() + timedelta(minutes=10)
         self.test_request.save()
         self.assertFalse(need_send_test_now(self.test_request))
 

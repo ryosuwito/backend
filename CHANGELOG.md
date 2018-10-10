@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 20181010
+
+Changed:
+
+- OnlineApplication: Dont send reject email when change status to FAILED_...
+
 ## 20181002
 
 Changed:

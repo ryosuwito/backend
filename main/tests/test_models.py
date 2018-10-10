@@ -59,14 +59,16 @@ class OnlineApplicationTestCase(TestCase):
         send_reject = mock.Mock()
         self.application.status = OnlineApplication.APP_STATUS_FAIL_RESUME
         self.application.on_update_status()
-        emails.send_reject.assert_called_once_with(self.application)
+        # emails.send_reject.assert_called_once_with(self.application)
+        emails.send_reject.assert_not_called()
 
     @mock.patch('main.emails.send_reject', mock.Mock())
     def test_on_update_status_to_FAIL_TEST(self):
         send_reject = mock.Mock()
         self.application.status = OnlineApplication.APP_STATUS_FAIL_TEST
         self.application.on_update_status()
-        emails.send_reject.assert_called_once_with(self.application)
+        # emails.send_reject.assert_called_once_with(self.application)
+        emails.send_reject.assert_not_called()
 
 
 class TestRequestTestCase(TestCase):

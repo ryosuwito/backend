@@ -23,7 +23,7 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
                     'position', 'status', get_scheduled_test, 'info_src',
                     'is_onsite_recruiment', 'test_site',)
     list_editable = ('status', 'is_onsite_recruiment',)
-    list_filter = ('position', 'status')
+    list_filter = ('position', 'status', 'is_onsite_recruiment', 'test_site',)
 
 
 @admin.register(TestRequest)

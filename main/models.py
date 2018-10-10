@@ -100,7 +100,9 @@ class OnlineApplication(models.Model):
         elif self.status in [
                 OnlineApplication.APP_STATUS_FAIL_RESUME,
                 OnlineApplication.APP_STATUS_FAIL_TEST]:
-            send_reject(self)
+            # send_reject(self)
+            # Dont send reject email for now !
+            pass
 
     def save(self, *args, **kwargs):
         is_updated_status = False
