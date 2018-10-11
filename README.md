@@ -18,14 +18,6 @@ python manage.py createsuperuser
 ```
 # Run server locally
 ```
-source env/bin/activate
-
-python manage.py runserver <port> --settings=dtlweb.settings.dev
-
-# Open manage.py, change default environment to development
-# manage.py
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dtlweb.settings.dev")
-
 # Run server
 ./scripts/dev/runserver.sh
 
@@ -39,9 +31,6 @@ source env/bin/activate
 ./gunicorn/start.sh
 
 # put all you test files (i.e developer-en.pdf, ...) to ./media/ folder.
-
-# setup cronjob in production
-# pls see result, you may need to run several times to resolve conflicts
 ```
 
 
