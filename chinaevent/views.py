@@ -12,7 +12,7 @@ from .forms import OnsiteRegistrationForm
 WRITTEN_TEST = [
     {
         'university': '北京大学',
-        'location': '待定',
+        'location': '理科教学楼106',
         'time': '2018年10月20日, 09:00 - 12:00',
     },
     {

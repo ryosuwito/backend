@@ -4,7 +4,6 @@ NUM_WORKERS=16
 PORT=80
 # /etc/init.d/postfix start
 # cd /usr/src/app/
-source env/bin/activate
 pip install -r requirements.txt
 python manage.py makemigrations
 python manage.py migrate
