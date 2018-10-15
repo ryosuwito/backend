@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url
-from django.conf import settings
 
 from . import views
 
@@ -32,4 +31,3 @@ urlpatterns = [
     url(r'^media/resumes/(?P<file_name>.+)$', views.download_resume,
         name='main.download_resume'),
 ]
-

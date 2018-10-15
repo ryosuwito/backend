@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
-import sys
 import os
 import logging
 import mimetypes
 import traceback
 from django.conf import settings
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from django.views.decorators.clickjacking import xframe_options_exempt
+from django.shortcuts import render, get_object_or_404, HttpResponse
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.utils.encoding import smart_str
 
 from wsgiref.util import FileWrapper
 
-from main.models import TestRequest, Position, OnlineApplication
+from main.models import TestRequest, OnlineApplication
 from main.forms import OnlineApplicationForm, TestRequestForm, InternApplicationForm
 from main.emails import send_online_application_confirm, send_online_application_summary
 
@@ -131,6 +129,7 @@ def career_jobs(request):
 
 
 def career_overview(request):
+    # flake8: noqa
     why_dtl = [
         {
             "desc": """Learn from the Best""",

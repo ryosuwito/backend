@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
 from django.http import Http404
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from django.shortcuts import render, get_object_or_404
 
-from main.models import OnlineApplication, TestRequest
+from main.models import TestRequest
 
 from .models import SITE_CHOICES_MAP
 from .forms import OnsiteRegistrationForm
@@ -89,7 +88,7 @@ def register(request, req_id, hashstr):
         # handle post request
         form = OnsiteRegistrationForm(request.POST, instance=test_request.application)
         if form.is_valid():
-            model_instance = form.save()
+            form.save()
             test_request.application.refresh_from_db()
             return render(request, template, get_context(test_request))
         else:

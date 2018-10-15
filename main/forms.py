@@ -2,14 +2,10 @@
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.utils import timezone
-import datetime
 from functools import partial
 from django.core.exceptions import ValidationError
-from django import forms
-from django.conf import settings
 
-from .models import OnlineApplication, TestRequest,\
-        InternCandidate, get_test_filepath
+from .models import OnlineApplication, TestRequest, InternCandidate, get_test_filepath
 
 
 DateTimeInput = partial(forms.DateTimeInput, {'class': 'datetime', 'type': 'hidden'})
@@ -21,9 +17,9 @@ class OptionalChoiceWidget(forms.MultiWidget):
         # choice != value of a choice
         if value: # indicates we have a updating object versus new one
             if value in [x[0] for x in self.widgets[0].choices]:
-                 return [value, ""] # make it set the pulldown to choice
+                return [value, ""] # make it set the pulldown to choice
             else:
-                 return ["", value] # keep pulldown to blank, set freetext
+                return ["", value] # keep pulldown to blank, set freetext
         return ["", ""] # default for new object
 
 
@@ -53,11 +49,12 @@ class InfoSourceField(forms.MultiValueField):
         sets the two fields as not required but will
         enforce that (at least) one is set in compress
         """
-        fields = (forms.MultipleChoiceField(
-                        widget=forms.CheckboxSelectMultiple,
-                        choices=choices or InfoSourceField.INFO_SRC_CHOICES,
-                        required=False),
-                  forms.CharField(required=False))
+        fields = (
+            forms.MultipleChoiceField(
+                widget=forms.CheckboxSelectMultiple,
+                choices=choices or InfoSourceField.INFO_SRC_CHOICES,
+                required=False),
+            forms.CharField(required=False))
         self.widget = OptionalChoiceWidget(widgets=[f.widget for f in fields])
         super(InfoSourceField,self).__init__(required=False, fields=fields, *args, **kwargs)
         self.label = label or 'Where do you get our recruitment information ? *'
@@ -105,7 +102,7 @@ class OnlineApplicationForm(forms.ModelForm):
         email = self.cleaned_data['email']
         applications = OnlineApplication.objects.filter(email=email)
         if applications.count() > 0:
-            position = application = applications.first().get_position_display()
+            position = applications.first().get_position_display()
             raise forms.ValidationError(
                 "You've already applied for %s position before." % position
             )
@@ -152,8 +149,8 @@ class TestRequestForm(forms.ModelForm):
         super(TestRequestForm, self).__init__(*args, **kwargs)
         if self.instance.pk:
             version_valid_choices = filter(
-               lambda v: get_test_filepath(self.instance, version=v[0]) is not None,
-               self.fields['version'].choices)
+                lambda v: get_test_filepath(self.instance, version=v[0]) is not None,
+                self.fields['version'].choices)
             if len(version_valid_choices) < 2:
                 del self.fields['version']
             else:

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from main.models import OnlineApplication, TestRequest, InternCandidate
-from main.forms import OnlineApplicationForm
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -39,8 +38,7 @@ class TestRequestAdmin(admin.ModelAdmin):
                     'version', 'get_datetime', 'status')
     list_selected_related = ('application')
     list_display_links = ('application',)
-    list_filter=('application__position', 'application__test_site',)
-
+    list_filter = ('application__position', 'application__test_site',)
 
 
 @admin.register(InternCandidate)

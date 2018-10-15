@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import unittest
 import mock
 
 from datetime import timedelta
@@ -12,7 +11,6 @@ from django.core.files import File
 
 from main import cron
 from main.models import OnlineApplication, TestRequest
-from main.emails import send_test
 from main.cron import need_send_test_now, send_online_tests
 
 
