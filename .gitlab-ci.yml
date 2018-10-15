@@ -3,4 +3,4 @@ image: python:2.7.12
 test:
   script:
     - pip install -r requirements.txt
-    - python manage.py test main.tests
+    - export DJANGO_SETTINGS_MODULE=dtlweb.settings.test && python manage.py test main.tests
