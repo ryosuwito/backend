@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from django.utils import timezone
 from django.db import models
@@ -92,7 +92,8 @@ class OnlineApplication(models.Model):
                                  OnlineApplication.FQ_RESEARCHER]
 
     def on_update_status(self):
-        from .emails import send_test_request, send_reject
+        # TODO: logics should not put in models
+        from .emails import send_test_request
         if self.status == OnlineApplication.APP_STATUS_PASS_RESUME:
             # if status --> PASS_RESUME, create a TestRequest & send link to candidate
             test_request = TestRequest.createTestRequestForApplication(self)

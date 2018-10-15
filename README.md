@@ -52,7 +52,7 @@ on the deployment server.
 # Run unittest
 ```
 source env/bin/activate
-
+export DJANGO_SETTINGS_MODULE=dtlweb.settings.test
 python manage.py test main.tests
 ```
 

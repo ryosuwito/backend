@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import unittest
 import mock
 from datetime import timedelta
 
@@ -9,10 +8,9 @@ from django.utils import timezone
 from django.test import TestCase
 from django.core.files import File
 
-from main import models, emails
+from main import emails
 
 from main.models import OnlineApplication, TestRequest, get_test_filepath
-from main.emails import send_test_request, send_reject
 
 FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
 
@@ -27,7 +25,6 @@ class OnlineApplicationTestCase(TestCase):
                 os.path.join(FIXTURE_DIR, 'sample_resume.txt')))
         )
         self.application.save()
-
 
     @mock.patch('main.models.OnlineApplication.on_update_status', mock.Mock())
     def test_save_not_trigger_on_update_status_if_status_unchange(self):
@@ -56,7 +53,6 @@ class OnlineApplicationTestCase(TestCase):
 
     @mock.patch('main.emails.send_reject', mock.Mock())
     def test_on_update_status_to_FAIL_RESUME(self):
-        send_reject = mock.Mock()
         self.application.status = OnlineApplication.APP_STATUS_FAIL_RESUME
         self.application.on_update_status()
         # emails.send_reject.assert_called_once_with(self.application)
@@ -64,7 +60,6 @@ class OnlineApplicationTestCase(TestCase):
 
     @mock.patch('main.emails.send_reject', mock.Mock())
     def test_on_update_status_to_FAIL_TEST(self):
-        send_reject = mock.Mock()
         self.application.status = OnlineApplication.APP_STATUS_FAIL_TEST
         self.application.on_update_status()
         # emails.send_reject.assert_called_once_with(self.application)
@@ -117,7 +112,7 @@ class TestRequestTestCase(TestCase):
         )
         test_request = TestRequest(
             application=application,
-            version = TestRequest.VER_ENGLISH
+            version=TestRequest.VER_ENGLISH
         )
         self.assertEqual(get_test_filepath(test_request), settings.TEST_FILES['DEV']['EN'])
 

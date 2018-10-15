@@ -171,16 +171,16 @@ FILE_INTERN_EMAILS = os.path.join(MEDIA_ROOT, 'intern-list.csv')
 
 # Crontab settings
 CRONJOBS = [
-        # cronjob every minute, try to send online tests that are scheduled today
-        ('* * * * *', 'main.cron.send_online_tests'),
-        # cronjob every minute, try to send mails currently in message queue. if any
-        # failure, they will be marked deferred and will not be attempted again by send_mail
-        ('* * * * *', 'django.core.management.call_command', ['send_mail'], {'c': 1}),
-        # cronjob every 20 min, retry on send_email failure. Deferred mail will be added back
-        # to normal queue and attempted again on the next send_mail
-        ('0,20,40 * * * *', 'django.core.management.call_command', ['retry_deferred'], {'c': 1}),
-        # delete mail log for entries older than 30 days
-        ('0 0 * * *', 'django.core.management.call_command', ['purge_mail_log', 30], {'c': 1}),
+    # cronjob every minute, try to send online tests that are scheduled today
+    ('* * * * *', 'main.cron.send_online_tests'),
+    # cronjob every minute, try to send mails currently in message queue. if any
+    # failure, they will be marked deferred and will not be attempted again by send_mail
+    ('* * * * *', 'django.core.management.call_command', ['send_mail'], {'c': 1}),
+    # cronjob every 20 min, retry on send_email failure. Deferred mail will be added back
+    # to normal queue and attempted again on the next send_mail
+    ('0,20,40 * * * *', 'django.core.management.call_command', ['retry_deferred'], {'c': 1}),
+    # delete mail log for entries older than 30 days
+    ('0 0 * * *', 'django.core.management.call_command', ['purge_mail_log', 30], {'c': 1}),
 ]
 
 # bootstrap3 settings
@@ -195,10 +195,10 @@ LOGGING = {
     'formatters': {
         'verbose': {
             'format': '[%(levelname)s] %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-            },
+        },
         'simple': {
             'format': '[%(levelname)s] %(message)s'
-            },
+        },
     },
     'handlers': {
         'console': {
@@ -212,11 +212,11 @@ LOGGING = {
             'filename': 'error.log',
             'formatter': 'verbose'
         },
-		'mail_admins': {
-			'level': 'ERROR',
-			'class': 'django.utils.log.AdminEmailHandler',
-			'include_html': True,
-		}
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        }
     },
     'loggers': {
         'django': {

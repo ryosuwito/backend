@@ -27,9 +27,11 @@ INFO_SRC_CHOICES = (
     ("", "其他，请注明")
 )
 
+
 class RegistrationForm(forms.ModelForm):
     info_src = InfoSourceField(choices=INFO_SRC_CHOICES,
-                                label="你从哪里得到我们的招聘信息* (多选)")
+                               label="你从哪里得到我们的招聘信息* (多选)")
+
     class Meta:
         model = Candidate
         fields = [
@@ -55,6 +57,7 @@ class RegistrationForm(forms.ModelForm):
 class OnsiteRegistrationForm(forms.ModelForm):
     test_site = forms.ChoiceField(
         choices=Candidate.SITE_CHOICES)
+
     class Meta:
         model = OnlineApplication
         fields = [

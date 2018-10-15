@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# flake8: noqa
 from main.models import Position
 
 
@@ -148,27 +149,27 @@ positions = [
         ]
     ),
     Position(
-		"Data Engineer (Internship)",
+    "Data Engineer (Internship)",
         [
             "Data Engineers interns maintain our data inventories, collect and clean the data we have gathered from various sources to make sure of the integrity, completeness and usefulness of our data."],
         [
             [
-				"Year 2 or Year 3 student pursuing a degree in Computer Science, Business Analytics, Engineering, Science.",
-				"Detail-oriented team player with strong problem-solving skills",
-				"Good knowledge in python and understanding of data structure & algorithms",
-				"Comfortable with Linux",
+                "Year 2 or Year 3 student pursuing a degree in Computer Science, Business Analytics, Engineering, Science.",
+                "Detail-oriented team player with strong problem-solving skills",
+                "Good knowledge in python and understanding of data structure & algorithms",
+                "Comfortable with Linux",
             ],
             "The following skills are bonus:",
             [
-				"Knowledge on database and big data tools like hadoop, spark",
-				"Web development experience",
-				"Experience with large data (>100G)",
+                "Knowledge on database and big data tools like hadoop, spark",
+                "Web development experience",
+                "Experience with large data (>100G)",
             ],
         ],
         duration=[
             [
-				"Part-time: at least 16 hours per week for 4 months",
-				"Full-time: at least 2 months",
+                "Part-time: at least 16 hours per week for 4 months",
+                "Full-time: at least 2 months",
             ]
         ],
     )
