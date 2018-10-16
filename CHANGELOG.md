@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 20181016
+
+- Added location for Data Engineer (Internship) position.
+
 ## 20181010
 
 Changed:

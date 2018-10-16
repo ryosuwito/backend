@@ -166,6 +166,10 @@ positions = [
                 "Experience with large data (>100G)",
             ],
         ],
+        location=[
+            "Singapore",
+            "Status Open to Singaporeans and PR holders. Foreign applicants must currently be a full-time student in Singapore.",
+        ],
         duration=[
             [
                 "Part-time: at least 16 hours per week for 4 months",
