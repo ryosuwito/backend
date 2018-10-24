@@ -48,9 +48,15 @@
   <div class="shell">
     <div class="range">
       <div class="cell-xs-12 cell-md-8 cell-lg-9">
-    <div>
-      <p>Thank you for your interest in our research openings. We would like to invite you to participate in our school career/informative talks. You may find the information below:</p>
-    </div>
+        <div>
+          <p>Thank you for your interest in our research openings. We would like to invite you to participate in our school career/informative talks and our onsite written tests.</p>
+          <br/>
+          <font color="red">If you could not attend the onsite test, please click the link to schedule an online written test below.
+          Do note we would <b>STRONGLY ENCOURAGE</b> you to take part in the onsite written test if possible.</font>
+          <p>
+          <a href="{{ test_req_link }}" class="link link-inline header"><span style="font-size: 18px;"><b>Written Test Schedule Link</b></span></a>
+          </p>
+        </div>
         <h4>Career Talks</h4>
         <div class="table-mobile">
           <table class="table table-curious-blue table-bordered">
@@ -99,6 +105,8 @@
           <span class="anchor-link" id="form"></span>
           <div>
             <p>Please kindly indicate your attendance of the written test below:</p>
+            <font color="red">The test is over. You cannot register anymore.</font>
+            {% comment %}
             {% if form %}
                 <div class="cell-xs-12 offset-top-25">
                 </div>
@@ -110,17 +118,8 @@
             {% else %}
                 <font color="red">{{ form_msg }}</font>
             {% endif %}
+            {% endcomment %}
           </div>
-          {% if show_online_schedule_link %}
-          </br>
-          <div>
-            <font color="red">If you could not attend the onsite test, please click the link to schedule an online written test below.
-            Do note we would <b>STRONGLY ENCOURAGE</b> you to take part in the onsite written test if possible.</font>
-                <p>
-                <a href="{{ test_req_link }}" class="link link-inline"><b>Online Written Test Schedule Link</b></a>
-            </p>
-          </div>
-          {% endif %}
       </div>
     </div>
   </div>
