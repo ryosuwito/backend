@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 20190225
+
+- Change role name: Operation Specialist --> Trading Operation Specialist
+
 ## 20181022
 
 - Update intern-researcher-en.pdf

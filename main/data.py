@@ -89,7 +89,7 @@ positions = [
         ]
     ),
     Position(
-        "Operation Specialist",
+        "Trading Operation Specialist",
         [
             "Operation specialists are responsible for the global trading operation around the clock. They also work with researchers for deployment-related works",
             "Typical responsibilities include:",

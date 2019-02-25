@@ -33,7 +33,7 @@ class OnlineApplication(models.Model):
     POSITION_CHOICES = (
         (DEVELOPER, "Developer"),
         (DATA_ENGINEER, "Data Engineer"),
-        (OPERATION_SPECIALIST, "Operation Specialist"),
+        (OPERATION_SPECIALIST, "Trading Operation Specialist"),
         (Q_RESEARCHER, "Quantitative Researcher"),
         (FQ_RESEARCHER, "Fundamental Quantitative Researcher"),
     )
