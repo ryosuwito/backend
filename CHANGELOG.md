@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 20190227
+## 20190228
 
 - Add Fundamental Quantitative Researcher Intern role
 
