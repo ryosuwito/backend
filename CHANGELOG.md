@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 20190227
+
+- Add Fundamental Quantitative Researcher Intern role
+
 ## 20190225
 
 - Change role name: Operation Specialist --> Trading Operation Specialist
