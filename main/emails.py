@@ -97,7 +97,9 @@ def send_test(test_request):
     """
     if test_request.application.is_role_researcher():
         email_template = "main/email_test_research.html"
-    elif test_request.application.position == OnlineApplication.INTERN_Q_RESEARCHER:
+    elif test_request.application.position in [
+        OnlineApplication.INTERN_Q_RESEARCHER,
+        OnlineApplication.INTERN_FQ_RESEARCHER]:
         email_template = "main/email_test_intern_researcher.html"
     elif test_request.application.position in [
             OnlineApplication.DATA_ENGINEER,
