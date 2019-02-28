@@ -12,7 +12,7 @@ from .hashes import gen_hashstr
 
 def user_resume_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/resumes/{email}_filename
-    return 'resumes/{}_{}'.format(instance.email, filename)
+    return "resumes/{}_{}".format(instance.email, filename)
 
 
 def get_test_filepath(test_request, version=None):
@@ -24,12 +24,13 @@ def get_test_filepath(test_request, version=None):
 
 class OnlineApplication(models.Model):
     DEVELOPER = "DEV"
-    DATA_ENGINEER = 'DATA_ENGINEER'
-    OPERATION_SPECIALIST = 'OP_SPECIALIST'
+    DATA_ENGINEER = "DATA_ENGINEER"
+    OPERATION_SPECIALIST = "OP_SPECIALIST"
     Q_RESEARCHER = "QRES"
     FQ_RESEARCHER = "FQRES"
-    INTERN_Q_RESEARCHER = 'INTERN_QRES'
-    INTERN_DATA_ENGINEER = 'INTERN_DATA_ENGINEER'
+    INTERN_FQ_RESEARCHER = "INTERN_FQRES"
+    INTERN_Q_RESEARCHER = "INTERN_QRES"
+    INTERN_DATA_ENGINEER = "INTERN_DATA_ENGINEER"
     POSITION_CHOICES = (
         (DEVELOPER, "Developer"),
         (DATA_ENGINEER, "Data Engineer"),
@@ -39,6 +40,7 @@ class OnlineApplication(models.Model):
     )
     INTERN_POSITION_CHOICES = (
         (INTERN_Q_RESEARCHER, "Quantitative Researcher (Internship)"),
+        (INTERN_FQ_RESEARCHER, "Fundamental Quantitative Researcher (Internship)"),
         (INTERN_DATA_ENGINEER, "Data Engineer (Internship)"),
     )
 
@@ -47,7 +49,7 @@ class OnlineApplication(models.Model):
     APP_STATUS_FAIL_RESUME = "FAIL_RESUME"
     APP_STATUS_PASS_TEST = "PASS_TEST"
     APP_STATUS_FAIL_TEST = "FAIL_TEST"
-    APP_STATUS_DOES_NOT_FINISH_TEST = 'DNF_TEST'
+    APP_STATUS_DOES_NOT_FINISH_TEST = "DNF_TEST"
     APP_STATUS_CHOICES = (
         (APP_STATUS_NEW, "NEW"),
         (APP_STATUS_PASS_RESUME, "PASS RESUME"),
@@ -119,7 +121,7 @@ class OnlineApplication(models.Model):
 
 
 class TestRequest(models.Model):
-    STATUS_NEW = "NEW"    # Test Request link is created but candidate haven't request
+    STATUS_NEW = "NEW"    # Test Request link is created but candidate haven"t request
     STATUS_SET = "SET"    # Candidate set time, and test email not sent yet
     STATUS_SENT = "SENT"  # Test email is sent
     STATUS_CHOICES = (
@@ -136,7 +138,7 @@ class TestRequest(models.Model):
     )
 
     application = models.OneToOneField(
-        'OnlineApplication',
+        "OnlineApplication",
         on_delete=models.CASCADE,
         related_name="test_request")
     hashstr = models.CharField(
@@ -162,21 +164,21 @@ class TestRequest(models.Model):
 
     def get_absolute_url(self):
         return reverse(
-            'main.career.test',
-            kwargs={'req_id': self.id, 'hashstr': self.hashstr}
+            "main.career.test",
+            kwargs={"req_id": self.id, "hashstr": self.hashstr}
         )
 
     def get_onsite_absolute_url(self):
         return reverse(
-            'chinaevent.register',
-            kwargs={'req_id': self.id, 'hashstr': self.hashstr}
+            "chinaevent.register",
+            kwargs={"req_id": self.id, "hashstr": self.hashstr}
         )
 
     def get_datetime(self):
         if self.datetime:
             return self.datetime
         else:
-            return '-'
+            return "-"
 
     def allow_update(self):
         # allow update up to 2 days prior scheduled date
@@ -211,7 +213,7 @@ class InternCandidate(models.Model):
 
 
 class Position(object):
-    def __init__(self, title, desc, qualification,
+    def __init__(self, title, symbol, desc, qualification,
                  location=None, duration=None):
         """
         title: string
@@ -219,6 +221,7 @@ class Position(object):
         qualification: []
         """
         self.title = title
+        self.symbol = symbol
         self.desc = desc
         self.qualification = qualification
         self.location = location

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # flake8: noqa
-from main.models import Position
+from main.models import OnlineApplication, Position
 
 
 positions = [
     Position(
-        "Fundamental Quantitative Researcher",
+        "Fundamental Quantitative Researcher", "FQRES",
         ["The fundamental quantitative researchers develop trading ideas using fundamental and quantitative analysis. A mixed background of finance, programming and statistics is preferred for this position."],
         [
             [
@@ -22,7 +22,7 @@ positions = [
         ]
     ),
     Position(
-        "Quantitative Researcher",
+        "Quantitative Researcher", "QRES",
         ["The quantitative researchers design and backtest trading models, which form the most important elements in the final trading strategies. They work in groups or independently, depending on the projects and/or the researchers' preference. Creativity and innovation are what we are looking for in this position."],
         [
             [
@@ -40,7 +40,7 @@ positions = [
         ]
     ),
     Position(
-        "Front Desk Quant Developer",
+        "Front Desk Quant Developer", "DEV",
         [
             "The front desk quant developers maintain our trading/research capabilities in global markets and innovate how we do them.",
             "Typical responsibilities include:",
@@ -68,7 +68,7 @@ positions = [
         ]
     ),
     Position(
-        "Data Engineer",
+        "Data Engineer", "DATAENG",
         [
             "Data Engineers coordinate with researchers to develop and manage data inventories and design framework to facilitate efficient processing of large-scale data. They monitor and maintain data production on a daily basis.",
         ],
@@ -89,7 +89,7 @@ positions = [
         ]
     ),
     Position(
-        "Trading Operation Specialist",
+        "Trading Operation Specialist", "TRADEOP",
         [
             "Operation specialists are responsible for the global trading operation around the clock. They also work with researchers for deployment-related works",
             "Typical responsibilities include:",
@@ -116,7 +116,38 @@ positions = [
         ]
     ),
     Position(
-        "Quantitative Researcher (Internship)",
+        "Fundamental Quantitative Researcher (Internship)", "FQRESINTERN",
+        [
+            [
+                "Developing trading strategies using fundamental information in quantitative methodology"
+            ],
+        ],
+        [
+            [
+                "Master or PhD in Mathematics, Physics, Economics, Finance, Computer Engineering, Engineering, or other related fields from top universities. Applicants with a Bachelor’s degree and exceptional performance will also be considered",
+                "Possess a strong interest in financial markets",
+                "Advanced quantitative, analytical and problem-solving skills",
+                "Detail-oriented",
+                "A strong background in mathematics",
+                "Past experience in the secondary market or quantitative finance is preferred",
+            ],
+            "The following skills are bonus and you will be required to complete learning projects before onboarding:",
+            [
+                "Knowledge of Linux",
+                "Solid programming skills in Python or C++"
+            ],
+            "Return offer will be given upon exceptional performance during internship."
+        ],
+        location=["Shanghai"],
+        duration=[
+            [
+                "Full-time: at least 2 months",
+                "Part-time: at least 3 days per week for a minimum of 4 months",
+            ]
+        ]
+    ),
+    Position(
+        "Quantitative Researcher (Internship)", "QRESINTERN",
         [
             [
                 "Focus on research topics with the guidance of senior researchers",
@@ -149,7 +180,7 @@ positions = [
         ]
     ),
     Position(
-    "Data Engineer (Internship)",
+    "Data Engineer (Internship)", "DATAENGINTERN",
         [
             "Data Engineers interns maintain our data inventories, collect and clean the data we have gathered from various sources to make sure of the integrity, completeness and usefulness of our data."],
         [

@@ -152,6 +152,9 @@ TEST_FILES = {
         'EN': os.path.join(MEDIA_ROOT, 'researcher-en.pdf'),
         'CN': os.path.join(MEDIA_ROOT, 'researcher-cn.pdf'),
     },
+    'INTERN_FQRES': {
+        'EN': os.path.join(MEDIA_ROOT, 'intern-researcher-en.pdf'),
+    },
     'INTERN_QRES': {
         'EN': os.path.join(MEDIA_ROOT, 'intern-researcher-en.pdf'),
     },
