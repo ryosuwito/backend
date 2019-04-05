@@ -91,28 +91,24 @@ positions = [
     Position(
         "Trading Operation Specialist", "TRADEOP",
         [
-            "Operation specialists are responsible for the global trading operation around the clock. They also work with researchers for deployment-related works",
+            "Operation specialists are responsible for the global trading operation around the clock.They work with quant researchers and developers to support end-to-end stock trading related activities with cutting edge technologies. The candidates will have a chance to gain knowledge on the entire workflow of advanced algorithmic trading.",
             "Typical responsibilities include:",
             [
-                "Development and maintenance of data and jobs across cluster",
-                "Global trading activities monitoring",
-                "New broker/market onboarding",
-                "Maintenance of backtesting platform",
+                "Monitor global trading activities and investigate various trading related issues from both front office and back office",
+                "Handle miscellaneous requests from researchers and developers to support their daily work",
+                "Develop and maintain automation jobs and data pipelines across trading engines",
+                "Analyze post-trade data to evaluate the performance of trading strategies and algorithms in different stock markets and identify potential trading risk"
             ]
         ],
         [
             [
-                "Familiar with Linux commands",
-                "Good programming skills, especially in bash and python",
-                "Love to automate the daily work by programming as much as possible",
-                "Strong problem-solving skills",
+				"Demonstrated programming skills in Python and Bash",
+				"Love to automate the daily work by programming as much as possible",
+				"Strong problem-solving skills and detail-oriented when taking multiple tasks",
+				"Strong responsibility and keen learner",
+				"Good interpersonal skills",
             ],
-            "The following skills are bonus:",
-            [
-                "Interests in stock markets",
-                "Familiar with popular relation and/or NoSQL databases",
-                "System administrator experience",
-            ]
+			"Fresh graduates are welcome to apply."
         ]
     ),
     Position(
