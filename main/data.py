@@ -134,7 +134,7 @@ positions = [
             ],
             "Return offer will be given upon exceptional performance during internship."
         ],
-        location=["Shanghai"],
+        location=["Shanghai, Singapore"],
         duration=[
             [
                 "Full-time: at least 2 months",
@@ -167,7 +167,7 @@ positions = [
             ],
             "Return offer will be given upon exceptional performance during internship."
         ],
-        location=["Shanghai"],
+        location=["Shanghai, Singapore"],
         duration=[
             [
                 "Full-time: at least 2 months",
