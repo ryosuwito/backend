@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 20190424
+
+- Update intern position location
+
 ## 20190415
 
 - Update intern-researcher-en.pdf
