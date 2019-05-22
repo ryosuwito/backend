@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 20190522
+
+- Update intern & operator job description
+
 ## 20190424
 
 - Update intern position location
