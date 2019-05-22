@@ -91,24 +91,31 @@ positions = [
     Position(
         "Trading Operation Specialist", "TRADEOP",
         [
-            "Operation specialists are responsible for the global trading operation around the clock.They work with quant researchers and developers to support end-to-end stock trading related activities with cutting edge technologies. The candidates will have a chance to gain knowledge on the entire workflow of advanced algorithmic trading.",
-            "Typical responsibilities include:",
+            "The trading operations team is primarily responsible for managing DTL’s trading environment and ensuring that everything runs smoothly. We help DTL build and maintain best-in-class systems and processes.",
+            "This involves configuring, monitoring and optimising the firm’s trading with a focus on risk management and control. The team oversees core operational processes and participates in projects and initiatives that will help streamline critical workflows.",
+            " Project areas include: market access, trade monitoring, process optimization, system enhancement, alpha management and automation. This is a mission-critical role that requires a dependable individual with a can-do attitude and exceptional attention to detail.",
+            "Key responsibilities:",
             [
-                "Monitor global trading activities and investigate various trading related issues from both front office and back office",
-                "Handle miscellaneous requests from researchers and developers to support their daily work",
-                "Develop and maintain automation jobs and data pipelines across trading engines",
-                "Analyze post-trade data to evaluate the performance of trading strategies and algorithms in different stock markets and identify potential trading risk"
+                "Monitor global trading activities and analyse and troubleshoot issues that may arise in the normal course of business in a timely and accurate manner",
+                "Work collaboratively with researchers and developers and be their first line of support for any queries",
+                "Identify opportunities to automate and streamline legacy processes to enhance productivity and controls",
+                "Analyse post-trade data to evaluate the performance of trading strategies and algorithms in different stock markets and identify potential trading risks",
             ]
         ],
         [
             [
-				"Demonstrated programming skills in Python and Bash",
-				"Love to automate the daily work by programming as much as possible",
-				"Strong problem-solving skills and detail-oriented when taking multiple tasks",
-				"Strong responsibility and keen learner",
-				"Good interpersonal skills",
+                 "Proficient in Python and Bash scripting",
+                 "Comfortable with Linux",
+                 "Strong business judgment and ability to identify and escalate issues",
+                 "Patient, extremely detail-oriented and highly responsible",
+                 "Excellent problem-solving skills",
+                 "Good communication and interpersonal skills"
             ],
-			"Fresh graduates are welcome to apply."
+            "The following skills are bonus:",
+            [
+                "Understanding of market data/order entry systems",
+                "Interest in the financial markets"
+            ]
         ]
     ),
     Position(
@@ -137,7 +144,7 @@ positions = [
         location=["Shanghai, Singapore"],
         duration=[
             [
-                "Full-time: at least 2 months",
+                "Full-time: at least 3 months",
                 "Part-time: at least 3 days per week for a minimum of 4 months",
             ]
         ]
@@ -170,7 +177,7 @@ positions = [
         location=["Shanghai, Singapore"],
         duration=[
             [
-                "Full-time: at least 2 months",
+                "Full-time: at least 3 months",
                 "Part-time: at least 3 days per week for a minimum of 4 months",
             ]
         ]
