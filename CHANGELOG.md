@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 20190529
+
+- Add developer intern position
+
 ## 20190522
 
 - Update intern & operator job description
