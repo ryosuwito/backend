@@ -108,6 +108,9 @@ def send_test(test_request):
         email_template = "main/email_test_data_engineer.html"
     elif test_request.application.is_role_dev():
         email_template = "main/email_test_dev.html"
+    elif test_request.application.position in [
+            OnlineApplication.INTERN_DEVELOPER]:
+        email_template = "main/email_test_dev.html"
     else:
         raise ValueError("Invalid position")
 

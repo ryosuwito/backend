@@ -31,6 +31,7 @@ class OnlineApplication(models.Model):
     INTERN_FQ_RESEARCHER = "INTERN_FQRES"
     INTERN_Q_RESEARCHER = "INTERN_QRES"
     INTERN_DATA_ENGINEER = "INTERN_DATA_ENGINEER"
+    INTERN_DEVELOPER = "INTERN_DEVELOPER"
     POSITION_CHOICES = (
         (DEVELOPER, "Developer"),
         (DATA_ENGINEER, "Data Engineer"),
@@ -41,6 +42,7 @@ class OnlineApplication(models.Model):
     INTERN_POSITION_CHOICES = (
         (INTERN_Q_RESEARCHER, "Quantitative Researcher (Internship)"),
         (INTERN_FQ_RESEARCHER, "Fundamental Quantitative Researcher (Internship)"),
+        (INTERN_DEVELOPER, "Developer (Internship)"),
         (INTERN_DATA_ENGINEER, "Data Engineer (Internship)"),
     )
 

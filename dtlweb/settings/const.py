@@ -144,6 +144,9 @@ TEST_FILES = {
     'DEV': {
         'EN': os.path.join(MEDIA_ROOT, 'developer-en.pdf'),
     },
+    'INTERN_DEVELOPER': {
+        'EN': os.path.join(MEDIA_ROOT, 'developer-en.pdf'),
+    },
     'QRES': {
         'EN': os.path.join(MEDIA_ROOT, 'researcher-en.pdf'),
         'CN': os.path.join(MEDIA_ROOT, 'researcher-cn.pdf'),

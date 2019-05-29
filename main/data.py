@@ -183,6 +183,42 @@ positions = [
         ]
     ),
     Position(
+        "Front Desk Quant Developer (Internship)", "DEV_INTERN",
+        [
+            "The front desk quant developers maintain our trading/research capabilities in global markets and innovate how we do them.",
+            "Typical responsibilities include:",
+            [
+                "Optimizing the performance of various components of the trading system",
+                "Maintaining, enhancing backtest simulator",
+                "Exploring big-data infrastructure for research",
+                "Execution algorithms research",
+                "Working with researchers on high-frequency strategies"
+            ]
+        ],
+        [
+            [
+                "Pursuing a Bachelor degree in computer science",
+                "Expert programming skills in some well-known language, along with knowledge on computer system, e.g. networking, threading, etc.",
+                "Ability to write sizable applications and manage complexity",
+                "Effective communicator and decision maker",
+                "Linux experience",
+            ],
+            "The following skills are bonus:",
+            [
+                "Familiar with Linux kernel",
+                "Experience with hardware development, e.g. NIC, GPU, and FPGA etc.",
+                "System administration experience"
+            ]
+        ],
+        location=["Shanghai"],
+        duration=[
+            [
+                "Full-time: at least 3 months",
+                "Part-time: at least 3 days per week for a minimum of 4 months",
+            ]
+        ]
+    ),
+    Position(
     "Data Engineer (Internship)", "DATAENGINTERN",
         [
             "Data Engineers interns maintain our data inventories, collect and clean the data we have gathered from various sources to make sure of the integrity, completeness and usefulness of our data."],
