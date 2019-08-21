@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 20190821
+
+- Remove China recruitment 2019 page
+
 ## 20190529
 
 - Add developer intern position
