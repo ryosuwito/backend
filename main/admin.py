@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from django.contrib import admin
-from main.models import OnlineApplication, TestRequest, InternCandidate
+from main.models import OnlineApplication, TestRequest, InternCandidate, OpenJob
+from main.types import JobType
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -17,12 +20,29 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
         else:
             return "None"
 
+    def start_and_end_time(obj):
+        start_time = obj.start_time
+        if start_time is None:
+            return "---"
+
+        if obj.typ == JobType.FULLTIME_INTERNSHIP.name:
+            end_time = start_time + datetime.timedelta(days=90) # 3 months after start working day
+        elif obj.typ == JobType.PARTTIME_INTERNSHIP.name:
+            end_time = start_time + datetime.timedelta(days=120) # 4 months after start working day
+        else:
+            end_time = None
+
+        start_time = start_time.strftime('%Y.%m.%d')
+        end_time = 'oo' if end_time is None else end_time.strftime('%Y.%m.%d')
+
+        return '{}-{}'.format(start_time, end_time)
+
     get_scheduled_test.short_description = "Scheduled Test"
     list_display = ('name', 'university', 'school', 'major', 'email',
-                    'position', 'status', get_scheduled_test, 'info_src',
+                    'position', 'typ', 'workplace', start_and_end_time, 'status', get_scheduled_test, 'info_src',
                     'is_onsite_recruiment', 'test_site',)
     list_editable = ('status', 'is_onsite_recruiment',)
-    list_filter = ('position', 'status', 'is_onsite_recruiment', 'test_site',)
+    list_filter = ('typ', 'workplace', 'position', 'status', 'is_onsite_recruiment', 'test_site',)
 
 
 @admin.register(TestRequest)
@@ -45,3 +65,9 @@ class TestRequestAdmin(admin.ModelAdmin):
 class InternCandidateAdmin(admin.ModelAdmin):
     list_display = ('email', 'chinese_name', 'english_name',)
     pass
+
+
+@admin.register(OpenJob)
+class OpenJobAdmin(admin.ModelAdmin):
+    list_display = ('id', 'typ', 'workplace', 'position')
+    list_display_links = ('id',)

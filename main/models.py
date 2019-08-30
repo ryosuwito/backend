@@ -8,6 +8,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 
 from .hashes import gen_hashstr
+from .types import (
+    JobPosition,
+    JobType,
+    Workplace,
+)
 
 
 def user_resume_path(instance, filename):
@@ -22,30 +27,12 @@ def get_test_filepath(test_request, version=None):
     return settings.TEST_FILES.get(test_request.application.position, {}).get(version)
 
 
-class OnlineApplication(models.Model):
-    DEVELOPER = "DEV"
-    DATA_ENGINEER = "DATA_ENGINEER"
-    OPERATION_SPECIALIST = "OP_SPECIALIST"
-    Q_RESEARCHER = "QRES"
-    FQ_RESEARCHER = "FQRES"
-    INTERN_FQ_RESEARCHER = "INTERN_FQRES"
-    INTERN_Q_RESEARCHER = "INTERN_QRES"
-    INTERN_DATA_ENGINEER = "INTERN_DATA_ENGINEER"
-    INTERN_DEVELOPER = "INTERN_DEVELOPER"
-    POSITION_CHOICES = (
-        (DEVELOPER, "Developer"),
-        (DATA_ENGINEER, "Data Engineer"),
-        (OPERATION_SPECIALIST, "Trading Operation Specialist"),
-        (Q_RESEARCHER, "Quantitative Researcher"),
-        (FQ_RESEARCHER, "Fundamental Quantitative Researcher"),
-    )
-    INTERN_POSITION_CHOICES = (
-        (INTERN_Q_RESEARCHER, "Quantitative Researcher (Internship)"),
-        (INTERN_FQ_RESEARCHER, "Fundamental Quantitative Researcher (Internship)"),
-        (INTERN_DEVELOPER, "Developer (Internship)"),
-        (INTERN_DATA_ENGINEER, "Data Engineer (Internship)"),
-    )
+JobTypeChoices = [(typ.name, typ.value) for typ in JobType]
+JobWorkPlaceChoices = [(place.name, place.value) for place in Workplace]
+JobPositionChoices = [(pos.name, pos.value) for pos in JobPosition]
 
+
+class OnlineApplication(models.Model):
     APP_STATUS_NEW = "NEW"
     APP_STATUS_PASS_RESUME = "PASS_RESUME"
     APP_STATUS_FAIL_RESUME = "FAIL_RESUME"
@@ -61,10 +48,15 @@ class OnlineApplication(models.Model):
         (APP_STATUS_DOES_NOT_FINISH_TEST, "DNF TEST"),
     )
 
+    typ = models.CharField(
+        max_length=255, choices=JobTypeChoices, default=JobType.FULLTIME_JOB.name)
+    workplace = models.CharField(
+        max_length=255, choices=JobWorkPlaceChoices, default=Workplace.SINGAPORE.name)
+
     position = models.CharField(
-        max_length=20,
-        choices=(POSITION_CHOICES + INTERN_POSITION_CHOICES),
-        default=DEVELOPER)
+        max_length=255,
+        choices=JobPositionChoices,
+        default=JobPosition.DEV.value)
     name = models.CharField(max_length=30)
     university = models.CharField(max_length=100, null=True, blank=True)
     school = models.CharField(max_length=200, null=True, blank=True)
@@ -73,6 +65,8 @@ class OnlineApplication(models.Model):
     resume = models.FileField(max_length=100, blank=True,
                               upload_to=user_resume_path)
     info_src = models.CharField(max_length=200, null=False, blank=False, default="N.A")
+
+    start_time = models.DateField(max_length=255, blank=False, null=True)
 
     # Additional fields for admin management
     status = models.CharField(
@@ -228,3 +222,17 @@ class Position(object):
         self.qualification = qualification
         self.location = location
         self.duration = duration
+
+
+class OpenJob(models.Model):
+    typ = models.CharField(max_length=255, choices=JobTypeChoices, db_index=True)
+    workplace = models.CharField(max_length=255, choices=JobWorkPlaceChoices)
+    position = models.CharField(max_length=255, choices=JobPositionChoices)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        index_together = [
+            ('typ', 'workplace'),
+        ]

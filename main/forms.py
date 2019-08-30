@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.utils import timezone
 from functools import partial
 from django.core.exceptions import ValidationError
 
-from .models import OnlineApplication, TestRequest, InternCandidate, get_test_filepath
+from .models import OnlineApplication, TestRequest, InternCandidate, get_test_filepath, OpenJob
+from .types import (
+    JobType,
+    Workplace,
+    JobPosition,
+)
 
 
 DateTimeInput = partial(forms.DateTimeInput, {'class': 'datetime', 'type': 'hidden'})
@@ -32,6 +39,7 @@ class InfoSourceField(forms.MultiValueField):
     SCHOOL_EMAIL = "School Emails"
     FRIENDS = "Friends"
     BBS = "BBS"
+    WECHAT = "WeChat"
     INFO_SRC_CHOICES = (
         (CAMPUS_TALK, CAMPUS_TALK),
         (CAMPUS_POSTER, CAMPUS_POSTER),
@@ -41,6 +49,7 @@ class InfoSourceField(forms.MultiValueField):
         (SCHOOL_EMAIL, SCHOOL_EMAIL),
         (FRIENDS, FRIENDS),
         (BBS, BBS),
+        (WECHAT, WECHAT),
         ("", "Others, please specify")
     )
 
@@ -75,23 +84,28 @@ class InfoSourceField(forms.MultiValueField):
 
 
 class OnlineApplicationForm(forms.ModelForm):
-    position = forms.ChoiceField(
-        choices=(OnlineApplication.POSITION_CHOICES + OnlineApplication.INTERN_POSITION_CHOICES),
-        widget=forms.RadioSelect,
-        initial=OnlineApplication.POSITION_CHOICES[0][0])
+    start_time = forms.DateField(
+        widget=forms.SelectDateWidget, label='When are you ready to go to work?', initial=datetime.date.today(),
+        help_text=('Note: After this day you need to work at least 3 months for a full-time internship or '
+                   '4 months (3 days a week) for a part-time internship.')
+    )
+
     resume = forms.FileField()
     info_src = InfoSourceField()
 
     class Meta:
         model = OnlineApplication
         fields = [
-            'position', 'name', 'university', 'school',
-            'major', 'email', 'resume', 'info_src'
+            'position', 'typ', 'workplace', 'start_time',
+            'name', 'university', 'school', 'major',
+            'email', 'resume', 'info_src',
         ]
         labels = {
             'name': _('Name *'),
             'position': _('Position *'),
             'email': _('Email *'),
+            'typ': _('Type *'),
+            'workplace': _('Workplace *'),
         }
 
     def __init__(self, *args, **kwargs):
@@ -107,6 +121,55 @@ class OnlineApplicationForm(forms.ModelForm):
                 "You've already applied for %s position before." % position
             )
         return email
+
+    def clean_start_time(self):
+        start_time = self.cleaned_data.get('start_time')
+        if start_time is None or start_time < datetime.date.today():
+            raise forms.ValidationError(
+                "Too early to start."
+            )
+
+        return start_time
+
+    def clean(self):
+        """
+        Check if there is any (position, typ, workplace) job open or not.
+        """
+        queryset = OpenJob.objects.all()
+
+        open_positions = list({JobPosition[open_job.position].value for open_job in queryset})
+        position = self.cleaned_data['position']
+        open_jobs_with_position = queryset.filter(position=position)
+
+        open_typs = list({JobType[open_job.typ].value for open_job in open_jobs_with_position})
+        typ = self.cleaned_data['typ']
+        open_jobs_with_typ = open_jobs_with_position.filter(typ=typ)
+
+        open_workplaces = list({Workplace[open_job.workplace].value for open_job in open_jobs_with_typ})
+        workplace = self.cleaned_data['workplace']
+        open_jobs_with_workplace = open_jobs_with_typ.filter(workplace=workplace)
+
+        if open_jobs_with_position.count() == 0:
+            if len(open_positions) > 0:
+                msg = "There is no open jobs for {} position. Open jobs only for {} position(s).".format(
+                    JobPosition[position].value.lower(), ', '.join(open_positions).lower())
+            else:
+                msg = "There is no open jobs at the moment."
+
+            self.add_error('position', msg)
+        elif open_jobs_with_typ.count() == 0:
+            msg = "There is no open {}. Open jobs for {} position are/are one of {}.".format(
+                JobType[typ].value.lower(), JobPosition[position].value.lower(), ', '.join(open_typs).lower()
+            )
+            self.add_error('typ', msg)
+        elif open_jobs_with_workplace.count() == 0:
+            msg = "There is no open jobs in {}. Open jobs for {} {} only in {}.".format(
+                Workplace[workplace].value, JobType[typ].value.lower(), JobPosition[position].value.lower(),
+                ', '.join(open_workplaces),
+            )
+            self.add_error('workplace', msg)
+
+        return self.cleaned_data
 
 
 class InternApplicationForm(OnlineApplicationForm):
