@@ -15,6 +15,21 @@ class OldJobPosition(enum.Enum):
     INTERN_DATA_ENGINEER = "INTERN_DATA_ENGINEER"
     INTERN_DEVELOPER = "INTERN_DEVELOPER"
 
+    POSITION_CHOICES = (
+        (DEVELOPER, "Developer"),
+        (DATA_ENGINEER, "Data Engineer"),
+        (OPERATION_SPECIALIST, "Trading Operation Specialist"),
+        (Q_RESEARCHER, "Quantitative Researcher"),
+        (FQ_RESEARCHER, "Fundamental Quantitative Researcher"),
+    )
+
+    INTERN_POSITION_CHOICES = (
+        (INTERN_Q_RESEARCHER, "Quantitative Researcher (Internship)"),
+        (INTERN_FQ_RESEARCHER, "Fundamental Quantitative Researcher (Internship)"),
+        (INTERN_DEVELOPER, "Developer (Internship)"),
+        (INTERN_DATA_ENGINEER, "Data Engineer (Internship)"),
+    )
+
 
 class JobPosition(enum.Enum):
     """

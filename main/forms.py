@@ -12,6 +12,7 @@ from .types import (
     JobType,
     Workplace,
     JobPosition,
+    OldJobPosition,
 )
 
 
@@ -158,7 +159,7 @@ class OnlineApplicationForm(forms.ModelForm):
 
             self.add_error('position', msg)
         elif open_jobs_with_typ.count() == 0:
-            msg = "There is no open {}. Open jobs for {} position are/are one of {}.".format(
+            msg = "There is no open {}. Open jobs for {} position are (one in) {}.".format(
                 JobType[typ].value.lower(), JobPosition[position].value.lower(), ', '.join(open_typs).lower()
             )
             self.add_error('typ', msg)
@@ -174,9 +175,9 @@ class OnlineApplicationForm(forms.ModelForm):
 
 class InternApplicationForm(OnlineApplicationForm):
     position = forms.ChoiceField(
-        choices=OnlineApplication.INTERN_POSITION_CHOICES,
+        choices=OldJobPosition.INTERN_POSITION_CHOICES.value,
         widget=forms.RadioSelect,
-        initial=OnlineApplication.INTERN_POSITION_CHOICES[0][0])
+        initial=OldJobPosition.INTERN_POSITION_CHOICES.value[0][0])
 
     class Meta:
         model = OnlineApplication
