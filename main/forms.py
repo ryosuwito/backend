@@ -211,22 +211,13 @@ class InternApplicationForm(OnlineApplicationForm):
 class TestRequestForm(forms.ModelForm):
     class Meta:
         model = TestRequest
-        exclude = ['hashstr', 'application', 'created_at', 'status']
+        exclude = ['hashstr', 'application', 'created_at', 'status', 'version']
         widgets = {
-            'version': forms.RadioSelect,
             'datetime': DateTimeInput()
         }
 
     def __init__(self, *args, **kwargs):
         super(TestRequestForm, self).__init__(*args, **kwargs)
-        if self.instance.pk:
-            version_valid_choices = filter(
-                lambda v: get_test_filepath(self.instance, version=v[0]) is not None,
-                self.fields['version'].choices)
-            if len(version_valid_choices) < 2:
-                del self.fields['version']
-            else:
-                self.fields['version'].choices = version_valid_choices
 
     def clean_datetime(self):
         dt = self.cleaned_data['datetime']

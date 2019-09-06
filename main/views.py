@@ -113,7 +113,7 @@ def career_test(request, req_id, hashstr):
         # Handle POST Request
         form = TestRequestForm(request.POST, instance=test_request)
         if form.is_valid():
-            model_instance = form.save(commit=False);
+            model_instance = form.save(commit=False)
             model_instance.status = TestRequest.STATUS_SET
             model_instance.save()
             return render(request, template, {
