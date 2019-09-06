@@ -11,6 +11,16 @@ from main.types import (
 from django.core.exceptions import ObjectDoesNotExist
 
 
+def get_enum_val(enum_obj, obj_prop_name):
+    def get_val(obj):
+        obj_prop_value = getattr(obj, obj_prop_name, '')
+        enum_value = getattr(enum_obj, obj_prop_value, None)
+        return obj_prop_value if enum_value is None else enum_value.value
+
+    get_val.short_description = obj_prop_name
+    return get_val
+
+
 @admin.register(OnlineApplication)
 class OnlineApplicationAdmin(admin.ModelAdmin):
     def get_scheduled_test(application):
@@ -23,15 +33,6 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
                 return "Oops no test request!"
         else:
             return "None"
-
-    def get_enum_val(enum_obj, obj_prop_name):
-        def get_val(obj):
-            obj_prop_value = getattr(obj, obj_prop_name, '')
-            enum_value = getattr(enum_obj, obj_prop_value, None)
-            return obj_prop_value if enum_value is None else enum_value.value
-
-        get_val.short_description = obj_prop_name
-        return get_val
 
     def start_and_end_time(obj):
         start_time = obj.start_time
@@ -85,5 +86,7 @@ class InternCandidateAdmin(admin.ModelAdmin):
 
 @admin.register(OpenJob)
 class OpenJobAdmin(admin.ModelAdmin):
-    list_display = ('id', 'typ', 'workplace', 'position')
+    list_display = ('id', 'typ', 'workplace', 'position', 'active')
     list_display_links = ('id',)
+    list_editable = ('active',)
+    list_filter = ('position', 'typ', 'workplace', 'active')

@@ -7,8 +7,10 @@ from django.utils.html import strip_tags
 
 from .models import get_test_filepath
 from .types import JobPosition
+from .admin import get_enum_val
 
 
+get_position_display = get_enum_val(JobPosition, 'position')
 COMPANY_CAREER_EMAIL = settings.COMPANY_CAREER_EMAIL
 SENDER = COMPANY_CAREER_EMAIL
 
@@ -42,11 +44,11 @@ def send_online_application_confirm(application):
     send email to applicants indicating the application is received
     """
     send_templated_email(
-        subject="job application - {}".format(application.get_position_display()),
+        subject="job application - {}".format(get_position_display(application)),
         email_template="main/email_apply_confirm.html",
         email_context={
             'name': application.name,
-            'position': application.get_position_display()
+            'position': get_position_display(application),
         },
         recipients=[application.email, ],
         cc=[COMPANY_CAREER_EMAIL]
@@ -58,7 +60,7 @@ def send_online_application_summary(application):
     forward candidate application to company career email
     """
     send_templated_email(
-        subject="job application - {}".format(application.get_position_display()),
+        subject="job application - {}".format(get_position_display(application)),
         email_template="main/email_apply_summary.html",
         email_context={'application': application},
         recipients=[COMPANY_CAREER_EMAIL, ],
@@ -83,7 +85,7 @@ def send_test_request(test_request):
 
     send_templated_email(
         subject="test scheduling: {}"
-                .format(test_request.application.get_position_display()),
+                .format(get_position_display(test_request.application)),
         email_template=template,
         email_context={
             'name': test_request.application.name,
@@ -117,7 +119,7 @@ def send_test(test_request):
 
     send_templated_email(
         subject="written test: {}"
-                .format(test_request.application.get_position_display()),
+                .format(get_position_display(test_request.application)),
         email_template=email_template,
         email_context={
             'name': test_request.application.name},

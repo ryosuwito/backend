@@ -226,14 +226,19 @@ class Position(object):
 
 
 class OpenJob(models.Model):
-    typ = models.CharField(max_length=255, choices=JobTypeChoices, db_index=True)
-    workplace = models.CharField(max_length=255, choices=JobWorkplaceChoices)
     position = models.CharField(max_length=255, choices=JobPositionChoices)
+    typ = models.CharField(max_length=255, choices=JobTypeChoices)
+    workplace = models.CharField(max_length=255, choices=JobWorkplaceChoices)
+    active = models.BooleanField(default=True, blank=True, null=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         index_together = [
-            ('typ', 'workplace'),
+            ('position',),
+            ('position', 'typ'),
+        ]
+        unique_together = [
+            ('position', 'typ', 'workplace')
         ]

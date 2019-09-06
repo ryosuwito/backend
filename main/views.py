@@ -58,7 +58,6 @@ def career_apply(request):
                 context.update({'form': form})
                 return render(request, "main/career_apply.html", context)
         else:
-            print(form.errors)
             context.update({'form': form})
             return render(request, "main/career_apply.html", context)
 

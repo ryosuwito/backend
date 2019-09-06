@@ -144,7 +144,7 @@ class OnlineApplicationForm(forms.ModelForm):
         """
         Check if there is any (position, typ, workplace) job open or not.
         """
-        queryset = OpenJob.objects.all()
+        queryset = OpenJob.objects.filter(active=True)
 
         open_positions = list({JobPosition[open_job.position].value for open_job in queryset})
         position = self.cleaned_data['position']

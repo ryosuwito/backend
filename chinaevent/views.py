@@ -72,14 +72,13 @@ def career_talk(request, *args, **kwargs):
 
         # Handle POST request
         data = copy.deepcopy(request.POST)
-        data.update({
-            'is_onsite_recruiment': True,
-            'typ': JobType.FULLTIME_JOB.name,
-            'workplace': Workplace.SINGAPORE.name,
-        })
         form = RegistrationForm(data, request.FILES)
         if form.is_valid():
             model_instance = form.save(commit=False)
+            # Update from china event
+            model_instance.is_onsite_recruiment = True
+            # Workplace is TBD
+            model_instance.workplace = ''
             model_instance.save()
             try:
                 handle_application_form(model_instance)
