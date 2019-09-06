@@ -12,6 +12,9 @@ from .types import (
     JobPosition,
     JobType,
     Workplace,
+    JobTypeChoices,
+    JobWorkplaceChoices,
+    JobPositionChoices,
 )
 
 
@@ -25,11 +28,6 @@ def get_test_filepath(test_request, version=None):
     if version is None:
         version = test_request.version
     return settings.TEST_FILES.get(test_request.application.position, {}).get(version)
-
-
-JobTypeChoices = [(typ.name, typ.value) for typ in JobType]
-JobWorkPlaceChoices = [(place.name, place.value) for place in Workplace]
-JobPositionChoices = [(pos.name, pos.value) for pos in JobPosition]
 
 
 class OnlineApplication(models.Model):
@@ -48,15 +46,10 @@ class OnlineApplication(models.Model):
         (APP_STATUS_DOES_NOT_FINISH_TEST, "DNF TEST"),
     )
 
-    typ = models.CharField(
-        max_length=255, choices=JobTypeChoices, default=JobType.FULLTIME_JOB.name)
-    workplace = models.CharField(
-        max_length=255, choices=JobWorkPlaceChoices, default=Workplace.SINGAPORE.name)
+    typ = models.CharField(max_length=255, default=JobType.FULLTIME_JOB.name)
+    workplace = models.CharField(max_length=255, default=Workplace.SINGAPORE.name)
+    position = models.CharField(max_length=255,default=JobPosition.DEV.value)
 
-    position = models.CharField(
-        max_length=255,
-        choices=JobPositionChoices,
-        default=JobPosition.DEV.value)
     name = models.CharField(max_length=30)
     university = models.CharField(max_length=100, null=True, blank=True)
     school = models.CharField(max_length=200, null=True, blank=True)
@@ -66,7 +59,7 @@ class OnlineApplication(models.Model):
                               upload_to=user_resume_path)
     info_src = models.CharField(max_length=200, null=False, blank=False, default="N.A")
 
-    start_time = models.DateField(max_length=255, blank=False, null=True)
+    start_time = models.DateField(max_length=255, blank=True, null=True)
 
     # Additional fields for admin management
     status = models.CharField(
@@ -76,18 +69,26 @@ class OnlineApplication(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     # if the application is for onsite event
-    is_onsite_recruiment = models.BooleanField(default=False)
+    is_onsite_recruiment = models.BooleanField(default=False, blank=True, null=False)
     test_site = models.CharField(max_length=50, null=True, blank=True)
 
     def __unicode__(self):
         return self.email
 
     def is_role_dev(self):
-        return self.position in [OnlineApplication.DEVELOPER]
+        return self.position in [JobPosition.DEV.name]
 
     def is_role_researcher(self):
-        return self.position in [OnlineApplication.Q_RESEARCHER,
-                                 OnlineApplication.FQ_RESEARCHER]
+        return self.position in [JobPosition.QRES.name,
+                                 JobPosition.FQRES.name]
+
+    @property
+    def is_intern(self):
+        return 'intern' in self.typ.lower()
+
+    @property
+    def from_china_event(self):
+        return self.is_onsite_recruiment
 
     def on_update_status(self):
         # TODO: logics should not put in models
@@ -226,7 +227,7 @@ class Position(object):
 
 class OpenJob(models.Model):
     typ = models.CharField(max_length=255, choices=JobTypeChoices, db_index=True)
-    workplace = models.CharField(max_length=255, choices=JobWorkPlaceChoices)
+    workplace = models.CharField(max_length=255, choices=JobWorkplaceChoices)
     position = models.CharField(max_length=255, choices=JobPositionChoices)
 
     created_at = models.DateTimeField(auto_now_add=True)

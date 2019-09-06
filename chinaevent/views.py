@@ -1,71 +1,113 @@
 # -*- coding: utf-8 -*-
+import json
+import datetime
+import logging
+import traceback
+import copy
+
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 
 from main.models import TestRequest
 
-from .models import SITE_CHOICES_MAP
-from .forms import OnsiteRegistrationForm
+from .models import (SITE_CHOICES_MAP, EventContent)
+from .forms import (OnsiteRegistrationForm, RegistrationForm)
+
+from main.emails import send_online_application_confirm, send_online_application_summary
+from main.types import (
+    JobType,
+    Workplace,
+)
+
+from main import templatedata
 
 
-WRITTEN_TEST = [
-    {
-        'university': '北京大学',
-        'location': '理科教学楼106',
-        'time': '2018年10月20日, 09:00 - 12:00',
-    },
-    {
-        'university': '复旦大学',
-        'location': '叶耀珍楼会议室202',
-        'time': '2018年10月20日, 09:00 - 12:00',
-    },
-    {
-        'university': '上海交通大学',
-        'location': '闵行校区数学楼一楼大会议室',
-        'time': '2018年10月20日, 09:00 - 12:00',
-    },
-]
-
-CAREER_TALK = [
-    {
-        'university': '北京大学宣讲会',
-        'location': '新太阳学生中心212室',
-        'time': '2018年10月19日, 19:00 - 21:00',
-        'mapid': 'loc1',
-    },
-    {
-        'university': '清华大学交流会',
-        'location': 'FIT楼1-312',
-        'time': '2018年10月17日, 19:00 - 21:00',
-        'mapid': 'loc2',
-    },
-    {
-        'university': '复旦大学宣讲会',
-        'location': '邯郸校区光华楼主楼1501',
-        'time': '2018年10月15日, 19:00 - 21:00',
-        'mapid': 'loc3',
-    },
-    {
-        'university': '上海交通大学宣讲会',
-        'location': '闵行校区数学楼一楼大会议室',
-        'time': '2018年10月16日, 19:00 - 21:00',
-        'mapid': 'loc4',
-    },
-]
+logger = logging.getLogger(__name__)
 
 
-def career_talk(request):
-    return render(request, "chinaevent/career_talk.html", { 'talks': CAREER_TALK })
+SIDEBAR_MENU_ITEMS = templatedata.SIDEBAR_MENU_ITEMS
 
 
+def filter_method_decorator(methods=['get', 'post']):
+    methods = map(lambda x: x.lower(), methods)
+
+    def wrapper(func):
+        def wrapped_func(request, *args, **kwargs):
+            if request.method.lower() not in methods:
+                raise Http404()
+            else:
+                return func(request, *args, **kwargs)
+
+        return wrapped_func
+
+    return wrapper
+
+
+def current_year():
+    today = datetime.date.today()
+    year = today.year
+    return year if today.month < 9 else year + 1
+
+
+@filter_method_decorator(methods=['get', 'post'])
+def career_talk(request, *args, **kwargs):
+    year = current_year()
+    event_content = EventContent.objects.get(year=year)
+    event_content_dict = json.loads(event_content.payload)
+    context = {
+        'talks': event_content_dict['careerTalks'],
+        'tests': event_content_dict['writtenTests'],
+        'year': year,
+        'sidebar_menu_items': SIDEBAR_MENU_ITEMS,
+    }
+    if request.method.lower() == 'get':
+        context.update({'form': RegistrationForm()})
+        return render(request, "chinaevent/career_talk.html", context)
+    elif request.method.lower() == 'post':
+        def handle_application_form(application):
+            # send application form summary to company email
+            send_online_application_summary(application)
+            # send confirmation email to candidate
+            send_online_application_confirm(application)
+
+        # Handle POST request
+        data = copy.deepcopy(request.POST)
+        data.update({
+            'is_onsite_recruiment': True,
+            'typ': JobType.FULLTIME_JOB.name,
+            'workplace': Workplace.SINGAPORE.name,
+        })
+        form = RegistrationForm(data, request.FILES)
+        if form.is_valid():
+            model_instance = form.save(commit=False)
+            model_instance.save()
+            try:
+                handle_application_form(model_instance)
+                context.update({'form': RegistrationForm(), 'success_apply': True})
+                return render(request, "chinaevent/career_talk.html", context)
+            except:
+                logger.error(traceback.format_exc())
+                model_instance.delete()
+                context.update({'form': form})
+                return render(request, "chinaevent/career_talk.html", context)
+        else:
+            context.update({'form': form})
+            return render(request, "chinaevent/career_talk.html", context)
+
+
+@filter_method_decorator(methods=['get', 'post'])
 def register(request, req_id, hashstr):
 
     def get_context(test_request):
+        year = current_year()
+        event_content = EventContent.objects.get(year=year)
+        event_content_dict = json.loads(event_content.payload)
         context = {
             'form': OnsiteRegistrationForm(instance=test_request.application),
-            'career_talks': CAREER_TALK,
-            'tests': WRITTEN_TEST,
+            'career_talks': event_content_dict['careerTalks'],
+            'tests': event_content_dict['writtenTests'],
             'test_req_link': test_request.get_absolute_url(),
+            'year': year,
         }
         if test_request.application.test_site not in ['', None]:
             context['form'] = None
@@ -75,7 +117,7 @@ def register(request, req_id, hashstr):
         return context
 
     test_request = get_object_or_404(TestRequest, pk=req_id, hashstr=hashstr)
-    if not test_request.application.is_onsite_recruiment:
+    if not test_request.application.from_china_event:
         raise Http404()
 
     template = "chinaevent/register.html"

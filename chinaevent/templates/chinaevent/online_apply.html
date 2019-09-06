@@ -1,0 +1,23 @@
+<div class="cell-xs-12 cell-md-12 cell-lg-12">
+  <div class="range">
+    <div class="cell-xs-12">
+      <h3>China Event Application</h3>
+      {% if success_apply %}
+      <p><font color='#24a3d8'>Thank you for your application. A confirmation email will be sent to you shortly.</font></p>
+      <p><font color='#24a3d8'>If you cannot find the confirmation email, please check your spam mailbox.</font></p>
+      {% endif %}
+      <p>
+      <a href="{% url 'main.career.apply' %}"><b><font color='green'>CLICK HERE</font></b></a> to apply for other positions and interships.
+      </p>
+      <br>
+
+      <div class="row margin-vert-30">
+        <div class="col-md-8">
+          <p class="help-block">Required fields indicated with (*)</p>
+          
+          {% include 'main/snippet_form.html' with form=form multipart=True %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -38,3 +38,11 @@ class Candidate(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class EventContent(models.Model):
+    year = models.IntegerField(db_index=True)
+    payload = models.TextField(blank=True, null=False, default='')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

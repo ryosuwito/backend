@@ -46,9 +46,15 @@ class JobType(enum.Enum):
     FULLTIME_INTERNSHIP = 'Full-time Internship'
     PARTTIME_INTERNSHIP = 'Part-time Internship'
     FULLTIME_JOB = 'Full-time Job'
+    INTERNSHIP = 'Internship'
 
 
 class Workplace(enum.Enum):
     SHANGHAI = 'Shanghai'
     SINGAPORE = 'Singapore'
     REMOTE = 'Remote'
+
+
+JobTypeChoices = [(typ.name, typ.value) for typ in JobType]
+JobWorkplaceChoices = [(place.name, place.value) for place in Workplace]
+JobPositionChoices = [(pos.name, pos.value) for pos in JobPosition]

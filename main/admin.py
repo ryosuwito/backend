@@ -3,7 +3,11 @@ import datetime
 
 from django.contrib import admin
 from main.models import OnlineApplication, TestRequest, InternCandidate, OpenJob
-from main.types import JobType
+from main.types import (
+    JobType,
+    JobPosition,
+    Workplace,
+)
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -20,15 +24,25 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
         else:
             return "None"
 
+    def get_enum_val(enum_obj, obj_prop_name):
+        def get_val(obj):
+            obj_prop_value = getattr(obj, obj_prop_name, '')
+            enum_value = getattr(enum_obj, obj_prop_value, None)
+            return obj_prop_value if enum_value is None else enum_value.value
+
+        get_val.short_description = obj_prop_name
+        return get_val
+
     def start_and_end_time(obj):
         start_time = obj.start_time
         if start_time is None:
             return "---"
 
-        if obj.typ == JobType.FULLTIME_INTERNSHIP.name:
-            end_time = start_time + datetime.timedelta(days=90) # 3 months after start working day
-        elif obj.typ == JobType.PARTTIME_INTERNSHIP.name:
-            end_time = start_time + datetime.timedelta(days=120) # 4 months after start working day
+        if obj.is_intern:
+            # 3 months for FULL-TIME INTERNSHIP
+            # 4 months for PART-TIME INTERNSHIP
+            days = 120 if obj.typ == JobType.PARTTIME_INTERNSHIP.name else 90
+            end_time = start_time + datetime.timedelta(days=days)
         else:
             end_time = None
 
@@ -39,9 +53,11 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
 
     get_scheduled_test.short_description = "Scheduled Test"
     list_display = ('name', 'university', 'school', 'major', 'email',
-                    'position', 'typ', 'workplace', start_and_end_time, 'status', get_scheduled_test, 'info_src',
-                    'is_onsite_recruiment', 'test_site',)
-    list_editable = ('status', 'is_onsite_recruiment',)
+                    get_enum_val(JobPosition, 'position'), get_enum_val(JobType, 'typ'),
+                    get_enum_val(Workplace, 'workplace'), start_and_end_time, 'status',
+                    get_scheduled_test, 'info_src', 'from_china_event', 'test_site',)
+
+    list_editable = ('status',)
     list_filter = ('typ', 'workplace', 'position', 'status', 'is_onsite_recruiment', 'test_site',)
 
 

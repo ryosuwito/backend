@@ -5,7 +5,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.template import loader, Context
 from django.utils.html import strip_tags
 
-from .models import get_test_filepath, OnlineApplication
+from .models import get_test_filepath
+from .types import JobPosition
 
 
 COMPANY_CAREER_EMAIL = settings.COMPANY_CAREER_EMAIL
@@ -70,14 +71,15 @@ def send_test_request(test_request):
     """
     template = "main/email_test_request.html"
 
-    if test_request.application.position in [
-            OnlineApplication.DATA_ENGINEER,
-            OnlineApplication.OPERATION_SPECIALIST,
-            OnlineApplication.INTERN_DATA_ENGINEER]:
+    position_list = [
+        JobPosition.DATA_ENGINEER.name,
+        JobPosition.OP_SPECIALIST.name,]
+
+    if test_request.application.position in position_list:
         template = "main/email_test_request_for_data_engineer.html"
 
-    if test_request.application.is_role_researcher() and test_request.application.is_onsite_recruiment:
-            template = "main/email_test_request_onsite.html"
+    if test_request.application.is_role_researcher() and test_request.application.from_china_event:
+        template = "main/email_test_request_onsite.html"
 
     send_templated_email(
         subject="test scheduling: {}"
@@ -97,19 +99,15 @@ def send_test(test_request):
     """
     if test_request.application.is_role_researcher():
         email_template = "main/email_test_research.html"
-    elif test_request.application.position in [
-        OnlineApplication.INTERN_Q_RESEARCHER,
-        OnlineApplication.INTERN_FQ_RESEARCHER]:
+    elif test_request.application.is_role_researcher() and test_request.application.is_intern:
         email_template = "main/email_test_intern_researcher.html"
     elif test_request.application.position in [
-            OnlineApplication.DATA_ENGINEER,
-            OnlineApplication.OPERATION_SPECIALIST,
-            OnlineApplication.INTERN_DATA_ENGINEER]:
+            JobPosition.DATA_ENGINEER.name,
+            JobPosition.OP_SPECIALIST.name]:
         email_template = "main/email_test_data_engineer.html"
     elif test_request.application.is_role_dev():
         email_template = "main/email_test_dev.html"
-    elif test_request.application.position in [
-            OnlineApplication.INTERN_DEVELOPER]:
+    elif test_request.application.is_role_dev() and test_request.application.is_intern:
         email_template = "main/email_test_dev.html"
     else:
         raise ValueError("Invalid position")

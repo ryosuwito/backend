@@ -13,6 +13,9 @@ from .types import (
     Workplace,
     JobPosition,
     OldJobPosition,
+    JobPositionChoices,
+    JobTypeChoices,
+    JobWorkplaceChoices,
 )
 
 
@@ -86,10 +89,15 @@ class InfoSourceField(forms.MultiValueField):
 
 class OnlineApplicationForm(forms.ModelForm):
     start_time = forms.DateField(
-        widget=forms.SelectDateWidget, label='When are you ready to go to work?', initial=datetime.date.today(),
+        widget=forms.SelectDateWidget, label='Pick up a date to start working', initial=datetime.date.today(),
         help_text=('Note: After this day you need to work at least 3 months for a full-time internship or '
                    '4 months (3 days a week) for a part-time internship.')
     )
+
+    position = forms.ChoiceField(choices=JobPositionChoices, label='Position*')
+    OnlineAppChoices = tuple(filter(lambda x: x[0] != JobType.INTERNSHIP.name, JobTypeChoices))
+    typ = forms.ChoiceField(choices=OnlineAppChoices, label='Type*')
+    workplace = forms.ChoiceField(choices=JobWorkplaceChoices, label='Workplace*')
 
     resume = forms.FileField()
     info_src = InfoSourceField()
@@ -103,10 +111,10 @@ class OnlineApplicationForm(forms.ModelForm):
         ]
         labels = {
             'name': _('Name *'),
-            'position': _('Position *'),
-            'email': _('Email *'),
-            'typ': _('Type *'),
-            'workplace': _('Workplace *'),
+            'position': _('Position*'),
+            'email': _('Email*'),
+            'typ': _('Type*'),
+            'workplace': _('Workplace*'),
         }
 
     def __init__(self, *args, **kwargs):
@@ -125,7 +133,7 @@ class OnlineApplicationForm(forms.ModelForm):
 
     def clean_start_time(self):
         start_time = self.cleaned_data.get('start_time')
-        if start_time is None or start_time < datetime.date.today():
+        if start_time is not None and start_time < datetime.date.today():
             raise forms.ValidationError(
                 "Too early to start."
             )

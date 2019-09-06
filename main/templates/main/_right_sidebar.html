@@ -1,0 +1,15 @@
+<div class="cell-xs-12 cell-md-4 cell-lg-3 offset-top-60 offset-md-top-0">
+  <div class="inset-md-left-15 inset-md-right-15">
+    <div class="range">
+      <div class="cell-xs-12 cell-sm-6 cell-md-12 child-offset-41">
+        <nav class="page-nav">
+          <ul class="page-nav-list">
+            {% for menu_item in  menu_items %}
+            <li {% if active == forloop.counter %} class="active" {% endif %}><a href="{% url menu_item.1 %}">{{ menu_item.0 }}</a></li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

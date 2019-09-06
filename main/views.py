@@ -15,8 +15,12 @@ from main.models import TestRequest, OnlineApplication
 from main.forms import OnlineApplicationForm, TestRequestForm, InternApplicationForm
 from main.emails import send_online_application_confirm, send_online_application_summary
 
+from main import templatedata
+
 
 logger = logging.getLogger(__name__)
+
+SIDEBAR_MENU_ITEMS = templatedata.SIDEBAR_MENU_ITEMS
 
 
 def index(request):
@@ -31,9 +35,13 @@ def career_apply(request):
         # send confirmation email to candidate
         send_online_application_confirm(application)
 
+    context = {
+        'sidebar_menu_items': SIDEBAR_MENU_ITEMS,
+    }
+
     if not request.POST:
-        return render(request, "main/career_apply.html", {
-            'form': OnlineApplicationForm() })
+        context.update({'form': OnlineApplicationForm()})
+        return render(request, "main/career_apply.html", context)
     else:
         # Handle POST request
         form = OnlineApplicationForm(request.POST, request.FILES)
@@ -42,14 +50,17 @@ def career_apply(request):
             model_instance.save()
             try:
                 handle_application_form(model_instance)
-                return render(request, "main/career_apply_confirm.html",
-                              {'form': None})
+                context.update({'form': None})
+                return render(request, "main/career_apply_confirm.html", context)
             except:
                 logger.error(traceback.format_exc())
                 model_instance.delete()
-                return render(request, "main/career_apply.html", {'form': form})
+                context.update({'form': form})
+                return render(request, "main/career_apply.html", context)
         else:
-            return render(request, "main/career_apply.html", {'form': form})
+            print(form.errors)
+            context.update({'form': form})
+            return render(request, "main/career_apply.html", context)
 
 
 def career_apply_intern(request, template="main/career_apply_intern.html"):
@@ -120,31 +131,35 @@ def career_test(request, req_id, hashstr):
             })
 
 
-
-
 def career_jobs(request):
     from main.data import positions
-    return render(request, "main/career_job_opening.html",
-                  {'positions': positions})
+    context = {
+        'sidebar_menu_items': SIDEBAR_MENU_ITEMS,
+        'positions': positions,
+    }
+    return render(request, "main/career_job_opening.html", context)
 
 
 def career_overview(request):
     # flake8: noqa
-    why_dtl = [
-        {
-            "desc": """Learn from the Best""",
-            "content": """Our employees are top-notch talents in their fields. Though they come with diverse background, they share a common drive to succeed. As DTL's new employee, you could learn from our experienced mentors. We strive to maintain a friendly, collegiate working environment to promote self-improvement and career development."""},
-        {
-            "desc": """Receive thorough Training""",
-            "content": """A job offer at DTL is the start of our investment in you. Based on your background, we will develop specific programs and provide resources ( books, papers, tutorials etc. ) to help you build and enhance your skills in finance, mathematics, statistics and programming."""},
-        {
-            "desc": """Share Our Success""",
-            "content": """We are a specialized investment team with excellent track record. By joining us, you will grow together with the company. Your remuneration will be based on your performance and the company's performance as a whole. We offer highly competitive compensation packages."""},
-        {
-            "desc": """Make A Difference""",
-            "content": """You can really make a difference even during entry-level as you will be tasked with challenging yet interesting assignments. We strive to help you in every way to facilitate innovation and brainstorm fresh ideas which are the key to our success."""}
-    ]
-    return render(request, "main/career_overview.html", {'why_dtl': why_dtl})
+    context = {
+        'sidebar_menu_items': SIDEBAR_MENU_ITEMS,
+        'why_dtl': [
+            {
+                "desc": """Learn from the Best""",
+                "content": """Our employees are top-notch talents in their fields. Though they come with diverse background, they share a common drive to succeed. As DTL's new employee, you could learn from our experienced mentors. We strive to maintain a friendly, collegiate working environment to promote self-improvement and career development."""},
+            {
+                "desc": """Receive thorough Training""",
+                "content": """A job offer at DTL is the start of our investment in you. Based on your background, we will develop specific programs and provide resources ( books, papers, tutorials etc. ) to help you build and enhance your skills in finance, mathematics, statistics and programming."""},
+            {
+                "desc": """Share Our Success""",
+                "content": """We are a specialized investment team with excellent track record. By joining us, you will grow together with the company. Your remuneration will be based on your performance and the company's performance as a whole. We offer highly competitive compensation packages."""},
+            {
+                "desc": """Make A Difference""",
+                "content": """You can really make a difference even during entry-level as you will be tasked with challenging yet interesting assignments. We strive to help you in every way to facilitate innovation and brainstorm fresh ideas which are the key to our success."""}
+        ]
+    }
+    return render(request, "main/career_overview.html", context)
 
 
 def culture_overview(request):

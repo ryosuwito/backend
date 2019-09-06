@@ -26,7 +26,7 @@
       <div class="cell-xs-12">
         <ul class="breadcrumbs-custom">
           <li><a href="{% url 'main.index' %}">Home</a></li>
-          <li><a href="{% url 'chinaevent.career_talk' %}">2019中国招聘</a></li>
+          <li><a href="{% url 'chinaevent.career_talk' %}">{{ year }}中国招聘</a></li>
           <li class="active">校园宣讲会</li>
         </ul>
       </div>
@@ -34,48 +34,62 @@
   </div>
 </section>
 
-<section class="section-top-55 section-bottom-40">
+<section class="section-top-55 section-bottom-60">
   <div class="shell">
     <div class="range">
       <div class="cell-xs-12 cell-md-8 cell-lg-9">
-        <h3>校园宣讲会</h3>
-        <div class="table-mobile">
-          <table class="table table-curious-blue table-bordered">
-            <thead>
-              <tr>
-                <th width="30%">学校</th>
-                <th width="30%">地点</th>
-                <th width="30%">时间</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for item in talks %}
-              <tr>
-                <td>{{ item.university }}</td>
-                <td><a href="#{{ item.mapid }}">{{ item.location }}</a></td>
-                <td>{{ item.time }}</td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="cell-xs-12 cell-md-4 cell-lg-3 offset-top-60 offset-md-top-0">
-        <div class="inset-md-left-15 inset-md-right-15">
-          <div class="range">
-            <div class="cell-xs-12 cell-sm-6 cell-md-12 child-offset-41">
-              <nav class="page-nav">
-                <ul class="page-nav-list">
-                </ul>
-              </nav>
+        <div class="range">
+          <div class="cell-xs-12">
+            <h3>China Recruiting {{ year }}</h3>
+          </div>
+          <br/><br/><br/>
+          <div class="cell-xs-12 cell-md-8 cell-lg-9">
+            <h3>校园宣讲会</h3>
+            <div class="table-mobile">
+              <table class="table table-curious-blue table-bordered">
+                <thead>
+                  <tr>
+                    <th width="30%">学校</th>
+                    <th width="30%">地点</th>
+                    <th width="30%">时间</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for item in talks %}
+                  <tr>
+                    <td>{{ item.university }}</td>
+                    <!-- <td><a href="#{{ item.mapid }}">{{ item.location }}</a></td> -->
+                    <td>{{ item.location }}</td>
+                    <td>{{ item.time }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
             </div>
           </div>
+          <div class="cell-xs-12 cell-md-4 cell-lg-3 offset-top-60 offset-md-top-0">
+            <div class="inset-md-left-15 inset-md-right-15">
+              <div class="range">
+                <div class="cell-xs-12 cell-sm-6 cell-md-12 child-offset-41">
+                  <nav class="page-nav">
+                    <ul class="page-nav-list">
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% include 'chinaevent/online_apply.html' with form=form multipart=True success_apply=success_apply %}
         </div>
       </div>
+      {% include 'main/_right_sidebar.html' with menu_items=sidebar_menu_items active=4 %}
     </div>
   </div>
 </section>
 
+
+{% comment %}
 <section class="section-bottom-60">
   <div class="shell">
     <div class="range">
@@ -93,9 +107,10 @@
     </div>
   </div>
 </section>
+{% endcomment %}
 
 {% endblock body-content %}
-
+{% comment %}
 {% block js-extras %}
 <script type="text/javascript">
 function initialize() {
@@ -142,3 +157,4 @@ function loadScript() {
 window.onload = loadScript;
 </script>
 {% endblock js-extras %}
+{% endcomment %}

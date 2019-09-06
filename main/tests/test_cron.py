@@ -12,6 +12,7 @@ from django.core.files import File
 from main import cron
 from main.models import OnlineApplication, TestRequest
 from main.cron import need_send_test_now, send_online_tests
+from main.types import JobPosition
 
 
 FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
@@ -20,7 +21,7 @@ FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
 class CronTestCase(TestCase):
     def setUp(self):
         self.application = OnlineApplication(
-            position=OnlineApplication.DEVELOPER,
+            position=JobPosition.DEV.name,
             name="Yen Nguyen",
             email="ynguyen@dytechlab.com",
             resume=File(open(

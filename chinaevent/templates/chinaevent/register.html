@@ -38,7 +38,7 @@
   <div class="shell">
     <div class="range">
       <div class="cell-xs-12 cell-md-8 cell-lg-9">
-        <h3>China Recruiting 2019</h3>
+        <h3>China Recruiting {{ year }}</h3>
       </div>
     </div>
   </div>
@@ -105,8 +105,6 @@
           <span class="anchor-link" id="form"></span>
           <div>
             <p>Please kindly indicate your attendance of the written test below:</p>
-            <font color="red">The test is over. You cannot register anymore.</font>
-            {% comment %}
             {% if form %}
                 <div class="cell-xs-12 offset-top-25">
                 </div>
@@ -118,7 +116,6 @@
             {% else %}
                 <font color="red">{{ form_msg }}</font>
             {% endif %}
-            {% endcomment %}
           </div>
       </div>
     </div>
