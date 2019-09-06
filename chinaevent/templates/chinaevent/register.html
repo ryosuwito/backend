@@ -38,7 +38,7 @@
   <div class="shell">
     <div class="range">
       <div class="cell-xs-12 cell-md-8 cell-lg-9">
-        <h3>China Recruiting {{ year }}</h3>
+        <h3>{{ year }}DTL 中国校招</h3>
       </div>
     </div>
   </div>
@@ -49,15 +49,14 @@
     <div class="range">
       <div class="cell-xs-12 cell-md-8 cell-lg-9">
         <div>
-          <p>Thank you for your interest in our research openings. We would like to invite you to participate in our school career/informative talks and our onsite written tests.</p>
+          <p>感谢你对我们{{ year }}校招的关注，我们诚挚邀请你参加DTL {{ year }}年中国校园宣讲会。如果你想申请我们的研究员职位，我们强烈建议你参加我们的现场笔试。</p>
           <br/>
-          <font color="red">If you could not attend the onsite test, please click the link to schedule an online written test below.
-          Do note we would <b>STRONGLY ENCOURAGE</b> you to take part in the onsite written test if possible.</font>
+          <font color="red">如果你实在无法参加我们现场笔试或者想要申请我们的开发工程师职位，请点击下面链接预约我们的网上笔试</font>
           <p>
-          <a href="{{ test_req_link }}" class="link link-inline header"><span style="font-size: 18px;"><b>Written Test Schedule Link</b></span></a>
+          <a href="{{ test_req_link }}" class="link link-inline header"><span style="font-size: 18px;"><b> 网上笔试预约请点这里</b></span></a>
           </p>
         </div>
-        <h4>Career Talks</h4>
+        <h4>校园宣讲会</h4>
         <div class="table-mobile">
           <table class="table table-curious-blue table-bordered">
             <thead>
@@ -79,9 +78,7 @@
           </table>
         </div>
 
-    <p>Also we would like to invite you to our onsite written tests which will be held from 09:00 to 12:00, 20th October at the following venues:</p>
-
-        <h4>Written Tests</h4>
+        <h4>现场笔试</h4>
         <div class="table-mobile">
           <table class="table table-curious-blue table-bordered">
             <thead>
@@ -104,13 +101,13 @@
         </div>
           <span class="anchor-link" id="form"></span>
           <div>
-            <p>Please kindly indicate your attendance of the written test below:</p>
+            <p>请选择你想参加的笔试地点</p>
             {% if form %}
                 <div class="cell-xs-12 offset-top-25">
                 </div>
                 <div class="row margin-vert-30">
                   <div class="col-md-8">
-                    {% include 'main/snippet_form.html' with form=form multipart=True action="#form" %}
+                    {% include 'main/snippet_form.html' with form=form multipart=True action="#form" lang='cn' %}
                   </div>
                 </div>
             {% else %}

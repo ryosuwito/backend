@@ -22,7 +22,7 @@ COMPANY_WEB = "公司官网"
 SCHOOL_EMAIL = "电子邮件宣传"
 FRIENDS = "朋友推荐"
 BBS = "校园BBS"
-WECHAT = 'WeChat'
+WECHAT = '微信群'
 INFO_SRC_CHOICES = (
     (CAMPUS_TALK, CAMPUS_TALK),
     (CAMPUS_POSTER, CAMPUS_POSTER),
@@ -45,11 +45,11 @@ EVENT_JOB_CHOICES = (
 
 
 class RegistrationForm(forms.ModelForm):
-    position = forms.ChoiceField(label='Position*', choices=EVENT_JOB_CHOICES)
+    position = forms.ChoiceField(label='岗位*', choices=EVENT_JOB_CHOICES)
     info_src = InfoSourceField(choices=INFO_SRC_CHOICES,
-                               label="你从哪里得到我们的招聘信息* (多选)")
-    resume = forms.FileField(label='Resume*')
-    typ = forms.ChoiceField(label='Type*', choices=[
+                               label="你从哪里得到我们的招聘信息* (可多选)")
+    resume = forms.FileField(label='简历*', help_text='注意简历文件名称中不能含有中文')
+    typ = forms.ChoiceField(label='全职/实习*', choices=[
         (JobType.FULLTIME_JOB.name, JobType.FULLTIME_JOB.value),
         (JobType.INTERNSHIP.name, JobType.INTERNSHIP.value),
     ])
@@ -61,11 +61,11 @@ class RegistrationForm(forms.ModelForm):
             'email', 'name', 'university', 'school', 'major', 'resume', 'info_src',
         ]
         labels = {
-            'email': _('Email*'),
-            'name': _('Name*'),
-            'university': _('University'),
-            'school': _('School'),
-            'major': _('Major'),
+            'email': _('邮箱*'),
+            'name': _('名字*'),
+            'university': _('学校'),
+            'school': _('院系'),
+            'major': _('专业'),
         }
 
     def clean_email(self):
@@ -78,7 +78,7 @@ class RegistrationForm(forms.ModelForm):
 
 class OnsiteRegistrationForm(forms.ModelForm):
     test_site = forms.ChoiceField(
-        choices=Candidate.SITE_CHOICES)
+        choices=Candidate.SITE_CHOICES, label='笔试地点')
 
     class Meta:
         model = OnlineApplication

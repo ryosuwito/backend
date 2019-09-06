@@ -110,7 +110,7 @@ def register(request, req_id, hashstr):
         }
         if test_request.application.test_site not in ['', None]:
             context['form'] = None
-            context['form_msg'] = 'You already registered for site: %s'\
+            context['form_msg'] = "You've opted the region %s to do onsite test successfully!"\
                 % SITE_CHOICES_MAP[test_request.application.test_site]
 
         return context

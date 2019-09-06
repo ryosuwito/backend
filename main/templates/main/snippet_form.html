@@ -5,7 +5,11 @@
   {% bootstrap_form form layout="vertical"%}
   {%buttons %}
 
+  {% if lang == 'cn' %}
+  <button type="submit" class="pull-right btn btn-primary">提交</button>
+  {% else %}
   <button type="submit" class="pull-right btn btn-primary">Submit</button>
+  {% endif %}
 
   {% endbuttons %}
 </form>
