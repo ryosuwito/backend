@@ -125,7 +125,7 @@ class OnlineApplicationForm(forms.ModelForm):
         email = self.cleaned_data['email']
         applications = OnlineApplication.objects.filter(email=email)
         if applications.count() > 0:
-            position = applications.first().get_position_display()
+            position = applications.first().get_position_display
             raise forms.ValidationError(
                 "You've already applied for %s position before." % position
             )

@@ -72,6 +72,12 @@ class OnlineApplication(models.Model):
     is_onsite_recruiment = models.BooleanField(default=False, blank=True, null=False)
     test_site = models.CharField(max_length=50, null=True, blank=True)
 
+    @property
+    def get_position_display(self):
+        obj_prop_value = getattr(self, 'position', '')
+        enum_value = getattr(JobPosition, obj_prop_value, None)
+        return obj_prop_value if enum_value is None else enum_value.value
+
     def __unicode__(self):
         return self.email
 
