@@ -178,7 +178,8 @@ FILE_INTERN_EMAILS = os.path.join(MEDIA_ROOT, 'intern-list.csv')
 # Crontab settings
 CRONJOBS = [
     # cronjob every minute, try to send online tests that are scheduled today
-    ('* * * * *', 'main.cron.send_online_tests'),
+    ('* * * * *', 'main.cron.send_test_token'),
+    ('*/5 * * * *', 'main.cron.send_on_remind_tests'),
     # cronjob every minute, try to send mails currently in message queue. if any
     # failure, they will be marked deferred and will not be attempted again by send_mail
     ('* * * * *', 'django.core.management.call_command', ['send_mail'], {'c': 1}),

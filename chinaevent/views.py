@@ -77,8 +77,8 @@ def career_talk(request, *args, **kwargs):
             model_instance = form.save(commit=False)
             # Update from china event
             model_instance.is_onsite_recruiment = True
-            # Workplace is TBD
-            model_instance.workplace = ''
+            # Workplace is Singapore by default
+            model_instance.workplace = Workplace.SINGAPORE.name
             model_instance.save()
             try:
                 handle_application_form(model_instance)

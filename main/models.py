@@ -158,6 +158,10 @@ class TestRequest(models.Model):
         max_length=10,
         choices=STATUS_CHOICES,
         default=STATUS_NEW)
+    token_status = models.CharField(
+        max_length=255, blank=True, null=True, default=None)
+    token = models.TextField(
+        null=True, default='', blank=True)
 
     # Additional fields for admin management
     updated_at = models.DateTimeField(auto_now=True)
@@ -191,6 +195,10 @@ class TestRequest(models.Model):
             return False
         if self.status == TestRequest.STATUS_SET:
             return (timezone.now() + timedelta(days=2)) <= self.datetime
+
+    @property
+    def test_site(self):
+        return self.application.test_site
 
     @staticmethod
     def createTestRequestForApplication(application):
@@ -236,6 +244,7 @@ class OpenJob(models.Model):
     typ = models.CharField(max_length=255, choices=JobTypeChoices)
     workplace = models.CharField(max_length=255, choices=JobWorkplaceChoices)
     active = models.BooleanField(default=True, blank=True, null=False)
+    test_id = models.CharField(max_length=255, null=True, default=None, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

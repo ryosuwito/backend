@@ -211,7 +211,7 @@ class InternApplicationForm(OnlineApplicationForm):
 class TestRequestForm(forms.ModelForm):
     class Meta:
         model = TestRequest
-        exclude = ['hashstr', 'application', 'created_at', 'status', 'version']
+        exclude = ['hashstr', 'application', 'created_at', 'status', 'version', 'token', 'token_status']
         widgets = {
             'datetime': DateTimeInput()
         }

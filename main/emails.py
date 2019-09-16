@@ -78,7 +78,9 @@ def send_test_request(test_request):
     if test_request.application.position in position_list:
         template = "main/email_test_request_for_data_engineer.html"
 
-    if test_request.application.is_role_researcher() and test_request.application.from_china_event:
+    if test_request.application.is_role_researcher() and \
+       test_request.application.from_china_event and \
+       not test_request.application.is_intern:
         template = "main/email_test_request_onsite.html"
 
     send_templated_email(
@@ -98,9 +100,10 @@ def send_test(test_request):
     send test file to candidate on scheduled datetime
     """
     if test_request.application.is_role_researcher():
-        email_template = "main/email_test_research.html"
-    elif test_request.application.is_role_researcher() and test_request.application.is_intern:
-        email_template = "main/email_test_intern_researcher.html"
+        if not test_request.application.is_intern:
+            email_template = "main/email_test_research.html"
+        else:
+            email_template = "main/email_test_intern_researcher.html"
     elif test_request.application.position in [
             JobPosition.DATA_ENGINEER.name,
             JobPosition.OP_SPECIALIST.name]:
@@ -124,6 +127,32 @@ def send_test(test_request):
         recipients=[test_request.application.email, ],
         cc=[COMPANY_CAREER_EMAIL],
         files=file_test)
+
+
+def send_reminding_test_email(req, minutes, online_test_host):
+    send_templated_email(
+        subject="Online test will start under {} minutes".format(minutes),
+        email_template="main/email_reminding_test.html",
+        email_context={'req': req, 'minutes': minutes, 'online_test_host': online_test_host},
+        recipients=[req.application.email],
+        cc=[COMPANY_CAREER_EMAIL],
+    )
+
+
+def send_token_email(context):
+    """
+    send test file to candidate on scheduled datetime
+    """
+    email_template = 'main/email_online_test_access.html'
+    test_request = context['test_request']
+
+    send_templated_email(
+        subject="written test: {}"
+                .format(test_request.application.get_position_display),
+        email_template=email_template,
+        email_context=context,
+        recipients=[test_request.application.email, ],
+        cc=[COMPANY_CAREER_EMAIL],)
 
 
 def send_reject(application):

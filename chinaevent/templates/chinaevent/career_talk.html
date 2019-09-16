@@ -44,6 +44,10 @@
         <br/><br/><br/>
         <div class="cell-xs-12 cell-md-8 cell-lg-9">
           <h3>校园宣讲会</h3>
+          {% if success_apply %}
+          <p><font color='#24a3d8'>感谢你对我们公司的关注！我们将发送一封确认邮件至你的邮箱。</font></p>
+          <p><font color='#24a3d8'>如果你没有收到的话，请检查垃圾邮箱。</font></p>
+          {% endif %}
           <div class="table-mobile">
             <table class="table table-curious-blue table-bordered">
               <thead>
@@ -79,7 +83,7 @@
           </div>
         </div>
 
-        {% include 'chinaevent/online_apply.html' with form=form multipart=True success_apply=success_apply %}
+        {% include 'chinaevent/online_apply.html' with form=form multipart=True %}
       </div>
       {% include 'main/_right_sidebar.html' with menu_items=sidebar_menu_items active=4 %}
     </div>

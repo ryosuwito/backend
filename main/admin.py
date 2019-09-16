@@ -86,7 +86,7 @@ class InternCandidateAdmin(admin.ModelAdmin):
 
 @admin.register(OpenJob)
 class OpenJobAdmin(admin.ModelAdmin):
-    list_display = ('id', 'typ', 'workplace', 'position', 'active')
+    list_display = ('id', 'typ', 'workplace', 'position', 'active', 'test_id')
     list_display_links = ('id',)
-    list_editable = ('active',)
-    list_filter = ('position', 'typ', 'workplace', 'active')
+    list_editable = ('active', 'test_id')
+    list_filter = ('position', 'typ', 'workplace', 'active', 'test_id')
