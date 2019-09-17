@@ -1,7 +1,12 @@
-<p>Your written test will open on the website <a href='{{ host }}'>{{ host }}</a> at {{ test_request.datetime }} GMT+8.</p>
+<p>Hi {{ test_request.application.name }},</p>
+
+<p>Your written test/project will open on the website <a href='{{ host }}'>{{ host }}</a> at <strong>{{ test_request.datetime }} GMT+8.</strong></p>
 <p>Using your username/password given bellow to access.</p>
 
 <p>Username: {{ username }}</p>
 <p>Password: {{ password }}</p>
 
 <p><b>Please read the notes of the test carefully before starting to attempt the test. If you have any questions please email careers@dytechlab.com</b></p>
+
+<p>Thanks,</p>
+<p>DTL</p>

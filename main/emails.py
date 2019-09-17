@@ -131,9 +131,11 @@ def send_test(test_request):
 
 def send_reminding_test_email(req, minutes, online_test_host):
     send_templated_email(
-        subject="Online test will start under {} minutes".format(minutes),
+        subject="Dynamic Technology Lab test/project will start under {} minutes".format(minutes),
         email_template="main/email_reminding_test.html",
-        email_context={'req': req, 'minutes': minutes, 'online_test_host': online_test_host},
+        email_context={
+            'req': req, 'minutes': minutes, 'online_test_host': online_test_host,
+        },
         recipients=[req.application.email],
         cc=[COMPANY_CAREER_EMAIL],
     )
@@ -147,7 +149,7 @@ def send_token_email(context):
     test_request = context['test_request']
 
     send_templated_email(
-        subject="written test: {}"
+        subject="Dynamic Technology Lab written test/project: {}"
                 .format(test_request.application.get_position_display),
         email_template=email_template,
         email_context=context,

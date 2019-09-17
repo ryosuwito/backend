@@ -97,9 +97,12 @@
             <h3>Schedule Online Written Test</h3>
             {% if is_set %}
             <p><font color='green'>You already requested slot: <strong>{{ is_set }} (Singapore Time)</strong></font>
+            <p><font color='green'><strong>2 days before the test/project starts, An email will be sent to you for preparation. Please check your spam if you do not receive it. Also there might be a few minutes delay so it may not arrive on the exact timing.</strong></font></p>
             {% endif %}
             <p>The test will be emailed to you at the selected date/time (Singapore Time). </p>
             <p>You can still change your time slot up to 2 days prior your requested slot.</p>
+            <p><strong>You will be given {{ given_time }} to complete your test/project</strong></p>
+
             <p>If you have any questions or want to reschedule within 2 days of the test requested previously, please email:<a class="active" href="mailto:careers@dytechlab.com">careers@dytechlab.com</a></p>
             {% if allow_update %}
             <div class="row margin-vert-30" style="margin-top: 40px;">

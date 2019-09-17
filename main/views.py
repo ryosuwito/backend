@@ -14,6 +14,7 @@ from wsgiref.util import FileWrapper
 from main.models import TestRequest, OnlineApplication
 from main.forms import OnlineApplicationForm, TestRequestForm, InternApplicationForm
 from main.emails import send_online_application_confirm, send_online_application_summary
+from main import helper
 
 from main import templatedata
 
@@ -107,7 +108,8 @@ def career_test(request, req_id, hashstr):
             'form': form,
             'is_set': test_request.datetime\
                       if test_request.status == TestRequest.STATUS_SET else None,
-            'allow_update': test_request.allow_update()
+            'given_time': helper.get_given_time(test_request),
+            'allow_update': test_request.allow_update(),
         })
     else:
         # Handle POST Request
@@ -119,14 +121,16 @@ def career_test(request, req_id, hashstr):
             return render(request, template, {
                 'form': TestRequestForm(instance=test_request),
                 'is_set': model_instance.datetime,
-                'allow_update': model_instance.allow_update()
+                'allow_update': model_instance.allow_update(),
+                'given_time': helper.get_given_time(test_request),
             })
         else:
             return render(request, template, {
                 'form': form,
                 'is_set': test_request.datetime\
                           if test_request.status == TestRequest.STATUS_SET else None,
-                'allow_update': test_request.allow_update()
+                'allow_update': test_request.allow_update(),
+                'given_time': helper.get_given_time(test_request),
             })
 
 
