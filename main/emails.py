@@ -131,7 +131,7 @@ def send_test(test_request):
 
 def send_reminding_test_email(req, minutes, online_test_host):
     send_templated_email(
-        subject="Dynamic Technology Lab test/project will start under {} minutes".format(minutes),
+        subject="Dynamic Technology Lab test/project will start in under {} minutes".format(minutes),
         email_template="main/email_reminding_test.html",
         email_context={
             'req': req, 'minutes': minutes, 'online_test_host': online_test_host,
