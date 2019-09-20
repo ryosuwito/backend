@@ -40,3 +40,4 @@ texttable==0.8.7
 typing==3.7.4.1
 websocket-client==0.40.0
 whitenoise==3.3.0
+django-recaptcha2==1.4.1

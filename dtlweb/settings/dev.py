@@ -28,4 +28,8 @@ def get_online_test_link(token):
     return '/'.join([ONLINE_TEST_HOST, ACTIVE_USER_URL, token])
 
 
+RECAPTCHA_PUBLIC_KEY = "6LfKRbkUAAAAALE7u26JAF7l1toFWkSFwctDvCW4"
+RECAPTCHA_PRIVATE_KEY = "6LfKRbkUAAAAAKIX25s-paiEFxSJxReE_XZoM8iq"
+
+
 ONLINE_TEST_ACTIVE_USER_LINK = get_online_test_link
