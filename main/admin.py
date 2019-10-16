@@ -56,10 +56,11 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
     list_display = ('name', 'university', 'school', 'major', 'email',
                     get_enum_val(JobPosition, 'position'), get_enum_val(JobType, 'typ'),
                     get_enum_val(Workplace, 'workplace'), start_and_end_time, 'status',
-                    get_scheduled_test, 'info_src', 'from_china_event', 'test_site',)
+                    get_scheduled_test, 'info_src', 'from_china_event', 'test_site', 'created_at')
 
     list_editable = ('status',)
     list_filter = ('typ', 'workplace', 'position', 'status', 'is_onsite_recruiment', 'test_site',)
+    search_fields = ('name', 'university', 'school', 'major', 'email')
 
 
 @admin.register(TestRequest)
