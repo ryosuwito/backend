@@ -67,6 +67,9 @@ class RegistrationForm(forms.ModelForm):
             'school': _('院系'),
             'major': _('专业'),
         }
+        help_texts = {
+            'email': '请避免使用QQ邮箱',
+        }
 
     def clean_email(self):
         email = self.cleaned_data['email']
