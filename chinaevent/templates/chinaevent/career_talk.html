@@ -43,9 +43,14 @@
         </div>
         <br><br>
         <div class='container'>
-          <p>
-          <font color='orange'>2020年中国校招宣讲会与现场笔试均已结束，如果需要投递简历麻烦点击<a href="{% url 'main.career.apply' %}">这里</a></font>
-          </p>
+          <div>
+            <p>
+            <font color='#24a3d8'>*2020中国校招宣讲会及现场笔试均已结束，请直接下方投递简历</font>
+            </p>
+            <p>
+            <font color='#24a3d8'>如果你想投递其他非校招职位，请点击<a href="{% url 'main.career.apply' %}">这里</a></font>
+            </p>
+          </div>
         </div>
         <br>
         {% include 'chinaevent/online_apply.html' with form=form multipart=True success_apply=success_apply %}
