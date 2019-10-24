@@ -76,7 +76,9 @@ def career_talk(request, *args, **kwargs):
         if form.is_valid():
             model_instance = form.save(commit=False)
             # Update from china event
-            model_instance.is_onsite_recruiment = True
+            # TODO uncomment this if there is an upcoming onsite test.
+            # model_instance.is_onsite_recruiment = True
+
             # Workplace is Singapore by default
             model_instance.workplace = Workplace.SINGAPORE.name
             model_instance.save()

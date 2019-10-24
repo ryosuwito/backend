@@ -116,6 +116,9 @@ class OnlineApplicationForm(forms.ModelForm):
             'typ': _('Type*'),
             'workplace': _('Workplace*'),
         }
+        help_texts = {
+            'email': 'Please avoid using QQ mailbox.',
+        }
 
     def __init__(self, *args, **kwargs):
         super(OnlineApplicationForm, self).__init__(*args, **kwargs)
