@@ -18,7 +18,7 @@ from .models import (
     TestRequest,
     OpenJob,
 )
-from emails import send_test, send_token_email, send_reminding_test_email
+from emails import send_test, send_token_email, send_reminding_test_email, send_on_token_failed
 
 
 logger = logging.getLogger(__name__)
@@ -109,6 +109,7 @@ def send_test_token():
             #
             if req.application.created_at < timezone.datetime(2019, 9, 1, 0, 0, 0, tzinfo=pytz.utc):
                 if not req.token_status:
+                    req.refresh_from_db()
                     req.token_status = TOKEN_SEND_FAILED
                     req.token = 'Application before Sep 2019'
                     req.save(update_fields=('token_status', 'token'))
@@ -127,6 +128,7 @@ def send_test_token():
             open_job = OpenJob.objects.filter(**query).first()
             if open_job is None or not open_job.active:
                 # Send out and email here
+                req.refresh_from_db()
                 req.token_status = TOKEN_SEND_FAILED
                 req.token = 'There is no available open job for this application'
                 req.save(update_fields=('token_status', 'token'))
@@ -134,6 +136,7 @@ def send_test_token():
                 continue
 
             if not open_job.test_id:
+                req.refresh_from_db()
                 req.token_status = TOKEN_SEND_FAILED
                 req.token = 'There is no test_id'
                 req.save(update_fields=('token_status', 'token'))
@@ -151,13 +154,18 @@ def send_test_token():
             }
             token = jwt.encode(payload, settings.SHARE_KEY, 'HS256')
             url = settings.ONLINE_TEST_ACTIVE_USER_LINK(token)
+            # Set token status failed anyway to avoid resend.
+            req.refresh_from_db()
+            req.token_status = TOKEN_SEND_FAILED
+            req.token = 'Cannot active token'
+            req.save(update_fields=('token_status', 'token'))
+
             res = requests.get(url)
             if res.status_code not in [200, 302]:
-                req.token_status = TOKEN_SEND_FAILED
-                req.token = 'Cannot active token'
-                req.save(update_fields=('token_status', 'token'))
+                send_on_token_failed(req.application)
                 logger.error('Cannot active token for test_request {}'.format(req.id))
             else:
+                req.refresh_from_db()
                 req.token = token
                 req.token_status = TOKEN_SENT
                 req.save(update_fields=('token', 'token_status'))

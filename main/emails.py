@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from django.conf import settings
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, send_mail
 from django.template import loader, Context
 from django.utils.html import strip_tags
 
@@ -155,6 +155,13 @@ def send_token_email(context):
         email_context=context,
         recipients=[test_request.application.email, ],
         cc=[COMPANY_CAREER_EMAIL],)
+
+
+def send_on_token_failed(application):
+    """
+    """
+    body = "Fail to send token to candidate {} with application id {}".format(application.name, application.id)
+    send_mail(body, body, 'noreply@dytechlab.com', recipient_list=[COMPANY_CAREER_EMAIL], fail_silently=True)
 
 
 def send_reject(application):
