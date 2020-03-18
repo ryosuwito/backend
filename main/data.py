@@ -68,6 +68,30 @@ positions = [
         ]
     ),
     Position(
+        "Full-Stack Web Developer", "",
+        [
+            "Primary responsibilities include:",
+            [
+                "builds and maintains web applications on the linux platform.",
+                "Client-server architecture design",
+                "Creation and maintenance of scalable, customizable and robust web applications",
+                "Technical documentation",
+                "Database administration",
+            ]
+        ],
+        [
+            [
+                'Familiarity with common stacks.',
+                'Knowledge of multiple front-end languages and libraries (e.g. HTML/ CSS, JavaScript, XML, jQuery, Bootstrap, React)',
+                'Experience with modern server-side frameworks such as Django, Laravel, Express.js, Flask, Rails.',
+                'Familiarity with databases (e.g. MySQL, MongoDB, Postgresql), web servers (e.g. Apache, Nginx) and UI/UX design.',
+                'Great attention to detail.',
+                'Excellent communication and teamwork skills.',
+                'Fast adapting to new technologies.',
+            ]
+        ],
+    ),
+    Position(
         "Data Engineer", "DATAENG",
         [
             "Data Engineers coordinate with researchers to develop and manage data inventories and design framework to facilitate efficient processing of large-scale data. They monitor and maintain data production on a daily basis.",

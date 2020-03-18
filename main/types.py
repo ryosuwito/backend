@@ -35,6 +35,7 @@ class JobPosition(enum.Enum):
     """
     After 2019.08.29
     """
+    FSDEV = "Full-Stack Web Developer"
     DEV = "Developer"
     DATA_ENGINEER = "Data Engineer"
     OP_SPECIALIST = "Operation Specialist"
