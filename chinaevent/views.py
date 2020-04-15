@@ -14,10 +14,7 @@ from .models import (SITE_CHOICES_MAP, EventContent)
 from .forms import (OnsiteRegistrationForm, RegistrationForm)
 
 from main.emails import send_online_application_confirm, send_online_application_summary
-from main.types import (
-    JobType,
-    Workplace,
-)
+from main.types import Workplace
 
 from main import templatedata
 

@@ -7,7 +7,7 @@ from django.utils import timezone
 from functools import partial
 from django.core.exceptions import ValidationError
 
-from .models import OnlineApplication, TestRequest, InternCandidate, get_test_filepath, OpenJob
+from .models import OnlineApplication, TestRequest, InternCandidate, OpenJob
 from .types import (
     JobType,
     Workplace,

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 SIDEBAR_MENU_ITEMS = [
     ('Overview', 'main.career.overview'),

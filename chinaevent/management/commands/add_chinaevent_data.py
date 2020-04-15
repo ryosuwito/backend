@@ -68,7 +68,8 @@ class Command(BaseCommand):
                 continue
 
             try:
-                event_content = EventContent(year=year, payload=json.dumps(content_dict, ensure_ascii=False, encoding='utf-8'))
+                event_content = EventContent(
+                    year=year, payload=json.dumps(content_dict, ensure_ascii=False, encoding='utf-8'))
                 event_content.save()
             except Exception as err:
                 self.stdout.write(self.style.ERROR(err))
