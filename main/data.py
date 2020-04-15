@@ -143,6 +143,36 @@ positions = [
         ]
     ),
     Position(
+        "System Administrator", "SYSAD",
+        [
+            "System administrators ensure reliable operation of computer systems and servers. They also actively resolve problems and issues with operating systems and hardwares. They continuously improve hardware infrastructure to keep up with business need.",
+            "Typical responsibilities:",
+            [
+                "Assemble PC, install Linux systems, primarily Ubuntu and CentOS.",
+                "Support users' hardware and software issues.",
+                "Monitor workstations and servers.",
+                "Install and configure networking equipments.",
+                "Set up and manage server rooms and data centers.",
+            ],
+
+        ],
+        [
+            [
+                "Proficient in Ubuntu and CentOS, Windows administration.",
+                "Knowledge of Linux bash script.",
+                "Understanding of networking.",
+                "Strong problem-solving skill.",
+                "Experience in hardware troubleshooting.",
+            ],
+	    "Knowledge in this area will be a plus:",
+	    [
+                "LDAP, DNS",
+                "nagios, ansible, puppet, docker",
+            ],
+        ]
+    ),
+
+    Position(
         "Fundamental Quantitative Researcher (Internship)", "FQRESINTERN",
         [
             [
@@ -270,5 +300,5 @@ positions = [
                 "Full-time: at least 2 months",
             ]
         ],
-    )
+    ),
 ]
