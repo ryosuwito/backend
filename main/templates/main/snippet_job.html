@@ -14,8 +14,51 @@
   {% endif %}
 {% endfor %}
 
-{% if position.duration %}
+<h5>Qualification: </h5>
+{% for qft in position.qualification %}
+  {% if qft|is_string %}
+  <p>{{qft}}</p>
+  {% else %}
+    <ul class="list-marked list-marked-spacing-lg">
+    {% for subqft in qft %}
+      <li class="fa-check">{{subqft}}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}
 
+{% if position.plus %}
+<h5>Pluses:</h5>
+{% for plus_lst in position.plus %}
+  {% if plus_lst|is_string %}
+  <p>{{plus_lst}}</p>
+  {% else %}
+    <br>
+    <ul class="list-marked list-marked-spacing-lg">
+    {% for plus_item in plus_lst %}
+      <li class="fa-check">{{plus_item}}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}
+{% endif %}
+
+{% if position.location %}
+<h5>Location: </h5>
+{% for desc in position.location %}
+  {% if desc|is_string %}
+  <p>{{desc}}</p>
+  {% else %}
+    <ul class="list-marked list-marked-spacing-lg">
+    {% for subdesc in desc %}
+      <li class="fa-check">{{subdesc}}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}
+{% endif %}
+
+{% if position.duration %}
 <h5>Duration: </h5>
 {% for desc in position.duration %}
   {% if desc|is_string %}
@@ -30,33 +73,3 @@
 {% endfor %}
 
 {% endif %}
-
-{% if position.location %}
-
-<h5>Location: </h5>
-{% for desc in position.location %}
-  {% if desc|is_string %}
-  <p>{{desc}}</p>
-  {% else %}
-    <ul class="list-marked list-marked-spacing-lg">
-    {% for subdesc in desc %}
-      <li class="fa-check">{{subdesc}}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endfor %}
-
-{% endif %}
-
-<h5>Qualification: </h5>
-{% for qft in position.qualification %}
-  {% if qft|is_string %}
-  <p><em>{{qft}}</em></p>
-  {% else %}
-    <ul class="list-marked list-marked-spacing-lg">
-    {% for subqft in qft %}
-      <li class="fa-check">{{subqft}}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endfor %}

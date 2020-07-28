@@ -43,6 +43,7 @@ class JobPosition(enum.Enum):
     FQRES = "Fundamental Quantitative Researcher"
     SYSAD = "System Administrator"
     DATA_ANALYST = "Data Analyst"
+    FPGA_ENGINEER = "FPGA Engineer"
 
 
 class JobType(enum.Enum):

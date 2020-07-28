@@ -14,12 +14,15 @@ positions = [
                 "Attention to detail",
                 "Excellent analytical and financial skills",
             ],
+        ],
+        plus=[
             "The following skills are bonus in recruitment and are required before on board",
             [
                 "Intermediate programming skills",
                 "Comfortable with Linux/Unix",
             ]
-        ]
+        ],
+        location=("Singapore",),
     ),
     Position(
         "Quantitative Researcher", "QRES",
@@ -32,12 +35,15 @@ positions = [
                 "Strong problem solving and quantitative skills",
                 "Possess the desire and will to learn complicated topics, to solve difficult problems, and to handle tedious tasks carefully",
             ],
+        ],
+        plus=[
             "The following skills are bonus in recruitment and are required before on board:",
             [
                 "Comfortable with Linux/Unix",
                 "Familiar with at least one scripting language, e.g. python, awk, etc"
             ]
-        ]
+        ],
+        location=("Singapore",),
     ),
     Position(
         "Front Desk Quant Developer", "DEV",
@@ -59,13 +65,16 @@ positions = [
                 "Effective communicator and decision maker",
                 "Linux experience",
             ],
+        ],
+        plus=[
             "The following skills are bonus:",
             [
                 "Familiar with Linux kernel",
                 "Experience with hardware development, e.g. NIC, GPU, and FPGA etc.",
                 "System administration experience"
             ]
-        ]
+        ],
+        location=("Singapore",),
     ),
     Position(
         "Full-Stack Web Developer", "",
@@ -90,6 +99,7 @@ positions = [
                 'Fast adapting to new technologies.',
             ]
         ],
+        location=("Singapore",),
     ),
     Position(
         "Data Engineer", "DATAENG",
@@ -104,13 +114,16 @@ positions = [
                 "Ability to take responsibility and work well as a team member",
                 "Comfortable with Linux",
             ],
+        ],
+        plus=[
             "The following skills are bonus:",
             [
                 "Knowledge on database and big data tools like hadoop, spark",
                 "Web development experience",
                 "Experience with large data (>100G)",
             ]
-        ]
+        ],
+        location=("Singapore",),
     ),
     Position(
         "Trading Operation Specialist", "TRADEOP",
@@ -135,12 +148,15 @@ positions = [
                  "Excellent problem-solving skills",
                  "Good communication and interpersonal skills"
             ],
+        ],
+        plus=[
             "The following skills are bonus:",
             [
                 "Understanding of market data/order entry systems",
                 "Interest in the financial markets"
             ]
-        ]
+        ],
+        location=("Singapore",),
     ),
     Position(
         "System Administrator", "SYSAD",
@@ -164,14 +180,48 @@ positions = [
                 "Strong problem-solving skill.",
                 "Experience in hardware troubleshooting.",
             ],
-	    "Knowledge in this area will be a plus:",
-	    [
+        ],
+        plus=[
+            "Knowledge in this area will be a plus:",
+            [
                 "LDAP, DNS",
                 "nagios, ansible, puppet, docker",
             ],
-        ]
+        ],
+        location=("Singapore",),
     ),
-
+    Position(
+        "FPGA Engineer", "",
+        [
+            "The FPGA Engineers maintain our trading/ research capabilities in global markets and innovate how we do them.",
+            "Typical responsibilities include:",
+            [
+                "Build/ maintain FPGA designs for trading system",
+                "Optimizing the performance of various components of the trading system",
+                "Maintaining, enhancing backtest simulator",
+                "Research and propose innovative solutions to improve FPGA development ",
+            ],
+        ],
+        [
+            [
+                "Expert hardware programming skills.",
+                "Strong RTL skills, e.g. Verilog, SystemVerilog.",
+                "Experience in full process of FPGA hardware development, e.g. design, test, validate.",
+                "Strong understanding of hardware and software interaction.",
+                "Ability to solve problems and manage complexity.",
+            ],
+        ],
+        plus=[
+            "The following skills are bonus:",
+            [
+                "C++ experience.",
+                "Linux experience.",
+                "Familiar with at least one scripting language, e.g. phyton etc.",
+                "System administration experience.",
+            ],
+        ],
+        location=('Singapore',),
+    ),
     Position(
         "Fundamental Quantitative Researcher (Internship)", "FQRESINTERN",
         [
@@ -188,14 +238,16 @@ positions = [
                 "A strong background in mathematics",
                 "Past experience in the secondary market or quantitative finance is preferred",
             ],
+            "Return offer will be given upon exceptional performance during internship."
+        ],
+        plus=[
             "The following skills are bonus and you will be required to complete learning projects before onboarding:",
             [
                 "Knowledge of Linux",
                 "Solid programming skills in Python or C++"
             ],
-            "Return offer will be given upon exceptional performance during internship."
         ],
-        location=["Shanghai, Singapore"],
+        location=["Shanghai, Singapore, remote"],
         duration=[
             [
                 "Full-time: at least 3 months",
@@ -221,14 +273,16 @@ positions = [
                 "Proactive and eager to learn complicated topics",
 
             ],
+            "Return offer will be given upon exceptional performance during internship."
+        ],
+        plus=[
             "The following skills are bonus and you will be required to complete learning projects before onboarding:",
             [
                 "Experience with Linux/Unix",
                 "Familiar with at least one scripting language, e.g. Python, MATLAB, etc.",
             ],
-            "Return offer will be given upon exceptional performance during internship."
         ],
-        location=["Shanghai, Singapore"],
+        location=["Shanghai, Singapore, remote"],
         duration=[
             [
                 "Full-time: at least 3 months",
@@ -257,6 +311,8 @@ positions = [
                 "Effective communicator and decision maker",
                 "Linux experience",
             ],
+        ],
+        plus=[
             "The following skills are bonus:",
             [
                 "Familiar with Linux kernel",
@@ -264,7 +320,7 @@ positions = [
                 "System administration experience"
             ]
         ],
-        location=["Shanghai"],
+        location=["Singapore, Shanghai, remote"],
         duration=[
             [
                 "Full-time: at least 3 months",
@@ -283,6 +339,8 @@ positions = [
                 "Good knowledge in python and understanding of data structure & algorithms",
                 "Comfortable with Linux",
             ],
+        ],
+        plus=[
             "The following skills are bonus:",
             [
                 "Knowledge on database and big data tools like hadoop, spark",
@@ -291,8 +349,8 @@ positions = [
             ],
         ],
         location=[
-            "Singapore",
-            "Status Open to Singaporeans and PR holders. Foreign applicants must currently be a full-time student in Singapore.",
+            "Singapore, Shanghai, remote",
+#            "Status Open to Singaporeans and PR holders. Foreign applicants must currently be a full-time student in Singapore.",
         ],
         duration=[
             [
@@ -312,6 +370,8 @@ positions = [
                 "Detail-oriented team player with strong problem-solving skills.",
                 "Basic knowledge in Finance.",
             ],
+        ],
+        plus=[
             "The following will be a plus:",
             [
                 "Good knowledge in python.",
@@ -319,7 +379,7 @@ positions = [
                 "Comfortable with Linux.",
             ],
         ],
-        location=["Singapore"],
+        location=["Singapore, Shanghai, remote"],
         duration=[
             [
                 "Part-time: at least 16 hours per week for 4 months",

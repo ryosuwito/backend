@@ -225,7 +225,7 @@ class InternCandidate(models.Model):
 
 class Position(object):
     def __init__(self, title, symbol, desc, qualification,
-                 location=None, duration=None):
+                 location=None, duration=None, plus=None):
         """
         title: string
         desc: []
@@ -237,6 +237,7 @@ class Position(object):
         self.qualification = qualification
         self.location = location
         self.duration = duration
+        self.plus = plus
 
 
 class OpenJob(models.Model):
