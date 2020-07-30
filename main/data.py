@@ -247,7 +247,7 @@ positions = [
                 "Solid programming skills in Python or C++"
             ],
         ],
-        location=["Shanghai, Singapore, remote"],
+        # location=["Shanghai, Singapore, remote"],
         duration=[
             [
                 "Full-time: at least 3 months",
@@ -282,7 +282,7 @@ positions = [
                 "Familiar with at least one scripting language, e.g. Python, MATLAB, etc.",
             ],
         ],
-        location=["Shanghai, Singapore, remote"],
+        # location=["Shanghai, Singapore, remote"],
         duration=[
             [
                 "Full-time: at least 3 months",
@@ -320,7 +320,7 @@ positions = [
                 "System administration experience"
             ]
         ],
-        location=["Singapore, Shanghai, remote"],
+        # location=["Singapore, Shanghai, remote"],
         duration=[
             [
                 "Full-time: at least 3 months",
@@ -348,10 +348,10 @@ positions = [
                 "Experience with large data (>100G)",
             ],
         ],
-        location=[
-            "Singapore, Shanghai, remote",
+        # location=[
+            # "Singapore, Shanghai, remote",
 #            "Status Open to Singaporeans and PR holders. Foreign applicants must currently be a full-time student in Singapore.",
-        ],
+        # ],
         duration=[
             [
                 "Part-time: at least 16 hours per week for 4 months",
@@ -379,7 +379,7 @@ positions = [
                 "Comfortable with Linux.",
             ],
         ],
-        location=["Singapore, Shanghai, remote"],
+        # location=["Singapore, Shanghai, remote"],
         duration=[
             [
                 "Part-time: at least 16 hours per week for 4 months",
