@@ -13,8 +13,11 @@ def get_given_time(req):
     :rtype str
     """
     given_time = "5 days"
-    if req.application.is_role_dev() or req.application.is_role_researcher():
+    if req.application.is_role_researcher():
         given_time = "3 hours"
+
+    if req.application.is_role_dev():
+        given_time = "2 hours"
 
     if req.application.is_role_researcher() and req.application.is_intern:
         given_time = "2 hours"
