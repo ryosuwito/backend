@@ -26,6 +26,8 @@ ONLINE_TEST_ACTIVE_USER_LINK = get_online_test_link
 RECAPTCHA_PUBLIC_KEY = local.RECAPTCHA_PUBLIC_KEY
 RECAPTCHA_PRIVATE_KEY = local.RECAPTCHA_PRIVATE_KEY
 
+DATABASES = local.DATABASES
+
 # Declare variables that are depended on other variables here
 #
 #
