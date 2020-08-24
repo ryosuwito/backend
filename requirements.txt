@@ -4,7 +4,7 @@ cffi==1.12.3
 colorama==0.3.7
 configparser==3.8.1
 cryptography==1.7.2
-Django==2.0
+Django==1.10
 django-bootstrap3==7.0.1
 django-crontab==0.7.1
 django-datetime-widget==0.9.3
