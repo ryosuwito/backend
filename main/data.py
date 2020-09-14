@@ -77,26 +77,32 @@ positions = [
         location=("Singapore",),
     ),
     Position(
-        "Full-Stack Web Developer", "",
+        "Full-Stack Developer", "",
         [
-            "Primary responsibilities include:",
+            "The full-stack developers design and implement robust internal systems/capabilities to boost the productivity and enhance the trading capabilities of the company.",
+            "Typical responsibilities include:",
             [
-                "builds and maintains web applications on the linux platform.",
-                "Client-server architecture design",
-                "Creation and maintenance of scalable, customizable and robust web applications",
-                "Technical documentation",
-                "Database administration",
+                "Build and implement systems for internal end-users",
+                "Automate existing work flow",
+                "Work closely with C++ developers on troubleshooting and optimization of the performance of various components of the trading system",
+                "Diagnose and resolve complex infrastructure/coding issues",
+                "Evaluate new technologies for integration",
             ]
         ],
         [
             [
-                'Familiarity with common stacks.',
-                'Knowledge of multiple front-end languages and libraries (e.g. HTML/ CSS, JavaScript, XML, jQuery, Bootstrap, React)',
-                'Experience with modern server-side frameworks such as Django, Laravel, Express.js, Flask, Rails.',
-                'Familiarity with databases (e.g. MySQL, MongoDB, Postgresql), web servers (e.g. Apache, Nginx) and UI/UX design.',
-                'Great attention to detail.',
-                'Excellent communication and teamwork skills.',
-                'Fast adapting to new technologies.',
+                "Strong Python skills.",
+                "Knowledge of multiple front-end languages (e.g. HTML, CSS, JavaScript, React.js).",
+                "Experience with modern server-side frameworks (e.g. Django, Laravel, Express.js, Flask, Rails).",
+                "Experience working with databases (e.g. MySQL, MongoDB, Postgresql).",
+                "Linux experience.",
+                "Excellent communication and teamwork skills.",
+                "Fast adapting to new technologies",
+            ]
+        ],
+        plus=[
+            [
+                "Knowledge of automated trading system",
             ]
         ],
         location=("Singapore",),
