@@ -18,7 +18,7 @@ class OldJobPosition(enum.Enum):
     POSITION_CHOICES = (
         (DEVELOPER, "Developer"),
         (DATA_ENGINEER, "Data Engineer"),
-        (OPERATION_SPECIALIST, "Trading Operation Specialist"),
+        (OPERATION_SPECIALIST, "Trading Support Engineer"),
         (Q_RESEARCHER, "Quantitative Researcher"),
         (FQ_RESEARCHER, "Fundamental Quantitative Researcher"),
     )

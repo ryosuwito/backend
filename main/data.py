@@ -46,9 +46,9 @@ positions = [
         location=("Singapore",),
     ),
     Position(
-        "Front Desk Quant Developer", "DEV",
+        "C++ Developer", "DEV",
         [
-            "The front desk quant developers maintain our trading/research capabilities in global markets and innovate how we do them.",
+            "The C++ developers maintain our trading/research capabilities in global markets and innovate how we do them.",
             "Typical responsibilities include:",
             [
                 "Optimizing the performance of various components of the trading system",
@@ -132,7 +132,7 @@ positions = [
         location=("Singapore",),
     ),
     Position(
-        "Trading Operation Specialist", "TRADEOP",
+        "Trading Support Engineer", "TRADEOP",
         [
             "The trading operations team is primarily responsible for managing DTL’s trading environment and ensuring that everything runs smoothly. We help DTL build and maintain best-in-class systems and processes.",
             "This involves configuring, monitoring and optimising the firm’s trading with a focus on risk management and control. The team oversees core operational processes and participates in projects and initiatives that will help streamline critical workflows.",
@@ -297,9 +297,9 @@ positions = [
         ]
     ),
     Position(
-        "Front Desk Quant Developer (Internship)", "DEV_INTERN",
+        "C++ Developer (Internship)", "DEV_INTERN",
         [
-            "The front desk quant developers maintain our trading/research capabilities in global markets and innovate how we do them.",
+            "The C++ developers maintain our trading/research capabilities in global markets and innovate how we do them.",
             "Typical responsibilities include:",
             [
                 "Optimizing the performance of various components of the trading system",
