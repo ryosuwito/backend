@@ -5,7 +5,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['ynguyen-pc.dtl', 'localhost']
 
-COMPANY_CAREER_EMAIL = 'ynguyen@dytechlab.com'
+COMPANY_CAREER_EMAIL = 'ado@dytechlab.com'
 
 DATABASES = {
     'default': {

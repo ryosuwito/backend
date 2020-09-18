@@ -49,7 +49,7 @@ class JobPosition(enum.Enum):
 class JobType(enum.Enum):
     FULLTIME_INTERNSHIP = 'Full-time Internship'
     PARTTIME_INTERNSHIP = 'Part-time Internship'
-    FULLTIME_JOB = 'Full-time Job'
+    FULLTIME_JOB = 'Full-time'
     INTERNSHIP = 'Internship'
 
 

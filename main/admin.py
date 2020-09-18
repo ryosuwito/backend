@@ -1,14 +1,32 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from django.contrib import admin
-from main.models import OnlineApplication, TestRequest, InternCandidate, OpenJob
+from django.contrib import (
+    admin,
+    messages,
+)
+from django.urls import reverse_lazy
+from main.models import (
+    OnlineApplication,
+    TestRequest,
+    InternCandidate,
+    OpenJob,
+    ConfigEntry,
+)
 from main.types import (
     JobType,
     JobPosition,
     Workplace,
 )
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
+
+from recruitment_campaign.models import (
+    Campaign,
+    CampaignApplication,
+)
+
+from . import emails
 
 
 def get_enum_val(enum_obj, obj_prop_name):
@@ -23,6 +41,65 @@ def get_enum_val(enum_obj, obj_prop_name):
 
 @admin.register(OnlineApplication)
 class OnlineApplicationAdmin(admin.ModelAdmin):
+    actions = ['invite_selected_apps_to_attend_the_active_campaign']
+
+    def invite_selected_apps_to_attend_the_active_campaign(self, request, queryset):
+        campaigns = Campaign.objects.filter(active=True)
+        if len(campaigns) != 1:
+            self.message_user(
+                request,
+                "There is no or more than one campaign being active at the moment",
+                messages.ERROR,
+            )
+            return
+        else:
+            campaign = campaigns.get()
+            cnt = 0
+            for app in queryset.filter(~Q(status=OnlineApplication.APP_STATUS_CAMPAIGN)):
+                try:
+                    req = TestRequest.createTestRequestForApplication(app)
+                    CampaignApplication.objects.create(
+                        campaign=campaign,
+                        application=app,
+                        status=CampaignApplication.StatusType.invited.value
+                    )
+                    app.status = OnlineApplication.APP_STATUS_CAMPAIGN
+                    app.save(update_fields=('status',))
+                    # send invitation email
+                    relative_accept_url = str(
+                        reverse_lazy(
+                            'campaign.career.invitation',
+                            kwargs={'hashstr': req.hashstr, 'action': 'accept'},
+                        )
+                    )
+                    relative_refuse_url = str(
+                        reverse_lazy(
+                            'campaign.career.invitation',
+                            kwargs={'hashstr': req.hashstr, 'action': 'refuse'},
+                        )
+                    )
+                    context = {
+                        "application": app,
+                        "test_request": req,
+                        # TODO site host should be stored in settings for in the database request.build_absolute_uri
+                        # could go wrong when it is a service behind proxy server.
+                        "accept_url": request.build_absolute_uri(relative_accept_url),
+                        "refuse_url": request.build_absolute_uri(relative_refuse_url),
+                        "campaign": campaign,
+                    }
+                    emails.send_invitation_to_attend_recuitment_campaign(context)
+                    cnt += 1
+                except Exception as err:
+                    print(err)
+                    self.message_user(request, "Failed to invite %s" % app.email, messages.ERROR)
+
+            if cnt > 0:
+                self.message_user(
+                    request,
+                    "Invited successfully %d candidates to attend the campaign %s" % (cnt, campaign.name),
+                    messages.SUCCESS,
+                )
+
     def get_scheduled_test(application):
         if application.status == OnlineApplication.APP_STATUS_FAIL_RESUME:
             return "Not Applicable"
@@ -55,6 +132,7 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
     get_scheduled_test.short_description = "Scheduled Test"
     list_display = ('name', 'university', 'school', 'major', 'email',
                     get_enum_val(JobPosition, 'position'), get_enum_val(JobType, 'typ'),
+                    'need_work_pass',
                     get_enum_val(Workplace, 'workplace'), start_and_end_time, 'status',
                     get_scheduled_test, 'info_src', 'from_china_event', 'test_site', 'created_at')
 
@@ -91,3 +169,10 @@ class OpenJobAdmin(admin.ModelAdmin):
     list_display_links = ('id',)
     list_editable = ('active', 'test_id')
     list_filter = ('position', 'typ', 'workplace', 'active', 'test_id')
+
+
+@admin.register(ConfigEntry)
+class ConfigEntryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'value', 'extra')
+    list_display_links = ('name',)
+    list_editable = ('value', 'extra')

@@ -1,4 +1,5 @@
 {% load static %}
+{% load main_extras %}
 <!DOCTYPE html>
 <html lang="en" class="wide wow-animation">
   <head>
@@ -51,13 +52,10 @@
                         <li><a href="{% url 'main.culture.offwork' %}">Off work</a></li>
                       </ul>
                     </li>
+
                     <li><a href="{% url 'main.career.overview' %}">Careers</a>
                       <!-- RD Navbar Dropdown-->
-                      <ul class="rd-navbar-dropdown">
-                        <li><a href="{% url 'main.career.overview' %}">Overview</a></li>
-                        <li><a href="{% url 'main.career.jobs' %}">Opening jobs</a></li>
-                        <li><a href="{% url 'main.career.apply' %}">Online application</a></li>
-                      </ul>
+                      {% career_menu %}
                     </li>
                     <li><a href="{% url 'main.contact' %}">Contacts</a></li>
                   </ul>
@@ -95,7 +93,7 @@
                     </li>
                     <li class="unit unit-horizontal unit-spacing-md">
                       <div class="unit-left"><span class="icon icon-sm icon-picton-blue fa-map-marker"></span></div>
-                      <div class="unit-body"><span><a href="#"><span>#07-00, Haw Par Glass Tower,<br> 178 Clemenceau Avenue</span><span>Singapore 239926</span></a></span></div>
+                      <div class="unit-body"><span><a href="#">{% include 'main_snippet/address.html' %}</a></span></div>
                     </li>
                   </ul>
                 </address>

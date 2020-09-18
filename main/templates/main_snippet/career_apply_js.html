@@ -1,0 +1,18 @@
+<script>
+$(() => {
+  const jobTypeInput = $('#id_typ');
+  const workplaceInput = $('#id_workplace');
+  const needWorkPassDiv= $('#id_need_work_pass').parent();
+  const renderNeedWorkPassInput = function() {
+    if (jobTypeInput.val() === "FULLTIME_JOB" && workplaceInput.val() === "SINGAPORE") {
+      needWorkPassDiv.css('display', 'block');
+    } else {
+      needWorkPassDiv.css('display', 'none');
+    }
+  }
+
+  renderNeedWorkPassInput()
+  jobTypeInput.on('change', renderNeedWorkPassInput);
+  workplaceInput.on('change', renderNeedWorkPassInput);
+})
+</script>

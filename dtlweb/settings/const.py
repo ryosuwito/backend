@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
     'chinaevent.apps.ChinaeventConfig',
+    'recruitment_campaign',
     'bootstrap3',
     'django_crontab',
     'mailer',

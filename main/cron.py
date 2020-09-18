@@ -23,6 +23,7 @@ from emails import send_test, send_token_email, send_reminding_test_email, send_
 
 logger = logging.getLogger(__name__)
 TOKEN_IN_QUEUE = 'TOKEN_IN_QUEUE'
+TOKEN_READY = 'TOKEN_READY'
 TOKEN_SENT = 'TOKEN_SENT'
 TOKEN_SEND_FAILED = 'TOKEN_SEND_FAILED'
 _EPOCH = datetime.datetime(1970, 1, 1, tzinfo=timezone.utc)
@@ -31,9 +32,11 @@ _EPOCH = datetime.datetime(1970, 1, 1, tzinfo=timezone.utc)
 # TestRequest status
 # (status, token_status)
 # ('NEW', 'TOKEN_IN_QUEUE') or ('NEW', ''(created after Sept 2019))
+# ('NEW', 'TOKEN_READY') # for test with fix datetime and test_id
 # ('SET', 'TOKEN_IN_QUEUE')
 # ('SET', 'TOKEN_SENT') | ('SET', 'TOKEN_SEND_FAILED')-> (end here)
 # ('SENT', 'TOKEN_SENT') -> (end here)
+# ('TOKEN_READY', 'TOKEN_SENT') -> (end here)
 ###
 
 
@@ -97,6 +100,7 @@ def send_on_remind_tests():
 
 def send_test_token():
     test_requests = TestRequest.objects.filter(status=TestRequest.STATUS_SET)
+
     test_requests = test_requests.filter(~Q(token_status__in=[TOKEN_SENT, TOKEN_SEND_FAILED]))
 
     # Traverse all test_requests that is not marked as TOKEN_SENT or TOKEN_SEND_FAILED
@@ -111,7 +115,7 @@ def send_test_token():
                 if not req.token_status:
                     req.refresh_from_db()
                     req.token_status = TOKEN_SEND_FAILED
-                    req.token = 'Application before Sep 2019'
+                    req.note = 'Application before Sep 2019'
                     req.save(update_fields=('token_status', 'token'))
                     continue
 
@@ -119,46 +123,59 @@ def send_test_token():
             if req.allow_update() or req.test_site:
                 continue
 
-            app = req.application
-            query = {
-                'position': app.position,
-                'typ': app.typ,
-                'workplace': app.workplace,
-            }
-            open_job = OpenJob.objects.filter(**query).first()
-            if open_job is None or not open_job.active:
-                # Send out and email here
-                req.refresh_from_db()
-                req.token_status = TOKEN_SEND_FAILED
-                req.token = 'There is no available open job for this application'
-                req.save(update_fields=('token_status', 'token'))
-                logger.error('There is no available open job for the application {}'.format(app.id))
-                continue
+            if req.token_status == TOKEN_READY:
+                try:
+                    payload = jwt.decode(req.token, settings.SHARE_KEY, algorithms=['HS256'])
+                except jwt.InvalidTokenError as err:
+                    req.refresh_from_db()
+                    req.token_status = TOKEN_SEND_FAILED
+                    req.note = str(err)
+                    req.save(update_fileds=('token_status', 'note'))
+                else:
+                    token = req.token
+            else:
+                app = req.application
+                query = {
+                    'position': app.position,
+                    'typ': app.typ,
+                    'workplace': app.workplace,
+                }
+                open_job = OpenJob.objects.filter(**query).first()
+                if open_job is None or not open_job.active:
+                    # Send out and email here
+                    req.refresh_from_db()
+                    req.token_status = TOKEN_SEND_FAILED
+                    req.note = 'There is no available open job for this application'
+                    req.save(update_fields=('token_status', 'note'))
+                    logger.error('There is no available open job for the application {}'.format(app.id))
+                    continue
 
-            if not open_job.test_id:
-                req.refresh_from_db()
-                req.token_status = TOKEN_SEND_FAILED
-                req.token = 'There is no test_id'
-                req.save(update_fields=('token_status', 'token'))
-                logger.error('There is no test_id assigned to the opening job id {}'.format(open_job.id))
-                continue
+                if not open_job.test_id:
+                    req.refresh_from_db()
+                    req.token_status = TOKEN_SEND_FAILED
+                    req.note = 'There is no test_id'
+                    req.save(update_fields=('token_status', 'note'))
+                    logger.error('There is no test_id assigned to the opening job id {}'.format(open_job.id))
+                    continue
 
-            payload = {
-                'username': get_random_string(10),
-                'password': get_random_string(10),
-                'timestamp': timestamp(timezone.now()),
-                'start_time_timestamp': timestamp(req.datetime),
-                'fullname': app.name,
-                'test_id': open_job.test_id,
-                'email': app.email,
-            }
-            token = jwt.encode(payload, settings.SHARE_KEY, 'HS256')
+                payload = {
+                    'username': get_random_string(15),
+                    'password': get_random_string(15),
+                    'timestamp': timestamp(timezone.now()),
+                    'start_time_timestamp': timestamp(req.datetime),
+                    'fullname': app.name,
+                    'test_id': open_job.test_id,
+                    'email': app.email,
+                }
+                token = jwt.encode(payload, settings.SHARE_KEY, 'HS256')
+
             url = settings.ONLINE_TEST_ACTIVE_USER_LINK(token)
             # Set token status failed anyway to avoid resend.
             req.refresh_from_db()
             req.token_status = TOKEN_SEND_FAILED
-            req.token = 'Cannot active token'
-            req.save(update_fields=('token_status', 'token'))
+            req.token = token
+            req.note = 'Cannot active token'
+            req.save(update_fields=('token_status', 'token', 'note'))
 
             res = requests.get(url)
             if res.status_code not in [200, 302]:
@@ -166,9 +183,9 @@ def send_test_token():
                 logger.error('Cannot active token for test_request {}'.format(req.id))
             else:
                 req.refresh_from_db()
-                req.token = token
                 req.token_status = TOKEN_SENT
-                req.save(update_fields=('token', 'token_status'))
+                req.note = 'success'
+                req.save(update_fields=('token_status', 'note'))
                 context = {
                     'username': payload['username'],
                     'password': payload['password'],

@@ -102,12 +102,27 @@ class OnlineApplicationForm(forms.ModelForm):
     resume = forms.FileField()
     info_src = InfoSourceField()
 
+    need_work_pass = forms.CharField(
+        label='Do you need a work pass to work in Singapore?',
+        widget=forms.RadioSelect(choices=(('Yes', 'Yes'), ('No', 'No'))),
+        required=False,
+    )
+
     class Meta:
         model = OnlineApplication
         fields = [
-            'position', 'typ', 'workplace', 'start_time',
-            'name', 'university', 'school', 'major',
-            'email', 'resume', 'info_src',
+            'position',
+            'typ',
+            'workplace',
+            'need_work_pass',
+            'start_time',
+            'name',
+            'university',
+            'school',
+            'major',
+            'email',
+            'resume',
+            'info_src',
         ]
         labels = {
             'name': _('Name *'),

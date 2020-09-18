@@ -37,6 +37,7 @@ class OnlineApplication(models.Model):
     APP_STATUS_PASS_TEST = "PASS_TEST"
     APP_STATUS_FAIL_TEST = "FAIL_TEST"
     APP_STATUS_DOES_NOT_FINISH_TEST = "DNF_TEST"
+    APP_STATUS_CAMPAIGN = "campaign"
     APP_STATUS_CHOICES = (
         (APP_STATUS_NEW, "NEW"),
         (APP_STATUS_PASS_RESUME, "PASS RESUME"),
@@ -44,11 +45,12 @@ class OnlineApplication(models.Model):
         (APP_STATUS_PASS_TEST, "PASS TEST"),
         (APP_STATUS_FAIL_TEST, "FAIL TEST"),
         (APP_STATUS_DOES_NOT_FINISH_TEST, "DNF TEST"),
+        (APP_STATUS_CAMPAIGN, "From campagins")
     )
 
     typ = models.CharField(max_length=255, default=JobType.FULLTIME_JOB.name)
     workplace = models.CharField(max_length=255, default=Workplace.SINGAPORE.name)
-    position = models.CharField(max_length=255,default=JobPosition.DEV.value)
+    position = models.CharField(max_length=255,default=JobPosition.DEV.name)
 
     name = models.CharField(max_length=30)
     university = models.CharField(max_length=100, null=True, blank=True)
@@ -71,6 +73,8 @@ class OnlineApplication(models.Model):
     # if the application is for onsite event
     is_onsite_recruiment = models.BooleanField(default=False, blank=True, null=False)
     test_site = models.CharField(max_length=50, null=True, blank=True)
+
+    need_work_pass = models.CharField(max_length=32, blank=True, default='Yes')
 
     @property
     def get_position_display(self):
@@ -162,6 +166,8 @@ class TestRequest(models.Model):
         max_length=255, blank=True, null=True, default=None)
     token = models.TextField(
         null=True, default='', blank=True)
+
+    note = models.TextField(blank=True, default='')
 
     # Additional fields for admin management
     updated_at = models.DateTimeField(auto_now=True)
@@ -258,3 +264,19 @@ class OpenJob(models.Model):
         unique_together = [
             ('position', 'typ', 'workplace')
         ]
+
+
+class ConfigEntry(models.Model):
+    """
+    This model intends to hold soft configuration where you can change it directly on Database. This wil be more
+    flexible than the current one where developer have to commit code for any change.
+    """
+    # Configuration key.
+    name = models.CharField(max_length=255, primary_key=True)
+    # The value of the key.
+    value = models.CharField(max_length=255, blank=True, default='')
+    # In case the the value is a long and complex value you can use extra.
+    extra = models.TextField(blank=True, default='')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

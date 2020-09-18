@@ -6,7 +6,11 @@ from django.template import loader, Context
 from django.utils.html import strip_tags
 
 from .models import get_test_filepath
-from .types import JobPosition
+from .types import (
+    JobPosition,
+    Workplace,
+    JobType,
+)
 
 
 COMPANY_CAREER_EMAIL = settings.COMPANY_CAREER_EMAIL
@@ -42,7 +46,7 @@ def send_online_application_confirm(application):
     send email to applicants indicating the application is received
     """
     send_templated_email(
-        subject="job application - {}".format(application.get_position_display),
+        subject="Job application - {}".format(application.get_position_display),
         email_template="main/email_apply_confirm.html",
         email_context={
             'name': application.name,
@@ -57,8 +61,14 @@ def send_online_application_summary(application):
     """
     forward candidate application to company career email
     """
+    subject = "Job application - {}_{}_{}".format(
+        application.get_position_display,
+        JobType[application.typ].value,
+        Workplace[application.workplace].value,
+    )
+
     send_templated_email(
-        subject="job application - {}".format(application.get_position_display),
+        subject=subject,
         email_template="main/email_apply_summary.html",
         email_context={'application': application},
         recipients=[COMPANY_CAREER_EMAIL, ],
@@ -143,7 +153,7 @@ def send_reminding_test_email(req, minutes, online_test_host):
 
 def send_token_email(context):
     """
-    send test file to candidate on scheduled datetime
+    send token to candidate on scheduled datetime
     """
     email_template = 'main/email_online_test_access.html'
     test_request = context['test_request']
@@ -154,6 +164,37 @@ def send_token_email(context):
         email_template=email_template,
         email_context=context,
         recipients=[test_request.application.email, ],
+        cc=[COMPANY_CAREER_EMAIL],)
+
+
+def send_campaign_passed_resume_email(context):
+    """
+    send campaign passed_resume to candidate on scheduled datetime
+    """
+    email_template = 'recruitment_campaign/passed_resume_email.html'
+    campaign_application = context['campaign_application']
+    campaign = context['campaign']
+
+    send_templated_email(
+        subject="Dynamic Technology Lab - You have been chosen to take part in %s event" % campaign.name,
+        email_template=email_template,
+        email_context=context,
+        recipients=[campaign_application.application.email,],
+        cc=[COMPANY_CAREER_EMAIL],)
+
+
+def send_invitation_to_attend_recuitment_campaign(context):
+    """
+    send invitation to people who have applied to attend the coming recruitment campaign
+    """
+    email_template = 'recruitment_campaign/invitation_email.html'
+    application = context['application']
+
+    send_templated_email(
+        subject="Dynamic Technology Lab Invitation",
+        email_template=email_template,
+        email_context=context,
+        recipients=[application.email, ],
         cc=[COMPANY_CAREER_EMAIL],)
 
 

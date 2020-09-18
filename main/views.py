@@ -21,8 +21,6 @@ from main import templatedata
 
 logger = logging.getLogger(__name__)
 
-SIDEBAR_MENU_ITEMS = templatedata.SIDEBAR_MENU_ITEMS
-
 
 def index(request):
     return render(request, "main/main_page.html")
@@ -37,7 +35,7 @@ def career_apply(request):
         send_online_application_confirm(application)
 
     context = {
-        'sidebar_menu_items': SIDEBAR_MENU_ITEMS,
+        'sidebar_menu_items': templatedata.get_sidebar_menu_items(),
     }
 
     if not request.POST:
@@ -137,7 +135,7 @@ def career_test(request, req_id, hashstr):
 def career_jobs(request):
     from main.data import positions
     context = {
-        'sidebar_menu_items': SIDEBAR_MENU_ITEMS,
+        'sidebar_menu_items': templatedata.get_sidebar_menu_items(),
         'positions': positions,
     }
     return render(request, "main/career_job_opening.html", context)
@@ -146,7 +144,7 @@ def career_jobs(request):
 def career_overview(request):
     # flake8: noqa
     context = {
-        'sidebar_menu_items': SIDEBAR_MENU_ITEMS,
+        'sidebar_menu_items': templatedata.get_sidebar_menu_items(),
         'why_dtl': [
             {
                 "desc": """Learn from the Best""",

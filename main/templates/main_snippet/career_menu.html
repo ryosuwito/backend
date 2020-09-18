@@ -1,0 +1,5 @@
+<ul class="rd-navbar-dropdown">
+  {% for item in menu_items %}
+  <li><a href="{% url item.1 %}">{{ item.0 }}</a></li>
+  {% endfor %}
+</ul>

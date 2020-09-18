@@ -22,9 +22,6 @@ from main import templatedata
 logger = logging.getLogger(__name__)
 
 
-SIDEBAR_MENU_ITEMS = templatedata.SIDEBAR_MENU_ITEMS
-
-
 def filter_method_decorator(methods=['get', 'post']):
     methods = map(lambda x: x.lower(), methods)
 
@@ -55,7 +52,7 @@ def career_talk(request, *args, **kwargs):
         'talks': event_content_dict['careerTalks'],
         'tests': event_content_dict['writtenTests'],
         'year': year,
-        'sidebar_menu_items': SIDEBAR_MENU_ITEMS,
+        'sidebar_menu_items': templatedata.get_sidebar_menu_items(),
     }
     if request.method.lower() == 'get':
         context.update({'form': RegistrationForm()})

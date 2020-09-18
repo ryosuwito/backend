@@ -27,7 +27,7 @@
         <ul class="breadcrumbs-custom">
           <li><a href="{% url 'main.index' %}">Home</a></li>
           <li><a href="{% url 'main.career.overview' %}">Careers</a></li>
-          <li class="active">Online Application</li>
+          <li class="active">{{ campaign.name }}</li>
         </ul>
       </div>
     </div>
@@ -39,10 +39,7 @@
       <div class="cell-xs-12 cell-md-8 cell-lg-9">
         <div class="range">
           <div class="cell-xs-12">
-            <h3>Online Application</h3>
-            <!-- <p> -->
-              <!-- DTL 2020 校园招聘，请点击<a href="{% url 'chinaevent.career_talk' %}"><font color='#24a3d8'>这里</font></a>申请 -->
-            <!-- </p> -->
+            <h3>{{ campaign.name }} - Online Application</h3>
             <br>
             {% block apply-confirm %}
             {% endblock apply-confirm %}
@@ -58,12 +55,9 @@
           </div>
         </div>
       </div>
-      {% include 'main/_right_sidebar.html' with active=3 menu_items=sidebar_menu_items %}
+      {% include 'main/_right_sidebar.html' with active=4 menu_items=sidebar_menu_items %}
     </div>
   </div>
 </section>
 
 {% endblock body-content %}
-{% block js-extras %}
-{% include "main_snippet/career_apply_js.html" %}
-{% endblock js-extras %}

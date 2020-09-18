@@ -29,10 +29,8 @@
       <p>
         <strong>Singapore Office:</strong><br/>
         Email: <a href="mailto:careers@dytechlab.com">careers@dytechlab.com</a><br>
-      <p>
-      <p>Address:<br>Dynamic Technology Lab<br>
-      #07-00, Haw Par Glass Tower, 178 Clemenceau Avenue<br>
-      Singapore 239926</p>
+      </p>
+      {% include 'main_snippet/address.html' %}
     </div>
     <br>
   </div>
@@ -42,7 +40,7 @@
 <script>
   var map;
   function initMap() {
-    var location = {lat: 1.296788, lng: 103.844164};
+    var location = {lat: 1.2907662, lng: 103.8254333};
     map = new google.maps.Map(document.getElementById('our-map'), {
       center: location,
       zoom: 17

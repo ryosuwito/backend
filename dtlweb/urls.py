@@ -19,10 +19,18 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
 
+from recruitment_campaign import views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('main.urls')),
     url(r'^china/', include('chinaevent.urls')),
+    url(
+        r'^career/campaign/inviation/(?P<hashstr>[\w:]+)/(?P<action>((accept)|(refuse)))$',
+        views.accept_invitation_to_attend_campaign,
+        name='campaign.career.invitation',
+    ),
+    url(r'^career/campaign', views.career_apply, name='campaign.career.apply'),
 ]
 
 if settings.DEBUG:

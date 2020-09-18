@@ -1,7 +1,27 @@
-<p>New application for {{application.get_position_display}}:</p>
-<p>Name: {{application.name}}</p>
-<p>Email: {{application.email}}</p>
-<p>University: {{application.university}}</p>
+<table>
+  <tbody>
+    <tr>
+      <td>New application for</td>
+      <td>{{ application.get_position_display }} </td>
+    </tr>
+    <tr>
+      <td>Type - Location</td>
+      <td>{{ application.typ }} - {{ application.workplace }}</td>
+    </tr>
+    <tr>
+      </td>Need work pass</td>
+      <td>{{ application.need_work_pass }}</td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>{{ application.name }}</td>
+    </tr>
+    <tr>
+      <td>University</td>
+      <td>{{ application.university }}</td>
+    </tr>
+  </tbody>
+</table>
 
 Resume attached!
 This is automated email from dtl-website.
