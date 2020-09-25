@@ -176,7 +176,7 @@ def send_campaign_passed_resume_email(context):
     campaign = context['campaign']
 
     send_templated_email(
-        subject="Dynamic Technology Lab - You have been chosen to take part in %s event" % campaign.name,
+        subject="Dynamic Technology Lab - Successful registration for %s" % campaign.name,
         email_template=email_template,
         email_context=context,
         recipients=[campaign_application.application.email,],
