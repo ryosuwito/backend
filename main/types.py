@@ -38,7 +38,7 @@ class JobPosition(enum.Enum):
     FSDEV = "Full-Stack Developer"
     DEV = "Developer"
     DATA_ENGINEER = "Data Engineer"
-    OP_SPECIALIST = "Operation Specialist"
+    OP_SPECIALIST = "Trading Support Engineer"
     QRES = "Quantitative Researcher"
     FQRES = "Fundamental Quantitative Researcher"
     SYSAD = "System Administrator"
