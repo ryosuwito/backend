@@ -30,6 +30,7 @@ urlpatterns = [
         views.accept_invitation_to_attend_campaign,
         name='campaign.career.invitation',
     ),
+    url(r'^career/2021jointtest', views.career_apply, name='campaign.career.2021jointtest'),
     url(r'^career/campaign', views.career_apply, name='campaign.career.apply'),
 ]
 
