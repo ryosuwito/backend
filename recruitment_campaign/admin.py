@@ -54,7 +54,30 @@ class CampaignAdmin(admin.ModelAdmin):
 @admin.register(CampaignApplication)
 class ApplicationAdmin(admin.ModelAdmin):
     form = CampaignApplicationAdminForm
-    actions = ['pass_resume_selected_applications']
+    actions = [
+        'pass_resume_selected_applications',
+        'fail_selected_applications',
+    ]
+
+    def fail_selected_applications(self, request, queryset):
+        app_len = len(queryset)
+        updated_cnt = queryset\
+            .filter(status=CampaignApplication.StatusType.new.name)\
+            .update(status=CampaignApplication.StatusType.refused_resume.name)
+
+        if updated_cnt > 0:
+            self.message_user(
+                request,
+                "You have succefully refused %d applications" % updated_cnt,
+                messages.SUCCESS
+            )
+
+        if app_len > updated_cnt:
+            self.message_user(
+                request,
+                "There %d applications that were not new" % (app_len - updated_cnt),
+                messages.ERROR
+            )
 
     def pass_resume_selected_applications(self, request, queryset):
         """
@@ -62,7 +85,7 @@ class ApplicationAdmin(admin.ModelAdmin):
         """
         success_app_cnt = 0
         error_app_cnt = 0
-        for campaign_app in queryset.filter(status=StatusType.new.value):
+        for campaign_app in queryset.filter(status=StatusType.new.name):
             app = campaign_app.application
             test_request = TestRequest.createTestRequestForApplication(app)
             try:
@@ -85,7 +108,7 @@ class ApplicationAdmin(admin.ModelAdmin):
                 test_request.save(update_fields=('token', 'token_status', 'status', 'datetime'))
                 CampaignApplication.objects\
                     .filter(id=campaign_app.id)\
-                    .update(status=StatusType.passed_resume.value)
+                    .update(status=StatusType.passed_resume.name)
 
                 context = {
                     'campaign': campaign,

@@ -119,7 +119,7 @@ def accept_invitation_to_attend_campaign(request, hashstr, action):
         test_request.save(update_fields=('token', 'token_status', 'status', 'datetime'))
         CampaignApplication.objects\
             .filter(id=campaign_application.id)\
-            .update(status=CampaignApplication.StatusType.accept_invitation.value)
+            .update(status=CampaignApplication.StatusType.accept_invitation.name)
 
         context['test_request'] = test_request
 
@@ -130,7 +130,7 @@ def accept_invitation_to_attend_campaign(request, hashstr, action):
         application.save(update_fields=('status',))
         CampaignApplication.objects\
             .filter(id=campaign_application.id)\
-            .update(status=CampaignApplication.StatusType.refuse_invitation.value)
+            .update(status=CampaignApplication.StatusType.refuse_invitation.name)
 
         return render(request, "recruitment_campaign/refuse_invitation.html", context)
     else:

@@ -26,12 +26,12 @@ urlpatterns = [
     url(r'', include('main.urls')),
     url(r'^china/', include('chinaevent.urls')),
     url(
-        r'^career/campaign/inviation/(?P<hashstr>[\w:]+)/(?P<action>((accept)|(refuse)))$',
+        r'^careers/campaign/inviation/(?P<hashstr>[\w:]+)/(?P<action>((accept)|(refuse)))$',
         views.accept_invitation_to_attend_campaign,
         name='campaign.career.invitation',
     ),
-    url(r'^career/2021jointtest', views.career_apply, name='campaign.career.2021jointtest'),
-    url(r'^career/campaign', views.career_apply, name='campaign.career.apply'),
+    url(r'^careers/2021jointtest', views.career_apply, name='campaign.career.2021jointtest'),
+    url(r'^careers/campaign', views.career_apply, name='campaign.career.apply'),
 ]
 
 if settings.DEBUG:

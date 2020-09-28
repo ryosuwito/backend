@@ -61,7 +61,7 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
                     CampaignApplication.objects.create(
                         campaign=campaign,
                         application=app,
-                        status=CampaignApplication.StatusType.invited.value
+                        status=CampaignApplication.StatusType.invited.name
                     )
                     app.status = OnlineApplication.APP_STATUS_CAMPAIGN
                     app.save(update_fields=('status',))
