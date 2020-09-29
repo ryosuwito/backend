@@ -61,32 +61,32 @@ def career_apply(request):
             return render(request, "main/career_apply.html", context)
 
 
-def career_apply_intern(request, template="main/career_apply_intern.html"):
+# def career_apply_intern(request, template="main/career_apply_intern.html"):
 
-    def handle_intern_application_form(application):
-        # auto update status of the application to PASS_RESUME
-        application.status = OnlineApplication.APP_STATUS_PASS_RESUME
-        application.save()
+#     def handle_intern_application_form(application):
+#         # auto update status of the application to PASS_RESUME
+#         application.status = OnlineApplication.APP_STATUS_PASS_RESUME
+#         application.save()
 
-    if not request.POST:
-        return render(request, template, {
-            'form': InternApplicationForm() })
-    else:
-        # Handle POST request
-        form = InternApplicationForm(request.POST, request.FILES)
-        if form.is_valid():
-            model_instance = form.save(commit=False)
-            model_instance.save()
-            try:
-                handle_intern_application_form(model_instance)
-                return render(request, "main/career_apply_confirm.html",
-                              {'form': None})
-            except:
-                logger.error(traceback.format_exc())
-                model_instance.delete()
-                return render(request, template, {'form': form})
-        else:
-            return render(request, template, {'form': form})
+#     if not request.POST:
+#         return render(request, template, {
+#             'form': InternApplicationForm() })
+#     else:
+#         # Handle POST request
+#         form = InternApplicationForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             model_instance = form.save(commit=False)
+#             model_instance.save()
+#             try:
+#                 handle_intern_application_form(model_instance)
+#                 return render(request, "main/career_apply_confirm.html",
+#                               {'form': None})
+#             except:
+#                 logger.error(traceback.format_exc())
+#                 model_instance.delete()
+#                 return render(request, template, {'form': form})
+#         else:
+#             return render(request, template, {'form': form})
 
 
 def career_test(request, req_id, hashstr):

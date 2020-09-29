@@ -11,6 +11,9 @@ from django.core.files import File
 from main import emails
 
 from main.models import OnlineApplication, TestRequest, get_test_filepath
+from main.types import (
+    JobPosition,
+)
 
 FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
 
@@ -18,7 +21,7 @@ FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
 class OnlineApplicationTestCase(TestCase):
     def setUp(self):
         self.application = OnlineApplication(
-            position=OnlineApplication.DEVELOPER,
+            position=JobPosition.DEV.name,
             name="Yen Nguyen",
             email="ynguyen@dytechlab.com",
             resume=File(open(
@@ -69,7 +72,7 @@ class OnlineApplicationTestCase(TestCase):
 class TestRequestTestCase(TestCase):
     def setUp(self):
         self.application = OnlineApplication(
-            position=OnlineApplication.DEVELOPER,
+            position=JobPosition.DEV.name,
             name="Yen Nguyen",
             email="ynguyen@dytechlab.com",
             resume=File(open(
@@ -108,7 +111,7 @@ class TestRequestTestCase(TestCase):
         from django.conf import settings
 
         application = OnlineApplication(
-            position=OnlineApplication.DEVELOPER
+            position=JobPosition.DEV.name,
         )
         test_request = TestRequest(
             application=application,
@@ -116,10 +119,10 @@ class TestRequestTestCase(TestCase):
         )
         self.assertEqual(get_test_filepath(test_request), settings.TEST_FILES['DEV']['EN'])
 
-        application.position = OnlineApplication.Q_RESEARCHER
+        application.position = JobPosition.QRES.name
         self.assertEqual(get_test_filepath(test_request), settings.TEST_FILES['QRES']['EN'])
 
-        application.position = OnlineApplication.FQ_RESEARCHER
+        application.position = JobPosition.FQRES.name
         self.assertEqual(get_test_filepath(test_request), settings.TEST_FILES['FQRES']['EN'])
 
         test_request.version = TestRequest.VER_CHINESE

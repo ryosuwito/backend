@@ -14,7 +14,7 @@ INTERNSHIPS = (
     (OldJobPosition.INTERN_FQ_RESEARCHER.value, (JobPosition.FQRES.name, JobType.FULLTIME_INTERNSHIP.name)),
     (OldJobPosition.INTERN_Q_RESEARCHER.value, (JobPosition.QRES.name, JobType.FULLTIME_INTERNSHIP.name)),
     (OldJobPosition.INTERN_DATA_ENGINEER.value, (JobPosition.DATA_ENGINEER.name, JobType.FULLTIME_INTERNSHIP.name)),
-    (OldJobPosition.INTERN_DEVELOPER.value, (JobPosition.DEV.name, JobType.FULLTIME_INTERNSHIP)),
+    (OldJobPosition.INTERN_DEVELOPER.value, (JobPosition.DEV.name, JobType.FULLTIME_INTERNSHIP.name)),
 )
 
 
@@ -37,17 +37,8 @@ def convert_application_position(apps, schema_editor):
     "INTERN_DATA_ENGINEER"  => ("DATA_ENGINEER", "Full-time Internship")
     "INTERN_DEVELOPER"      => ("DEVELOPER", "Full-time Internship")
     """
-    for online_app in OnlineApplication.objects.all():
-        for internship in INTERNSHIPS:
-            if online_app.position == internship[0]:
-                try:
-                    online_app.position = internship[1][0]
-                    online_app.typ = internship[1][1]
-                    online_app.save()
-                except Exception as err:
-                    print(err)
-
-                break
+    for internship in INTERNSHIPS:
+        OnlineApplication.objects.filter(position=internship[0]).update(position=internship[1][0], typ=internship[1][1])
 
 
 def reverse_application_position(apps, schema_editor):

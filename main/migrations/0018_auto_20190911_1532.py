@@ -4,29 +4,6 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 
-from main.models import (OnlineApplication, TestRequest)
-from main.types import JobType
-from main.cron import TOKEN_SENT
-
-
-def code_migration(apps, schema_editor):
-    """
-    This function will do the following:
-    - Fix migration 0016
-    """
-    # fix migration 0016
-    corrupted_online_apps = OnlineApplication.objects.filter(typ=str(JobType.FULLTIME_INTERNSHIP))
-    for online_app in corrupted_online_apps:
-        try:
-            online_app.typ = JobType.FULLTIME_INTERNSHIP.name
-            online_app.save()
-        except Exception as err:
-            print(err)
-
-
-def reverse_code_migration(apps, schema_editor):
-    pass
-
 
 class Migration(migrations.Migration):
 
@@ -50,5 +27,4 @@ class Migration(migrations.Migration):
             name='token_status',
             field=models.CharField(blank=True, default=None, max_length=255, null=True),
         ),
-        migrations.RunPython(code=code_migration, reverse_code=reverse_code_migration),
     ]
