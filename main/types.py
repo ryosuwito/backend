@@ -41,8 +41,9 @@ class JobPosition(enum.Enum):
     OP_SPECIALIST = "Trading Support Engineer"
     QRES = "Quantitative Researcher"
     FQRES = "Fundamental Quantitative Researcher"
+    FRES = "Fundamental Researcher"
     SYSAD = "System Administrator"
-    # DATA_ANALYST = "Data Analyst"
+    DATA_ANALYST = "Data Analyst"
     FPGA_ENGINEER = "FPGA Engineer"
 
 
@@ -62,3 +63,5 @@ class Workplace(enum.Enum):
 JobTypeChoices = [(typ.name, typ.value) for typ in JobType]
 JobWorkplaceChoices = [(place.name, place.value) for place in Workplace]
 JobPositionChoices = [(pos.name, pos.value) for pos in JobPosition]
+
+JobPositionChoices.remove((JobPosition.DATA_ANALYST.name, JobPosition.DATA_ANALYST.value))

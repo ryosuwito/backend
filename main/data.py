@@ -262,6 +262,35 @@ positions = [
         ]
     ),
     Position(
+        "Fundamental Researcher (Internship)", "FRESINTERN",
+        [
+            [
+                "The Fundamental Research Intern will be guided to complete projects relating to financial statement analysis and equity research."
+            ],
+        ],
+        [
+            [
+                "Undergraduate/Graduate with finance/accounting/economics educational background",
+                "Strong Interest in financial markets with critical thinking ability",
+                "Excellent information gathering capabilities and attention to details",
+                "Relevant experience in financial statement analysis/equity research projects",
+            ],
+            "Return offer will be given upon exceptional performance during internship."
+        ],
+        plus=[
+            [
+                "Familiar with Linux and at least one programming language"
+            ],
+        ],
+        location=["Shanghai, Singapore, remote"],
+        duration=[
+            [
+                "Full-time: at least 3 months",
+                "Part-time: at least 3 days per week for a minimum of 4 months",
+            ]
+        ]
+    ),
+    Position(
         "Quantitative Researcher (Internship)", "QRESINTERN",
         [
             [
