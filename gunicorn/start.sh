@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 set -e
 NUM_WORKERS=16
-PORT=80
+PORT=8000
 # /etc/init.d/postfix start
 # cd /usr/src/app/
 pip install -r requirements.txt
-python manage.py makemigrations
 python manage.py migrate
 python manage.py collectstatic --noinput
 

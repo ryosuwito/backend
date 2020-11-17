@@ -42,7 +42,7 @@ class JobPosition(enum.Enum):
     QRES = "Quantitative Researcher"
     FQRES = "Fundamental Quantitative Researcher"
     SYSAD = "System Administrator"
-    DATA_ANALYST = "Data Analyst"
+    # DATA_ANALYST = "Data Analyst"
     FPGA_ENGINEER = "FPGA Engineer"
 
 
