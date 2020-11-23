@@ -14,7 +14,7 @@ from .types import (
 
 
 COMPANY_CAREER_EMAIL = settings.COMPANY_CAREER_EMAIL
-SENDER = COMPANY_CAREER_EMAIL
+SENDER = settings.SEND_EMAIL_FROM
 
 
 def send_templated_email(subject, email_template, email_context,
@@ -202,7 +202,7 @@ def send_on_token_failed(application):
     """
     """
     body = "Fail to send token to candidate {} with application id {}".format(application.name, application.id)
-    send_mail(body, body, 'noreply@dytechlab.com', recipient_list=[COMPANY_CAREER_EMAIL], fail_silently=True)
+    send_mail(body, body, SENDER, recipient_list=[COMPANY_CAREER_EMAIL], fail_silently=True)
 
 
 def send_reject(application):

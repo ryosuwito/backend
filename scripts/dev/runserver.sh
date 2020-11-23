@@ -13,4 +13,4 @@ python2 manage.py collectstatic --noinput
 python2 manage.py crontab add
 python2 manage.py crontab add
 
-python2 manage.py runserver 0.0.0.0:8888
+DJANGO_SETTINGS_MODULE=dtlweb.settings.dev python2 manage.py runserver 0.0.0.0:8888
