@@ -57,6 +57,7 @@ class JobType(enum.Enum):
 class Workplace(enum.Enum):
     SHANGHAI = 'Shanghai'
     SINGAPORE = 'Singapore'
+    HANOI = 'Hanoi'
     REMOTE = 'Remote'
 
 
