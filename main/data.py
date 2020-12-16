@@ -394,7 +394,6 @@ positions = [
             ]
         ],
     ),
-    """
     Position(
         "Data Analyst (Internship)", "",
         [
@@ -424,5 +423,4 @@ positions = [
         ],
 
     )
-    """
 ]
