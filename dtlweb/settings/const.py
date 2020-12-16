@@ -141,7 +141,7 @@ MAILER_EMAIL_MAX_DEFERRED = None
 MAILER_EMAIL_THROTTLE = 0  # passed to time.sleep()
 
 COMPANY_CAREER_EMAIL = 'careers@dytechlab.com'
-SEND_EMAIL_FROM = 'dytechlab_noreply@dytechlab.com'
+SEND_EMAIL_FROM = 'careers@dytechlab.com'
 
 
 TEST_FILES = {
