@@ -65,4 +65,4 @@ JobTypeChoices = [(typ.name, typ.value) for typ in JobType]
 JobWorkplaceChoices = [(place.name, place.value) for place in Workplace]
 JobPositionChoices = [(pos.name, pos.value) for pos in JobPosition]
 
-JobPositionChoices.remove((JobPosition.DATA_ANALYST.name, JobPosition.DATA_ANALYST.value))
+# JobPositionChoices.remove((JobPosition.DATA_ANALYST.name, JobPosition.DATA_ANALYST.value))
