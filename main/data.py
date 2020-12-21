@@ -422,5 +422,34 @@ positions = [
             ]
         ],
 
+    ),
+    Position(
+        "Data Operator (Internship)", "",
+        [
+            "Data Operators are responsible for collecting and parsing data we have gathered from various sources for internal use."
+        ],
+        [
+            [
+            "Bachelors/masters who major in Computer Science, Business Analytics, Finance, Engineering, Science.",
+            "Familiar with python, and data processing libraries like Pandas/Numpy.",
+            "Basic knowledge in Finance.",
+            ],
+        ],
+        plus=[
+            "The following will be a plus:",
+            [
+                "Advanced programming skills in Python.",
+                "Familiar with database language.",
+                "Strong interests in finance.",
+                "Comfortable with Linux.",
+            ],
+        ],
+        # location=["Singapore, Shanghai, remote"],
+        duration=[
+            [
+                "Part-time: at least 16 hours per week for 4 months",
+                "Full-time: at least 2 months",
+            ]
+        ],
     )
 ]

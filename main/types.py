@@ -45,6 +45,7 @@ class JobPosition(enum.Enum):
     SYSAD = "System Administrator"
     DATA_ANALYST = "Data Analyst"
     FPGA_ENGINEER = "FPGA Engineer"
+    DATA_OPERATOR = "Data Operator"
 
 
 class JobType(enum.Enum):
@@ -66,3 +67,4 @@ JobWorkplaceChoices = [(place.name, place.value) for place in Workplace]
 JobPositionChoices = [(pos.name, pos.value) for pos in JobPosition]
 
 # JobPositionChoices.remove((JobPosition.DATA_ANALYST.name, JobPosition.DATA_ANALYST.value))
+JobPositionChoices.remove((JobPosition.SYSAD.name, JobPosition.SYSAD.value))
