@@ -28,6 +28,8 @@ RECAPTCHA_PRIVATE_KEY = local.RECAPTCHA_PRIVATE_KEY
 
 DATABASES = local.DATABASES
 
+DATA_OPERATOR_ATTACHMENTS = local.DATA_OPERATOR_ATTACHMENTS
+
 # Declare variables that are depended on other variables here
 #
 #

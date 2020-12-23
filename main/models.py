@@ -38,6 +38,8 @@ class OnlineApplication(models.Model):
     APP_STATUS_FAIL_TEST = "FAIL_TEST"
     APP_STATUS_DOES_NOT_FINISH_TEST = "DNF_TEST"
     APP_STATUS_CAMPAIGN = "campaign"
+    APP_STATUS_OTHER = "other"
+
     APP_STATUS_CHOICES = (
         (APP_STATUS_NEW, "NEW"),
         (APP_STATUS_PASS_RESUME, "PASS RESUME"),
@@ -45,7 +47,8 @@ class OnlineApplication(models.Model):
         (APP_STATUS_PASS_TEST, "PASS TEST"),
         (APP_STATUS_FAIL_TEST, "FAIL TEST"),
         (APP_STATUS_DOES_NOT_FINISH_TEST, "DNF TEST"),
-        (APP_STATUS_CAMPAIGN, "From campagins")
+        (APP_STATUS_CAMPAIGN, "From campagins"),
+        (APP_STATUS_OTHER, "Other"),
     )
 
     typ = models.CharField(max_length=255, default=JobType.FULLTIME_JOB.name)
