@@ -164,38 +164,38 @@ positions = [
         ],
         location=("Singapore",),
     ),
-    Position(
-        "System Administrator", "SYSAD",
-        [
-            "System administrators ensure reliable operation of computer systems and servers. They also actively resolve problems and issues with operating systems and hardwares. They continuously improve hardware infrastructure to keep up with business need.",
-            "Typical responsibilities:",
-            [
-                "Assemble PC, install Linux systems, primarily Ubuntu and CentOS.",
-                "Support users' hardware and software issues.",
-                "Monitor workstations and servers.",
-                "Install and configure networking equipments.",
-                "Set up and manage server rooms and data centers.",
-            ],
+    # Position(
+    #     "System Administrator", "SYSAD",
+    #     [
+    #         "System administrators ensure reliable operation of computer systems and servers. They also actively resolve problems and issues with operating systems and hardwares. They continuously improve hardware infrastructure to keep up with business need.",
+    #         "Typical responsibilities:",
+    #         [
+    #             "Assemble PC, install Linux systems, primarily Ubuntu and CentOS.",
+    #             "Support users' hardware and software issues.",
+    #             "Monitor workstations and servers.",
+    #             "Install and configure networking equipments.",
+    #             "Set up and manage server rooms and data centers.",
+    #         ],
 
-        ],
-        [
-            [
-                "Proficient in Ubuntu and CentOS, Windows administration.",
-                "Knowledge of Linux bash script.",
-                "Understanding of networking.",
-                "Strong problem-solving skill.",
-                "Experience in hardware troubleshooting.",
-            ],
-        ],
-        plus=[
-            "Knowledge in this area will be a plus:",
-            [
-                "LDAP, DNS",
-                "nagios, ansible, puppet, docker",
-            ],
-        ],
-        location=("Singapore",),
-    ),
+    #     ],
+    #     [
+    #         [
+    #             "Proficient in Ubuntu and CentOS, Windows administration.",
+    #             "Knowledge of Linux bash script.",
+    #             "Understanding of networking.",
+    #             "Strong problem-solving skill.",
+    #             "Experience in hardware troubleshooting.",
+    #         ],
+    #     ],
+    #     plus=[
+    #         "Knowledge in this area will be a plus:",
+    #         [
+    #             "LDAP, DNS",
+    #             "nagios, ansible, puppet, docker",
+    #         ],
+    #     ],
+    #     location=("Singapore",),
+    # ),
     Position(
         "FPGA Engineer", "",
         [
@@ -394,35 +394,34 @@ positions = [
             ]
         ],
     ),
-    Position(
-        "Data Analyst (Internship)", "",
-        [
-            "Data Analyst interns maintain our data inventories, collect and clean the data we have gathered from various sources to make sure of the integrity, completeness and usefulness of our data."
-        ],
-        [
-            [
-                "Student pursuing a degree in Computer Science, Business Analytics, Finance, Engineering, Science.",
-                "Detail-oriented team player with strong problem-solving skills.",
-                "Basic knowledge in Finance.",
-            ],
-        ],
-        plus=[
-            "The following will be a plus:",
-            [
-                "Good knowledge in python.",
-                "Understanding of algorithms & data structure.",
-                "Comfortable with Linux.",
-            ],
-        ],
-        # location=["Singapore, Shanghai, remote"],
-        duration=[
-            [
-                "Part-time: at least 16 hours per week for 4 months",
-                "Full-time: at least 2 months",
-            ]
-        ],
-
-    ),
+    # Position(
+    #     "Data Analyst (Internship)", "",
+    #     [
+    #         "Data Analyst interns maintain our data inventories, collect and clean the data we have gathered from various sources to make sure of the integrity, completeness and usefulness of our data."
+    #     ],
+    #     [
+    #         [
+    #             "Student pursuing a degree in Computer Science, Business Analytics, Finance, Engineering, Science.",
+    #             "Detail-oriented team player with strong problem-solving skills.",
+    #             "Basic knowledge in Finance.",
+    #         ],
+    #     ],
+    #     plus=[
+    #         "The following will be a plus:",
+    #         [
+    #             "Good knowledge in python.",
+    #             "Understanding of algorithms & data structure.",
+    #             "Comfortable with Linux.",
+    #         ],
+    #     ],
+    #     # location=["Singapore, Shanghai, remote"],
+    #     duration=[
+    #         [
+    #             "Part-time: at least 16 hours per week for 4 months",
+    #             "Full-time: at least 2 months",
+    #         ]
+    #     ],
+    # ),
     Position(
         "Data Operator (Internship)", "",
         [
