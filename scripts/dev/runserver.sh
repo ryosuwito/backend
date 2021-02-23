@@ -3,7 +3,6 @@ set -e
 
 PORT=$1
 
-source env/bin/activate
 pip install -r requirements.txt
 # python manage.py makemigrations
 python2 manage.py migrate

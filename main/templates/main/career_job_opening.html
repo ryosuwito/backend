@@ -38,62 +38,16 @@
       <div class="cell-xs-12 cell-md-8 cell-lg-9">
         <div class="responsive-tabs responsive-tabs-vertical responsive-tabs-default">
           <ul class="resp-tabs-list" style="font-size: 16px;">
-            <li><a href="#FQRes">Fundamental Quantitative Researcher</a></li>
-            <li><a href="#QRes">Quantitative Researcher</a></li>
-            <li><a href="#Dev">C++ Developer</a></li>
-            <li><a href="#FSDev">Full-Stack Developer</a></li>
-            <li><a href="#DataEng">Data Engineer</a></li>
-            <li><a href="#OpSpec">Trading Support Engineer</a></li>
-            <!-- <li><a href="#SysAd">System Administrator</a></li> -->
-            <li><a href="#FPGAEng">FPGA Engineer</a></li>
-            <li><a href="#FQResIntern">Fundamental Quantitative Researcher (Internship)</a></li>
-            <li><a href="#FResIntern">Fundamental Researcher (Internship)</a></li>
-            <li><a href="#QResIntern">Quantitative Researcher (Internship)</a></li>
-            <li><a href="#DevIntern">C++ Developer (Internship)</a></li>
-            <li><a href="#DataEngIntern">Data Engineer (Internship)</a></li>
-            <!-- <li><a href="#DataAnalystIntern">Data Analyst (Internship)</a></li> -->
-            <li><a href="#DataAnalystIntern">Data Operator (Internship)</a></li>
+            {% for open_job in open_jobs %}
+            <li><a href="#open-job-{{ open_job.id }}">{{ open_job.description.title }}</a></li>
+            {% endfor %}
           </ul>
           <div class="resp-tabs-container">
+            {% for open_job in open_jobs %}
             <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.0 %}
+              {% include "main/snippet_job_new.html" with job=open_job %}
             </div>
-            <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.1 %}
-            </div>
-            <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.2 %}
-            </div>
-            <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.3 %}
-            </div>
-            <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.4 %}
-            </div>
-            <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.5 %}
-            </div>
-            <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.6 %}
-            </div>
-            <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.7 %}
-            </div>
-            <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.8 %}
-            </div>
-            <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.9 %}
-            </div>
-            <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.10 %}
-            </div>
-            <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.11 %}
-            </div>
-            <div class="fadeIn animated">
-              {% include "main/snippet_job.html" with position=positions.12 %}
-            </div>
+            {% endfor %}
           </div>
         </div>
       </div>

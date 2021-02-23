@@ -1,0 +1,75 @@
+{% load main_extras %}
+
+<h4>{{ job.description.title }}</h4>
+<h5>Job description: </h5>
+{% for desc in job.description.description %}
+  {% if desc|is_string %}
+  <p>{{desc}}</p>
+  {% else %}
+    <ul class="list-marked list-marked-spacing-lg">
+    {% for subdesc in desc %}
+      <li class="fa-check">{{subdesc}}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}
+
+<h5>Qualification: </h5>
+{% for qft in job.description.qualification %}
+  {% if qft|is_string %}
+  <p>{{qft}}</p>
+  {% else %}
+    <ul class="list-marked list-marked-spacing-lg">
+    {% for subqft in qft %}
+      <li class="fa-check">{{subqft}}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}
+
+{% if job.description.plus %}
+<h5>Pluses:</h5>
+{% for plus_lst in job.description.plus %}
+  {% if plus_lst|is_string %}
+  <p>{{plus_lst}}</p>
+  {% else %}
+    <br>
+    <ul class="list-marked list-marked-spacing-lg">
+    {% for plus_item in plus_lst %}
+      <li class="fa-check">{{plus_item}}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}
+{% endif %}
+
+{% if job.description.location %}
+<h5>Location: </h5>
+{% for desc in job.description.location %}
+  {% if desc|is_string %}
+  <p>{{desc}}</p>
+  {% else %}
+    <ul class="list-marked list-marked-spacing-lg">
+    {% for subdesc in desc %}
+      <li class="fa-check">{{subdesc}}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}
+{% endif %}
+
+{% if job.description.duration %}
+<h5>Duration: </h5>
+{% for desc in job.description.duration %}
+  {% if desc|is_string %}
+  <p>{{desc}}</p>
+  {% else %}
+    <ul class="list-marked list-marked-spacing-lg">
+    {% for subdesc in desc %}
+      <li class="fa-check">{{subdesc}}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}
+
+{% endif %}

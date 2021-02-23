@@ -3,15 +3,22 @@ import os
 import logging
 import mimetypes
 import traceback
+import copy
+import json
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, HttpResponse
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.utils.encoding import smart_str
+from django.forms.models import model_to_dict
 
 from wsgiref.util import FileWrapper
 
-from main.models import TestRequest, OnlineApplication
+from main.models import (
+    TestRequest,
+    OnlineApplication,
+    OpenJob,
+)
 from main.forms import OnlineApplicationForm, TestRequestForm, InternApplicationForm
 from main.emails import send_online_application_confirm, send_online_application_summary
 from main import helper
@@ -61,34 +68,6 @@ def career_apply(request):
             return render(request, "main/career_apply.html", context)
 
 
-# def career_apply_intern(request, template="main/career_apply_intern.html"):
-
-#     def handle_intern_application_form(application):
-#         # auto update status of the application to PASS_RESUME
-#         application.status = OnlineApplication.APP_STATUS_PASS_RESUME
-#         application.save()
-
-#     if not request.POST:
-#         return render(request, template, {
-#             'form': InternApplicationForm() })
-#     else:
-#         # Handle POST request
-#         form = InternApplicationForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             model_instance = form.save(commit=False)
-#             model_instance.save()
-#             try:
-#                 handle_intern_application_form(model_instance)
-#                 return render(request, "main/career_apply_confirm.html",
-#                               {'form': None})
-#             except:
-#                 logger.error(traceback.format_exc())
-#                 model_instance.delete()
-#                 return render(request, template, {'form': form})
-#         else:
-#             return render(request, template, {'form': form})
-
-
 def career_test(request, req_id, hashstr):
     test_request = get_object_or_404(TestRequest, pk=req_id)
     if test_request.status == TestRequest.STATUS_SENT:
@@ -133,10 +112,29 @@ def career_test(request, req_id, hashstr):
 
 
 def career_jobs(request):
-    from main.data import positions
+    # from main.data import positions
+
+    # def s_desc(x):
+    #     y = copy.deepcopy(x.__dict__)
+    #     y['description'] = y['desc']
+    #     del y['desc']
+    #     return y
+
+    # serialized_data = list(map(s_desc, positions))
+    # with open('/tmp/serialized_positions.json', 'w') as f:
+    #     f.write(json.dumps(serialized_data))
+    
+    open_jobs = OpenJob.objects.filter(active=True).order_by('typ')
+
+    def deserialize_desc(x):
+        y = copy.deepcopy(model_to_dict(x))
+        y['description'] = json.loads(x.description)
+        return y
+
+    open_jobs = list(map(deserialize_desc, open_jobs))
     context = {
         'sidebar_menu_items': templatedata.get_sidebar_menu_items(),
-        'positions': positions,
+        'open_jobs': open_jobs,
     }
     return render(request, "main/career_job_opening.html", context)
 

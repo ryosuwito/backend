@@ -250,11 +250,13 @@ class Position(object):
 
 
 class OpenJob(models.Model):
-    position = models.CharField(max_length=255, choices=JobPositionChoices)
-    typ = models.CharField(max_length=255, choices=JobTypeChoices)
-    workplace = models.CharField(max_length=255, choices=JobWorkplaceChoices)
+    position = models.CharField(max_length=255)
+    typ = models.CharField(max_length=255)
+    workplace = models.CharField(max_length=255)
     active = models.BooleanField(default=True, blank=True, null=False)
     test_id = models.CharField(max_length=255, null=True, default=None, blank=True)
+
+    description = models.TextField(blank=True, default="{}")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

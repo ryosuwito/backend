@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+import json
 
 from django.utils.translation import ugettext_lazy as _
 from django import forms
@@ -7,7 +8,13 @@ from django.utils import timezone
 from functools import partial
 from django.core.exceptions import ValidationError
 
-from .models import OnlineApplication, TestRequest, InternCandidate, OpenJob
+from .models import (
+    OnlineApplication,
+    TestRequest,
+    InternCandidate,
+    OpenJob,
+    ConfigEntry,
+)
 from .types import (
     JobType,
     Workplace,
@@ -16,10 +23,17 @@ from .types import (
     JobPositionChoices,
     JobTypeChoices,
     JobWorkplaceChoices,
+    ConfigKey,
 )
 
 
 DateTimeInput = partial(forms.DateTimeInput, {'class': 'datetime', 'type': 'hidden'})
+
+
+def get_type_in_database_config(name):
+    config_entry = ConfigEntry.objects.get(name=name)
+    types = json.loads(config_entry.extra)
+    return types
 
 
 class OptionalChoiceWidget(forms.MultiWidget):
@@ -94,11 +108,8 @@ class OnlineApplicationForm(forms.ModelForm):
                    '4 months (3 days a week) for a part-time internship.')
     )
 
-    position = forms.ChoiceField(choices=JobPositionChoices, label='Position*')
     OnlineAppChoices = tuple(filter(lambda x: x[0] != JobType.INTERNSHIP.name, JobTypeChoices))
-    typ = forms.ChoiceField(choices=OnlineAppChoices, label='Type*')
-    workplace = forms.ChoiceField(choices=JobWorkplaceChoices, label='Workplace*')
-
+    
     resume = forms.FileField()
     info_src = InfoSourceField()
 
@@ -139,6 +150,32 @@ class OnlineApplicationForm(forms.ModelForm):
         super(OnlineApplicationForm, self).__init__(*args, **kwargs)
         self.fields['resume'].help_text = 'Please make sure no chinese character in your file name'
 
+        self.position_map = get_type_in_database_config(ConfigKey.JOB_POSITION.value)
+        self.type_map = get_type_in_database_config(ConfigKey.JOB_TYPE.value)
+        self.workplace_map = get_type_in_database_config(ConfigKey.JOB_WORKPLACE.value)
+        self.open_jobs = OpenJob.objects.filter(active=True)
+
+        self.position_choices = list(
+            map(
+                lambda x: [x, self.position_map.get(x)],
+                set(map(lambda x: x.position, self.open_jobs))
+            )
+        )
+        self.fields['position'] = forms.ChoiceField(choices=self.position_choices, label='Position*')
+
+        self.type_choices = list(
+            map(
+                lambda x: [x, self.type_map.get(x)],
+                set(map(lambda x: x.typ, self.open_jobs))
+            )
+        )
+        self.fields['typ'] = forms.ChoiceField(choices=self.type_choices, label='Type*')
+
+        # TODO didn't filter workplace for quick use
+        self.workplace_choices = self.workplace_map.items()
+        self.fields['workplace'] = forms.ChoiceField(choices=self.workplace_choices, label='Workplace*')
+
+
     def clean_email(self):
         email = self.cleaned_data['email']
         applications = OnlineApplication.objects.filter(email=email)
@@ -162,19 +199,23 @@ class OnlineApplicationForm(forms.ModelForm):
         """
         Check if there is any (position, typ, workplace) job open or not.
         """
-        queryset = OpenJob.objects.filter(active=True)
+        queryset = self.open_jobs
 
-        open_positions = list({JobPosition[open_job.position].value for open_job in queryset})
+        open_positions = list(map(lambda x: x[1], self.position_choices))
         position = self.cleaned_data['position']
         open_jobs_with_position = queryset.filter(position=position)
 
-        open_typs = list({JobType[open_job.typ].value for open_job in open_jobs_with_position})
+        open_typs = list({self.type_map.get(open_job.typ) for open_job in open_jobs_with_position})
         typ = self.cleaned_data['typ']
         open_jobs_with_typ = open_jobs_with_position.filter(typ=typ)
 
-        open_workplaces = list({Workplace[open_job.workplace].value for open_job in open_jobs_with_typ})
+        open_workplaces = []
+        for open_job in open_jobs_with_typ:
+            open_workplaces.extend(open_job.workplace.split(','))
+        
+        open_workplaces = list(set(map(lambda x: self.workplace_map.get(x), open_workplaces)))
         workplace = self.cleaned_data['workplace']
-        open_jobs_with_workplace = open_jobs_with_typ.filter(workplace=workplace)
+        open_jobs_with_workplace = open_jobs_with_typ.filter(workplace__contains=workplace)
 
         if open_jobs_with_position.count() == 0:
             if len(open_positions) > 0:
@@ -251,3 +292,38 @@ class TestRequestForm(forms.ModelForm):
             if not self.instance.allow_update():
                 raise forms.ValidationError(
                     "You cannot change time of the test")
+
+
+class OpenJobForm(forms.ModelForm):
+    class Meta:
+        model = OpenJob
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(OpenJobForm, self).__init__(*args, **kwargs)
+        self.fields['position'] = forms.ChoiceField(
+            choices=get_type_in_database_config(ConfigKey.JOB_POSITION.value).items())
+
+        self.fields['typ'] = forms.ChoiceField(
+            choices=get_type_in_database_config(ConfigKey.JOB_TYPE.value).items())
+
+        workplace_items = get_type_in_database_config(ConfigKey.JOB_WORKPLACE.value).items()
+        workplace_len = len(workplace_items)
+        workplace_choices = []
+        for i in range(1, 2**workplace_len):
+            bi = "{0:20b}".format(i)[-workplace_len:]
+            item_arr = list(filter(lambda x: x[0] == '1', zip(list(bi), workplace_items)))
+            label = ','.join(map(lambda x: x[1][0], item_arr))
+            value = ','.join(map(lambda x: x[1][1], item_arr))
+            workplace_choices.append([label, value])
+        workplace_choices = sorted(workplace_choices, key=lambda x: (len(x[0]), x[0]))
+        self.fields['workplace'] = forms.ChoiceField(choices=workplace_choices)
+
+    def clean_description(self):
+        try:
+            cleaned_data = self.cleaned_data['description']
+            json.loads(cleaned_data)
+        except Exception:
+            self.add_error('description', 'Not a valid JSON.')
+
+        return cleaned_data

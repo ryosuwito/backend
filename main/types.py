@@ -62,6 +62,12 @@ class Workplace(enum.Enum):
     REMOTE = 'Remote'
 
 
+class ConfigKey(enum.Enum):
+    JOB_POSITION = 'job_positions'
+    JOB_WORKPLACE = 'job_workplaces'
+    JOB_TYPE = 'job_types'
+
+
 JobTypeChoices = [(typ.name, typ.value) for typ in JobType]
 JobWorkplaceChoices = [(place.name, place.value) for place in Workplace]
 JobPositionChoices = [(pos.name, pos.value) for pos in JobPosition]

@@ -13,6 +13,7 @@ from main.models import (
     OpenJob,
     ConfigEntry,
 )
+from main.forms import OpenJobForm
 from main.types import (
     JobType,
     JobPosition,
@@ -169,6 +170,7 @@ class OpenJobAdmin(admin.ModelAdmin):
     list_display_links = ('id',)
     list_editable = ('active', 'test_id')
     list_filter = ('position', 'typ', 'workplace', 'active', 'test_id')
+    form = OpenJobForm
 
 
 @admin.register(ConfigEntry)
