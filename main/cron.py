@@ -138,7 +138,7 @@ def send_test_token():
                 query = {
                     'position': app.position,
                     'typ': app.typ,
-                    'workplace': app.workplace,
+                    'workplace__contains': app.workplace,
                 }
                 open_job = OpenJob.objects.filter(**query).first()
                 if open_job is None or not open_job.active:
