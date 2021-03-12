@@ -6,8 +6,17 @@ import traceback
 import copy
 import json
 from django.conf import settings
-from django.shortcuts import render, get_object_or_404, HttpResponse
-from django.http import Http404
+from django.shortcuts import (
+    render,
+    get_object_or_404,
+    HttpResponse,
+    redirect,
+)
+from django.urls import reverse
+from django.http import (
+    Http404,
+    JsonResponse,
+)
 from django.contrib.auth.decorators import login_required
 from django.utils.encoding import smart_str
 from django.forms.models import model_to_dict
@@ -18,12 +27,23 @@ from main.models import (
     TestRequest,
     OnlineApplication,
     OpenJob,
+    ConfigEntry,
 )
-from main.forms import OnlineApplicationForm, TestRequestForm, InternApplicationForm
-from main.emails import send_online_application_confirm, send_online_application_summary
+from main.forms import (
+    OnlineApplicationForm,
+    TestRequestForm,
+    InternApplicationForm,
+)
+from main.emails import (
+    send_online_application_confirm,
+    send_online_application_summary,
+)
 from main import helper
 
 from main import templatedata
+from types import ConfigKey
+
+from django.views.decorators.http import require_http_methods
 
 
 logger = logging.getLogger(__name__)
@@ -31,6 +51,39 @@ logger = logging.getLogger(__name__)
 
 def index(request):
     return render(request, "main/main_page.html")
+
+
+@require_http_methods(["GET", "POST"])
+def apply(request):
+
+    def handle_application_form(application):
+        # send application form summary to company email
+        send_online_application_summary(application)
+        # send confirmation email to candidate
+        send_online_application_confirm(application)
+
+    context = {'form': None}
+
+    if request.method == 'GET':
+        ALLOWED_FIELDS = {'position', 'typ', 'workplace'}
+        initial_data = dict(list(filter(lambda x: x[0] in ALLOWED_FIELDS, copy.deepcopy(request.GET).items())))
+        context.update({'form': OnlineApplicationForm(initial=initial_data)})
+        return render(request, "main/application_form.html", context)
+    else:
+        # Handle POST request
+        form = OnlineApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            model_instance = form.save()
+            handle_application_form(model_instance)
+            return redirect(reverse('main.career.success_application'))
+        else:
+            context.update({'form': form})
+            return render(request, "main/application_form.html", context)
+
+
+@require_http_methods(["GET"])
+def success_application(request):
+    return render(request, "main/application_success.html")
 
 
 def career_apply(request):
@@ -111,132 +164,6 @@ def career_test(request, req_id, hashstr):
             })
 
 
-def career_jobs(request):
-    # from main.data import positions
-
-    # def s_desc(x):
-    #     y = copy.deepcopy(x.__dict__)
-    #     y['description'] = y['desc']
-    #     del y['desc']
-    #     return y
-
-    # serialized_data = list(map(s_desc, positions))
-    # with open('/tmp/serialized_positions.json', 'w') as f:
-    #     f.write(json.dumps(serialized_data))
-    
-    open_jobs = OpenJob.objects.filter(active=True).order_by('typ')
-
-    def deserialize_desc(x):
-        y = copy.deepcopy(model_to_dict(x))
-        y['description'] = json.loads(x.description)
-        return y
-
-    open_jobs = list(map(deserialize_desc, open_jobs))
-    context = {
-        'sidebar_menu_items': templatedata.get_sidebar_menu_items(),
-        'open_jobs': open_jobs,
-    }
-    return render(request, "main/career_job_opening.html", context)
-
-
-def career_overview(request):
-    # flake8: noqa
-    context = {
-        'sidebar_menu_items': templatedata.get_sidebar_menu_items(),
-        'why_dtl': [
-            {
-                "desc": """Learn from the Best""",
-                "content": """Our employees are top-notch talents in their fields. Though they come with diverse background, they share a common drive to succeed. As DTL's new employee, you could learn from our experienced mentors. We strive to maintain a friendly, collegiate working environment to promote self-improvement and career development."""},
-            {
-                "desc": """Receive thorough Training""",
-                "content": """A job offer at DTL is the start of our investment in you. Based on your background, we will develop specific programs and provide resources ( books, papers, tutorials etc. ) to help you build and enhance your skills in finance, mathematics, statistics and programming."""},
-            {
-                "desc": """Share Our Success""",
-                "content": """We are a specialized investment team with excellent track record. By joining us, you will grow together with the company. Your remuneration will be based on your performance and the company's performance as a whole. We offer highly competitive compensation packages."""},
-            {
-                "desc": """Make A Difference""",
-                "content": """You can really make a difference even during entry-level as you will be tasked with challenging yet interesting assignments. We strive to help you in every way to facilitate innovation and brainstorm fresh ideas which are the key to our success."""}
-        ]
-    }
-    return render(request, "main/career_overview.html", context)
-
-
-def culture_overview(request):
-    cultures = [
-        {
-            'desc': 'Value Our Greatest Asset',
-            'content': 'Employees are our most valuable asset and we try our best to provide opportunities for everyone to achieve and realize their potential. All employees, regardless of their positions or experience, are well respected and grow together with the company.',
-        },
-        {
-            'desc': 'Never Stop Thinking',
-            'content': 'To stand out in fiercely competitive markets we always keep a sharp mind, generate fresh ideas, and stand ready to solve complex problems. All innovative ideas are fully recognized and highly rewarded.'
-        },
-        {
-            'desc': 'Focus on Cutting-edge Tech',
-            'content': 'At DTL all the works are technology-oriented. We consider ourselves more as engineers or scientists than financial practitioners. Our success depends on the continuous focus on adopting the latest technology in computer science, math, statistics, and finance.'
-        },
-        {
-            'desc': 'Work Hard, Play Hard',
-            'content': 'Working is important but life is more than just work. We regularly organize team events like outings, dining parties and sports events. To each other, we are both hardworking colleagues at work and close friends in life.'
-        },
-    ]
-
-    return render(request, "main/culture_overview.html", { 'cultures': cultures })
-
-
-def culture_atwork(request):
-    atworks = [
-        {
-            'desc': 'We maintain a flat management structure. Juniors are encouraged to discuss with or challenge the seniors for ideas. With an open culture, any suggestions could be brought up to senior management and major decisions will be made with full consideration of all employees in the company.',
-            'img': 'main/img/pool/tangfengyang.003.jpeg'
-        },
-        {
-            'desc': 'Though a significant amount of work is done individually, our work nature demands a lot of cooperation among researchers, data scientists, developers, traders and portfolio managers. We work together to achieve our shared goals.',
-            'img': 'main/img/pool/tangfengyang.002.jpeg'
-        },
-        {
-            'desc': 'To foster a culture of innovation we have weekly research presentations where all researchers get together to share their findings and ideas. There are also regular meetings to discuss how to improve our systems and operations.',
-            'img': 'main/img/pool/tangfengyang.004.jpeg'
-        },
-        {
-            'desc': 'We strive to maintain a casual, flexible and comfortable working environment to maximize productivity. We do not have any specific dress code and plenty of refreshments like fruits and snacks is provided.',
-            'img': 'main/img/pool/tangfengyang.001.jpeg'
-        },
-    ]
-    return render(request, "main/culture_atwork.html", { 'atworks': atworks})
-
-
-def culture_offwork(request):
-    offworks = [
-        {
-            'desc': 'We organize regular dining parties on festive occasions or to celebrate the joining of new colleagues.',
-            'img': 'main/img/offoffice/p1.jpg'
-        },
-        {
-            'desc': 'There are plenty of sports facilities nearby including tennis/ping pong/basketball courts, swimming pool and gym etc. Our employees play all sorts of sports so you could always find someone to play with.',
-            'img': 'main/img/offoffice/p2.jpg'
-        },
-        {
-            'desc': 'There are many ways for entertainment like KTV, billiard, chess or Texas Hold\'em. If you would like to explore the wild, hiking and diving are also accessible. DTL encourages employees to pursue their hobbies off work.',
-            'img': 'main/img/offoffice/p3.jpg'
-        },
-        {
-            'desc': 'Our employees go jogging on a regular basis. DTL also sponsors interested employees to participate in the annual Standard Chartered Marathon.',
-            'img': 'main/img/offoffice/p4.jpg'
-        },
-    ]
-
-    return render(request, "main/culture_offwork.html", {'offworks': offworks})
-
-
-def what_we_do(request):
-    return render(request, "main/what_we_do.html")
-
-
-def contact(request):
-    return render(request, "main/contact.html")
-
-
 @login_required
 def download_resume(request, file_name):
     import glob
@@ -256,3 +183,26 @@ def download_resume(request, file_name):
     response['Content-Length'] = os.stat(file_path).st_size
     response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(os.path.basename(file_path))
     return response
+
+
+@require_http_methods(["GET"])
+def career_data(request):
+    open_jobs = OpenJob.objects.filter(active=True)
+    open_jobs = list(map(lambda x: model_to_dict(x), open_jobs))
+    positions = json.loads(ConfigEntry.objects.get(name=ConfigKey.JOB_POSITION.value).extra)
+    types = json.loads(ConfigEntry.objects.get(name=ConfigKey.JOB_TYPE.value).extra)
+    workplaces = json.loads(ConfigEntry.objects.get(name=ConfigKey.JOB_WORKPLACE.value).extra)
+    config_entry = ConfigEntry.objects.filter(name=ConfigKey.CAREER_META_DATA.value)
+    meta_data = None
+    if len(config_entry) > 0:
+        config_entry = config_entry[0]
+        meta_data = json.loads(config_entry.extra)
+
+    ret = {
+        "positions": positions,
+        "types": types,
+        "workplaces": workplaces,
+        "open_jobs": open_jobs,
+        "meta_data": meta_data,
+    }
+    return JsonResponse(ret)

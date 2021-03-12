@@ -127,12 +127,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Email settings
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'mailer.backend.DbBackend'
-EMAIL_USE_TLS = False
-EMAIL_HOST = "localhost"
-EMAIL_PORT = 25
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
+# EMAIL_BACKEND = 'mailer.backend.DbBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = '/tmp/app-messages'
 
 # MAILER settings
 # More of usages: https://github.com/pinax/django-mailer/blob/master/docs/usage.rst

@@ -1,0 +1,40 @@
+{% load static %}
+{% load main_extras %}
+<!DOCTYPE html>
+<html lang="en" class="wide wow-animation">
+  <head>
+    <!-- Site Title-->
+    <title>Dynamic Technology Lab</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="icon" href="{% static 'main/img/favicon.ico' %}" type="image/x-icon">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900,300italic">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/dtl.css' %}">
+
+    {% block head-extras %}
+    {% endblock head-extras %}
+  </head>
+  <body>
+    <!-- Page-->
+    <div class="page">
+      {% block swiper %}
+      {% endblock %}
+      <!-- Page Content-->
+      <main class="page-content">
+        <!-- Swiper-->
+        {% block body-content %}
+        {% endblock body-content %}
+      </main>
+    </div>
+    <!-- Javascript-->
+    <script src="{% static 'main/js/core.min.js' %}"></script>
+    <script src="{% static 'main/js/script.js' %}"></script>
+
+    {% block js-extras %}
+    {% endblock js-extras %}
+  </body>
+</html>

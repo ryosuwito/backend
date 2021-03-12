@@ -1,0 +1,37 @@
+{% extends 'main/blank_layout.html' %}
+{% load static %}
+{% block body-content %}
+<section class="border-bottom border-bottom-gray-lighter">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12">
+        <ul class="breadcrumbs-custom">
+          <li><a href="/">Home</a></li>
+          <li><a href="/careers">Careers</a></li>
+          <li><a href="/dtlweb/careers/">Online Application</a></li>
+          <li class="active">Success</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section-top-55 section-bottom-60">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12 cell-md-8 cell-lg-9">
+        <div class="range">
+          <div class="cell-xs-12">
+            <h3>You have applied successfully!</h3>
+            <p>Thank you for your application. A confirmation email will be sent to you shortly.</p>
+            <p>If you cannot find the confirmation email, please check your spam mailbox.</p>
+            <br>
+            <a href="/" class="btn btn-primary">Go back Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div style="border-top: 1px solid gainsboro"></div>
+
+{% endblock body-content %}

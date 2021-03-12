@@ -66,6 +66,7 @@ class ConfigKey(enum.Enum):
     JOB_POSITION = 'job_positions'
     JOB_WORKPLACE = 'job_workplaces'
     JOB_TYPE = 'job_types'
+    CAREER_META_DATA = 'career_meta_data'
 
 
 JobTypeChoices = [(typ.name, typ.value) for typ in JobType]

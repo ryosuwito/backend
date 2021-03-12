@@ -11,8 +11,6 @@ python manage.py collectstatic --noinput
 # run crontab 2 times (since the first time may has conflict)
 python manage.py crontab add --settings=dtlweb.settings.prod
 python manage.py crontab add --settings=dtlweb.settings.prod
-python manage.py add_open_jobs --settings=dtlweb.settings.prod
-python manage.py add_chinaevent_data --settings=dtlweb.settings.prod 
 
 kill $(lsof -t -i:$PORT) || true
 gunicorn dtlweb.wsgi:application --bind 0.0.0.0:$PORT --name dtlweb_app -w $NUM_WORKERS

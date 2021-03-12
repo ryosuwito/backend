@@ -22,16 +22,15 @@ from django.conf import settings
 from recruitment_campaign import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'', include('main.urls')),
-    url(r'^china/', include('chinaevent.urls')),
+    url(r'^dtlweb/admin/', admin.site.urls),
+    url(r'^dtlweb/', include('main.urls')),
     url(
-        r'^careers/campaign/inviation/(?P<hashstr>[\w:]+)/(?P<action>((accept)|(refuse)))$',
+        r'^dtlweb/careers/campaign/inviation/(?P<hashstr>[\w:]+)/(?P<action>((accept)|(refuse)))$',
         views.accept_invitation_to_attend_campaign,
         name='campaign.career.invitation',
     ),
-    url(r'^careers/2021jointtest', views.career_apply, name='campaign.career.2021jointtest'),
-    url(r'^careers/campaign', views.career_apply, name='campaign.career.apply'),
+    url(r'^dtlweb/careers/2021jointtest', views.career_apply, name='campaign.career.2021jointtest'),
+    url(r'^dtlweb/careers/campaign', views.career_apply, name='campaign.career.apply'),
 ]
 
 if settings.DEBUG:

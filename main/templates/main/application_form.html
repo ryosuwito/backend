@@ -1,0 +1,46 @@
+{% extends 'main/blank_layout.html' %}
+{% load static %}
+{% block body-content %}
+<section class="border-bottom border-bottom-gray-lighter">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12">
+        <ul class="breadcrumbs-custom">
+          <li><a href="/">Home</a></li>
+          <li><a href="/careers">Careers</a></li>
+          <li class="active">Online Application</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section-top-55 section-bottom-60">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12 cell-md-8 cell-lg-9">
+        <div class="range">
+          <div class="cell-xs-12">
+            <h3>Online Application</h3>
+            <br>
+            {% block apply-confirm %}
+            {% endblock apply-confirm %}
+
+            {% if form %}
+            <div class="row margin-vert-30">
+              <div class="col-md-8">
+                <p class="help-block">Required fields indicated with (*)</p>
+                {% include 'main/snippet_form.html' with form=form multipart=True %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock body-content %}
+{% block js-extras %}
+{% include "main_snippet/career_apply_js.html" %}
+{% endblock js-extras %}

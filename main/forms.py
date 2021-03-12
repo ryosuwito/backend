@@ -108,8 +108,6 @@ class OnlineApplicationForm(forms.ModelForm):
                    '4 months (3 days a week) for a part-time internship.')
     )
 
-    OnlineAppChoices = tuple(filter(lambda x: x[0] != JobType.INTERNSHIP.name, JobTypeChoices))
-    
     resume = forms.FileField()
     info_src = InfoSourceField()
 
