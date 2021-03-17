@@ -86,41 +86,7 @@ def success_application(request):
     return render(request, "main/application_success.html")
 
 
-def career_apply(request):
-
-    def handle_application_form(application):
-        # send application form summary to company email
-        send_online_application_summary(application)
-        # send confirmation email to candidate
-        send_online_application_confirm(application)
-
-    context = {
-        'sidebar_menu_items': templatedata.get_sidebar_menu_items(),
-    }
-
-    if not request.POST:
-        context.update({'form': OnlineApplicationForm()})
-        return render(request, "main/career_apply.html", context)
-    else:
-        # Handle POST request
-        form = OnlineApplicationForm(request.POST, request.FILES)
-        if form.is_valid():
-            model_instance = form.save(commit=False)
-            model_instance.save()
-            try:
-                handle_application_form(model_instance)
-                context.update({'form': None})
-                return render(request, "main/career_apply_confirm.html", context)
-            except:
-                logger.error(traceback.format_exc())
-                model_instance.delete()
-                context.update({'form': form})
-                return render(request, "main/career_apply.html", context)
-        else:
-            context.update({'form': form})
-            return render(request, "main/career_apply.html", context)
-
-
+@require_http_methods(["GET", "POST"])
 def career_test(request, req_id, hashstr):
     test_request = get_object_or_404(TestRequest, pk=req_id)
     if test_request.status == TestRequest.STATUS_SENT:
@@ -130,10 +96,10 @@ def career_test(request, req_id, hashstr):
     if hashstr != test_request.hashstr:
         raise Http404("This link does not exist.")
 
-    template = "main/career_testreq.html"
+    template = "main/test_schedule.html"
     form = TestRequestForm(instance=test_request)
 
-    if not request.POST:
+    if request.method == "GET":
         return render(request, template, {
             'form': form,
             'is_set': test_request.datetime\
@@ -148,12 +114,8 @@ def career_test(request, req_id, hashstr):
             model_instance = form.save(commit=False)
             model_instance.status = TestRequest.STATUS_SET
             model_instance.save()
-            return render(request, template, {
-                'form': TestRequestForm(instance=test_request),
-                'is_set': model_instance.datetime,
-                'allow_update': model_instance.allow_update(),
-                'given_time': helper.get_given_time(test_request),
-            })
+            return redirect(
+                reverse('main.career.test', kwargs={"req_id": test_request.id, "hashstr": test_request.hashstr}))
         else:
             return render(request, template, {
                 'form': form,
