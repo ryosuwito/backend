@@ -122,15 +122,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/dtlweb/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Email settings
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_BACKEND = 'mailer.backend.DbBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-# EMAIL_FILE_PATH = '/tmp/app-messages'
+EMAIL_BACKEND = 'mailer.backend.DbBackend'
 
 # MAILER settings
 # More of usages: https://github.com/pinax/django-mailer/blob/master/docs/usage.rst
