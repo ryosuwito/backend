@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import uuid
+import os
 from datetime import timedelta
 
 from django.utils import timezone
@@ -22,7 +23,11 @@ from .types import (
 
 def user_resume_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/resumes/{email}_filename
-    return "resumes/{}_{}".format(instance.email, uuid.uuid4())
+    _, extension = os.path.splitext(filename)
+    if extension:
+        return "resumes/{}_{}{}".format(instance.email, uuid.uuid4(), extension)
+    else:
+        return "resumes/{}_{}".format(instance.email, uuid.uuid4())
 
 
 def get_test_filepath(test_request, version=None):
