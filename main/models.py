@@ -15,9 +15,6 @@ from .types import (
     JobPosition,
     JobType,
     Workplace,
-    JobTypeChoices,
-    JobWorkplaceChoices,
-    JobPositionChoices,
 )
 
 

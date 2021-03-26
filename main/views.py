@@ -2,7 +2,6 @@
 import os
 import logging
 import mimetypes
-import traceback
 import copy
 import json
 from django.conf import settings
@@ -25,14 +24,12 @@ from wsgiref.util import FileWrapper
 
 from main.models import (
     TestRequest,
-    OnlineApplication,
     OpenJob,
     ConfigEntry,
 )
 from main.forms import (
     OnlineApplicationForm,
     TestRequestForm,
-    InternApplicationForm,
 )
 from main.emails import (
     send_online_application_confirm,
@@ -40,7 +37,6 @@ from main.emails import (
 )
 from main import helper
 
-from main import templatedata
 from types import ConfigKey
 
 from django.views.decorators.http import require_http_methods
@@ -99,17 +95,19 @@ def career_test(request, req_id, hashstr):
     template = "main/test_schedule.html"
     form = TestRequestForm(instance=test_request)
 
+    context = {
+        'form': form,
+        'is_set': test_request.datetime if test_request.status == TestRequest.STATUS_SET else None,
+        'allow_update': test_request.allow_update(),
+        'given_time': helper.get_given_time(test_request),
+    }
+
     if request.method == "GET":
-        return render(request, template, {
-            'form': form,
-            'is_set': test_request.datetime\
-                      if test_request.status == TestRequest.STATUS_SET else None,
-            'given_time': helper.get_given_time(test_request),
-            'allow_update': test_request.allow_update(),
-        })
+        return render(request, template, context)
     else:
         # Handle POST Request
         form = TestRequestForm(request.POST, instance=test_request)
+        context.update({'form': form})
         if form.is_valid():
             model_instance = form.save(commit=False)
             model_instance.status = TestRequest.STATUS_SET
@@ -117,13 +115,7 @@ def career_test(request, req_id, hashstr):
             return redirect(
                 reverse('main.career.test', kwargs={"req_id": test_request.id, "hashstr": test_request.hashstr}))
         else:
-            return render(request, template, {
-                'form': form,
-                'is_set': test_request.datetime\
-                          if test_request.status == TestRequest.STATUS_SET else None,
-                'allow_update': test_request.allow_update(),
-                'given_time': helper.get_given_time(test_request),
-            })
+            return render(request, template, context)
 
 
 @login_required

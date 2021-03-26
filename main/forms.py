@@ -16,13 +16,7 @@ from .models import (
     ConfigEntry,
 )
 from .types import (
-    JobType,
-    Workplace,
-    JobPosition,
     OldJobPosition,
-    JobPositionChoices,
-    JobTypeChoices,
-    JobWorkplaceChoices,
     ConfigKey,
 )
 
@@ -173,7 +167,6 @@ class OnlineApplicationForm(forms.ModelForm):
         self.workplace_choices = self.workplace_map.items()
         self.fields['workplace'] = forms.ChoiceField(choices=self.workplace_choices, label='Workplace*')
 
-
     def clean_email(self):
         email = self.cleaned_data['email']
         applications = OnlineApplication.objects.filter(email=email)
@@ -210,7 +203,7 @@ class OnlineApplicationForm(forms.ModelForm):
         open_workplaces = []
         for open_job in open_jobs_with_typ:
             open_workplaces.extend(open_job.workplace.split(','))
-        
+
         open_workplaces = list(set(map(lambda x: self.workplace_map.get(x), open_workplaces)))
         workplace = self.cleaned_data['workplace']
         open_jobs_with_workplace = open_jobs_with_typ.filter(workplace__contains=workplace)
@@ -218,19 +211,19 @@ class OnlineApplicationForm(forms.ModelForm):
         if open_jobs_with_position.count() == 0:
             if len(open_positions) > 0:
                 msg = "There is no open jobs for {} position. Open jobs only for {} position(s).".format(
-                    JobPosition[position].value.lower(), ', '.join(open_positions).lower())
+                    self.position_map[position], ', '.join(open_positions).lower())
             else:
                 msg = "There is no open jobs at the moment."
 
             self.add_error('position', msg)
         elif open_jobs_with_typ.count() == 0:
             msg = "There is no open {}. Open jobs for {} position are (one in) {}.".format(
-                JobType[typ].value.lower(), JobPosition[position].value.lower(), ', '.join(open_typs).lower()
+                self.type_map[typ], self.position_map[position], ', '.join(open_typs).lower()
             )
             self.add_error('typ', msg)
         elif open_jobs_with_workplace.count() == 0:
             msg = "There is no open jobs in {}. Open jobs for {} {} only in {}.".format(
-                Workplace[workplace].value, JobType[typ].value.lower(), JobPosition[position].value.lower(),
+                self.workplace_map[workplace], self.type_map[typ], self.position_map[position],
                 ', '.join(open_workplaces),
             )
             self.add_error('workplace', msg)
