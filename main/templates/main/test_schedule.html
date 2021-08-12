@@ -63,7 +63,9 @@
             {% endif %}
             <p>The test will be emailed to you at the selected date/time (Singapore Time). </p>
             <p>You can still change your time slot up to 2 days prior your requested slot.</p>
+	    {% if given_time %}
             <p><strong>You will be given {{ given_time }} to complete your test/project</strong></p>
+	    {% endif %}
 
             <p>If you have any questions or want to reschedule within 2 days of the test requested previously, please email:<a class="active" href="mailto:careers@dytechlab.com">careers@dytechlab.com</a></p>
             {% if allow_update %}

@@ -259,6 +259,7 @@ class OpenJob(models.Model):
     workplace = models.CharField(max_length=255)
     active = models.BooleanField(default=True, blank=True, null=False)
     test_id = models.CharField(max_length=255, null=True, default=None, blank=True)
+    test_duration = models.CharField(max_length=32, blank=True, null=True)
 
     description = models.TextField(blank=True, default="{}")
 

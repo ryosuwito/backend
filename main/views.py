@@ -89,6 +89,7 @@ def career_test(request, req_id, hashstr):
         return HttpResponse(
             "The test request is expired. Email was sent to you. If you did not receive \
             the email, please send us email via careers@dytechlab.com.")
+
     if hashstr != test_request.hashstr:
         raise Http404("This link does not exist.")
 
