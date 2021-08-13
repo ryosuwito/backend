@@ -81,18 +81,6 @@ def send_test_request(test_request):
     """
     template = "main/email_test_request.html"
 
-    position_list = [
-        JobPosition.DATA_ENGINEER.name,
-        JobPosition.OP_SPECIALIST.name,]
-
-    if test_request.application.position in position_list:
-        template = "main/email_test_request_for_data_engineer.html"
-
-    if test_request.application.is_role_researcher() and \
-       test_request.application.from_china_event and \
-       not test_request.application.is_intern:
-        template = "main/email_test_request_onsite.html"
-
     send_templated_email(
         subject="test scheduling: {}"
                 .format(test_request.application.get_position_display),
