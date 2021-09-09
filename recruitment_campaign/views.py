@@ -1,6 +1,7 @@
 import traceback
 import logging
 import jwt
+import json
 
 from django.utils import timezone
 from django.utils.crypto import get_random_string
@@ -10,14 +11,13 @@ from django.shortcuts import (
     render,
     get_object_or_404,
     Http404,
+    redirect,
 )
+from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 
 # Create your views here.
-from main.emails import (
-    send_online_application_confirm,
-    send_online_application_summary,
-)
+
 from main import templatedata
 from main.models import (
     OnlineApplication,
@@ -28,8 +28,12 @@ from .models import (
     Campaign,
     CampaignApplication,
 )
-
+from .emails import (
+    send_online_application_confirm,
+    send_online_application_summary,
+)
 from .forms import CampaignApplicationForm
+
 from main import cron
 
 
@@ -46,37 +50,25 @@ def handle_application_form(application):
 @require_http_methods(["GET", "POST"])
 def career_apply(request):
     campaign = Campaign.objects.filter(active=True)
-    context = {
-        'sidebar_menu_items': templatedata.get_sidebar_menu_items(),
-    }
+    context = {}
 
     if len(campaign) == 0:
-        if request.method == 'GET':
-            context['message'] = {'info': 'There is no campaign this time.'}
-            return render(request, "recruitment_campaign/career_apply.html", context)
-        else:
-            context['message'] = {'error': 'Forbidden action.'}
-            return render(request, "recruitment_campaign/career_apply.html", status=403)
+        raise Http404
     else:
-        campaign = campaign.get()
+        campaign = json.loads(campaign[0].meta_data)
         context['campaign'] = campaign
         if request.method == 'GET':
-            context.update({'form': CampaignApplicationForm()})
+            context.update({'form': CampaignApplicationForm(campaign)})
             return render(request, "recruitment_campaign/career_apply.html", context)
         else:
             # Handle POST request
-            form = CampaignApplicationForm(request.POST, request.FILES)
+            form = CampaignApplicationForm(campaign, request.POST, request.FILES)
             if form.is_valid():
-                model_instance = form.save(commit=False)
-                model_instance.status = OnlineApplication.APP_STATUS_CAMPAIGN
-                model_instance.save()
-                CampaignApplication.objects.create(
-                    campaign_id=campaign.id, application_id=model_instance.id
-                )
+                model_instance = form.save()
                 try:
                     handle_application_form(model_instance)
                     context.update({'form': None})
-                    return render(request, "main/career_apply_confirm.html", context)
+                    return redirect(reverse('recruitmentcampaign.success_application'))
                 except:
                     logger.error(traceback.format_exc())
                     model_instance.delete()
@@ -85,6 +77,11 @@ def career_apply(request):
             else:
                 context.update({'form': form})
                 return render(request, "recruitment_campaign/career_apply.html", context)
+
+
+@require_http_methods(["GET"])
+def success_application(request):
+    return render(request, "recruitment_campaign/application_success.html")
 
 
 @require_http_methods(["GET"])

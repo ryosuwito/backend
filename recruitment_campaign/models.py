@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 import enum
+import uuid
+import os
 
 from django.db import models
 
@@ -22,8 +24,12 @@ class Campaign(models.Model):
 
 
 def user_resume_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/campaign/resumes/{email}_filename
-    return "campaign/resumes/{}_{}".format(instance.email, filename)
+    # file will be uploaded to MEDIA_ROOT/resumes/{email}_filename
+    _, extension = os.path.splitext(filename)
+    if extension:
+        return "campaign/resumes/{}_{}{}".format(instance.email, uuid.uuid4(), extension)
+    else:
+        return "campaign/resumes/{}_{}".format(instance.email, uuid.uuid4())
 
 
 class CampaignApplication(models.Model):
@@ -49,3 +55,49 @@ class CampaignApplication(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class ApplicationStatus(enum.Enum):
+    NEW = "NEW"
+    PASS_RESUME = "PASS_RESUME"
+    FAIL_RESUME = "FAIL_RESUME"
+
+
+class CampaignOnlineApplication(models.Model):
+    typ = models.CharField(max_length=255)
+    workplace = models.CharField(max_length=255)
+    position = models.CharField(max_length=255)
+
+    name = models.CharField(max_length=30)
+    university = models.CharField(max_length=100, null=True, blank=True)
+    school = models.CharField(max_length=200, null=True, blank=True)
+    major = models.CharField(max_length=100, null=True, blank=True)
+    email = models.EmailField(max_length=100, unique=True)
+    resume = models.FileField(max_length=100, blank=True,
+                              upload_to=user_resume_path)
+    info_src = models.CharField(max_length=200, null=False, blank=False, default="N.A")
+
+    start_time = models.DateField(max_length=255, blank=True, null=True)
+
+    # Additional fields for admin management
+    status = models.CharField(
+        max_length=20,
+        default=ApplicationStatus.NEW.name)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    need_work_pass = models.CharField(max_length=32, blank=True, default='Yes')
+
+    def __unicode__(self):
+        return self.email
+
+    @property
+    def get_position_display(self):
+        return self.position.replace('_', ' ')
+
+    @property
+    def get_type_display(self):
+        return self.typ.replace('_', ' ')
+
+    @property
+    def get_workplace_display(self):
+        return self.workplace.replace('_', ' ')

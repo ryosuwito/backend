@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+import datetime
+
+from django.utils.translation import ugettext_lazy as _
 from django import forms
 
-from main.forms import OnlineApplicationForm
+from main.forms import InfoSourceField
 
 from main.types import (
     JobPosition,
@@ -9,7 +12,10 @@ from main.types import (
     Workplace,
 )
 
-from .models import CampaignApplication
+from .models import (
+    CampaignApplication,
+    CampaignOnlineApplication,
+)
 
 
 ALLOWED_JOBS = [JobPosition.FQRES, JobPosition.QRES]
@@ -25,13 +31,76 @@ StatusType = CampaignApplication.StatusType
 StatusChoices = [(stat.value, stat.value) for stat in StatusType]
 
 
-class CampaignApplicationForm(OnlineApplicationForm):
-    def __init__(self, *args, **kwargs):
-        super(CampaignApplicationForm, self).__init__(*args, **kwargs)
+class CampaignApplicationForm(forms.ModelForm):
+    start_time = forms.DateField(
+        widget=forms.SelectDateWidget, label='I can start working on', initial=datetime.date.today(),
+    )
 
-    position = forms.ChoiceField(choices=JobPositionChoices, label='Position*')
-    typ = forms.ChoiceField(choices=JobTypeChoices, label='Type*')
-    workplace = forms.ChoiceField(choices=WorkplaceChoices, label='Workplace*')
+    resume = forms.FileField()
+    info_src = InfoSourceField()
+
+    need_work_pass = forms.CharField(
+        label='Do you need a work pass to work in Singapore?',
+        widget=forms.RadioSelect(choices=(('Yes', 'Yes'), ('No', 'No'))),
+        required=False,
+    )
+
+    class Meta:
+        model = CampaignOnlineApplication
+        fields = [
+            'position',
+            'typ',
+            'workplace',
+            'need_work_pass',
+            'start_time',
+            'name',
+            'university',
+            'school',
+            'major',
+            'email',
+            'resume',
+            'info_src',
+        ]
+        labels = {
+            'name': _('Name *'),
+            'position': _('Position*'),
+            'email': _('Email*'),
+            'typ': _('Type*'),
+            'workplace': _('Workplace*'),
+        }
+        help_texts = {
+            'email': 'Please avoid using QQ mailbox.',
+        }
+
+    def __init__(self, campaign, *args, **kwargs):
+        super(CampaignApplicationForm, self).__init__(*args, **kwargs)
+        self.fields['resume'].help_text = 'Please make sure no chinese character in your file name'
+
+        self.fields['position'] = forms.ChoiceField(
+            choices=map(lambda x: (x, x.replace('_', ' ')), campaign.get('position')), label='Position*')
+        self.fields['typ'] = forms.ChoiceField(
+            choices=map(lambda x: (x, x.replace('_', ' ')), campaign.get('type')), label='Type*')
+        self.fields['workplace'] = forms.ChoiceField(
+            choices=map(lambda x: (x, x.replace('_', ' ')), campaign.get('workplace')), label='Workplace*')
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        applications = CampaignOnlineApplication.objects.filter(email=email)
+        if applications.count() > 0:
+            position = applications.first().get_position_display
+            raise forms.ValidationError(
+                "You've already applied for %s position before." % position
+            )
+        return email
+
+    def clean_start_time(self):
+        start_time = self.cleaned_data.get('start_time')
+        if start_time is not None and start_time < datetime.date.today():
+            raise forms.ValidationError(
+                "Too early to start."
+            )
+
+        return start_time
 
 
 class CampaignApplicationAdminForm(forms.ModelForm):

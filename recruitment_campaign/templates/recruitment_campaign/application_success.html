@@ -8,7 +8,8 @@
         <ul class="breadcrumbs-custom">
           <li><a href="/">Home</a></li>
           <li><a href="/careers">Careers</a></li>
-          <li class="active">{{ campaign.name }}</li>
+          <li><a href="/dtlweb/campaign/">Recruitment Campaign</a></li>
+          <li class="active">Success</li>
         </ul>
       </div>
     </div>
@@ -20,29 +21,17 @@
       <div class="cell-xs-12 cell-md-8 cell-lg-9">
         <div class="range">
           <div class="cell-xs-12">
-            <h3>{{ campaign.name }}</h3>
-            <div>
-              {% autoescape off %}
-              {{ campaign.content }}
-              {% endautoescape %}
-            </div>
-            <h3>Online Application</h3>
-            {% block apply-confirm %}
-            {% endblock apply-confirm %}
-
-            {% if form %}
-            <div class="row margin-vert-30">
-              <div class="col-md-8">
-                <p class="help-block">Required fields indicated with (*)</p>
-                {% include 'main/snippet_form.html' with form=form multipart=True %}
-              </div>
-            </div>
-            {% endif %}
+            <h3>You have applied successfully!</h3>
+            <p>Thank you for your application. A confirmation email will be sent to you shortly.</p>
+            <p>If you cannot find the confirmation email, please check your spam mailbox.</p>
+            <br>
+            <a href="/" class="btn btn-primary">Go back Home</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+<div style="border-top: 1px solid gainsboro"></div>
 
 {% endblock body-content %}

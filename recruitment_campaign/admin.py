@@ -15,6 +15,7 @@ from django.contrib import admin
 from .models import (
     Campaign,
     CampaignApplication,
+    CampaignOnlineApplication,
 )
 
 from .forms import (
@@ -49,6 +50,22 @@ class CampaignAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'active', 'starttime', 'test_id')
     list_display_links = ('id', 'name')
     list_filter = ('name',)
+
+
+@admin.register(CampaignOnlineApplication)
+class CampaignOnlineApplicationAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'position',
+        'name',
+        'email',
+        'university',
+        'school',
+        'major',
+        'status',
+    )
+    list_display_links = ('id', 'name')
+    list_filter = ('position', 'status', 'created_at')
 
 
 @admin.register(CampaignApplication)
