@@ -3,8 +3,10 @@ import logging
 import jwt
 import time as _time
 import datetime
+import json
 
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 from django.utils.crypto import get_random_string
 from django.conf import settings
 from django.contrib import messages
@@ -16,6 +18,8 @@ from .models import (
     Campaign,
     CampaignApplication,
     CampaignOnlineApplication,
+    ApplicationStatus,
+    EventLog,
 )
 
 from .forms import (
@@ -52,6 +56,14 @@ class CampaignAdmin(admin.ModelAdmin):
     list_filter = ('name',)
 
 
+@admin.register(EventLog)
+class EventLogAdmin(admin.ModelAdmin):
+    readonly_fields = ('name', 'data')
+    list_display = ('name',)
+    list_display_links = ('name',)
+    list_filter = ('name',)
+
+
 @admin.register(CampaignOnlineApplication)
 class CampaignOnlineApplicationAdmin(admin.ModelAdmin):
     list_display = (
@@ -66,9 +78,110 @@ class CampaignOnlineApplicationAdmin(admin.ModelAdmin):
     )
     list_display_links = ('id', 'name')
     list_filter = ('position', 'status', 'created_at')
+    actions = [
+        'pass_resume_selected_applications',
+        'fail_selected_applications',
+    ]
+
+    def fail_selected_applications(self, request, queryset):
+        app_len = len(queryset)
+        updated_cnt = queryset\
+            .filter(status=ApplicationStatus.NEW.name)\
+            .update(status=ApplicationStatus.FAIL_RESUME.name)
+
+        if updated_cnt > 0:
+            self.message_user(
+                request,
+                "You have succefully refused %d applications" % updated_cnt,
+                messages.SUCCESS
+            )
+
+        if app_len > updated_cnt:
+            self.message_user(
+                request,
+                "There %d applications that were not new" % (app_len - updated_cnt),
+                messages.ERROR
+            )
+
+    def pass_resume_selected_applications(self, request, queryset):
+        """
+        all candidates will do the test at a specific time
+        """
+        success_app_cnt = 0
+        error_app_cnt = 0
+        campaign_cnt = Campaign.objects.filter(active=True).count()
+        if campaign_cnt != 1:
+            self.message_user(
+                request,
+                "It needs exactly one active campaign to pass resumes, there were %d of them" % campaign_cnt, messages.ERROR  # NoQA
+            )
+            return
+
+        campaign = Campaign.objects.get(active=True)
+        tests_data = {}
+        try:
+            campaign_data = json.loads(campaign.meta_data)
+            for position in campaign_data['position']:
+                test_info = campaign_data['test'][position]
+                tests_data[position] = {
+                    "time": parse_datetime(test_info['time']),
+                    "test_id": test_info['test_id'],
+                    "duration": test_info['duration']
+                }
+        except Exception as err:
+            self.message_user(request, "Cannot parse campaign data", messages.ERROR)
+            return
+
+        for app in queryset.filter(status=ApplicationStatus.NEW.name):
+            try:
+                payload = {
+                    'username': get_random_string(15),
+                    'password': get_random_string(15),
+                    'timestamp': timestamp(timezone.now()),  # issued time
+                    'start_time_timestamp': timestamp(tests_data[app.position]['time']),
+                    'fullname': app.name,
+                    'test_id': tests_data[app.position]['test_id'],
+                    'email': app.email,
+                }
+                token = jwt.encode(payload, settings.SHARE_KEY, 'HS256')
+                # Set token status failed anyway to avoid resend.
+                event_log_data = {
+                    'payload': payload,
+                    'token': token,
+                }
+                event_log = EventLog(
+                    name="campaign_%d_application_%d_passresume" % (campaign.id, app.id),
+                    data=json.dumps(event_log_data)
+                )
+                event_log.save()
+                CampaignOnlineApplication.objects\
+                    .filter(id=app.id)\
+                    .update(status=ApplicationStatus.PASS_RESUME.name)
+
+                date = tests_data[app.position]['time'].strftime('%A, %d %B %Y')
+                starttime = tests_data[app.position]['time'].strftime('%H:%M:%S')
+                duration = tests_data[app.position]['duration']
+                send_campaign_passed_resume_email(campaign, app, date, starttime, duration)
+                success_app_cnt += 1
+            except Exception as err:
+                event_log = EventLog(
+                    name="campaign_%d_application_%d_passresume_failed" % (campaign.id, app.id),
+                    data=str(err)
+                )
+                event_log.save()
+                CampaignOnlineApplication.objects\
+                    .filter(id=app.id)\
+                    .update(status=ApplicationStatus.PASS_RESUME_FAILED.name)
+                error_app_cnt += 1
+
+        if success_app_cnt > 0:
+            self.message_user(request, "%d applications was successfully passed" % success_app_cnt, messages.SUCCESS)
+
+        if error_app_cnt > 0:
+            self.message_user(request, "%d applications was failed to pass" % error_app_cnt, messages.ERROR)
 
 
-@admin.register(CampaignApplication)
+# @admin.register(CampaignApplication)
 class ApplicationAdmin(admin.ModelAdmin):
     form = CampaignApplicationAdminForm
     actions = [

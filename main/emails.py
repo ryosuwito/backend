@@ -155,19 +155,19 @@ def send_token_email(context):
         cc=[COMPANY_CAREER_EMAIL],)
 
 
-def send_campaign_passed_resume_email(context):
+def send_campaign_passed_resume_email(campaign, application, date, starttime, duration):
     """
     send campaign passed_resume to candidate on scheduled datetime
     """
     email_template = 'recruitment_campaign/passed_resume_email.html'
-    campaign_application = context['campaign_application']
-    campaign = context['campaign']
+    context = {
+        'campaign': campaign, 'application': application, 'date': date, 'starttime': starttime, 'duration': duration}
 
     send_templated_email(
         subject="Dynamic Technology Lab - Successful registration for %s" % campaign.name,
         email_template=email_template,
         email_context=context,
-        recipients=[campaign_application.application.email,],
+        recipients=[application.email,],
         cc=[COMPANY_CAREER_EMAIL],)
 
 

@@ -39,19 +39,12 @@ class CampaignApplicationForm(forms.ModelForm):
     resume = forms.FileField()
     info_src = InfoSourceField()
 
-    need_work_pass = forms.CharField(
-        label='Do you need a work pass to work in Singapore?',
-        widget=forms.RadioSelect(choices=(('Yes', 'Yes'), ('No', 'No'))),
-        required=False,
-    )
-
     class Meta:
         model = CampaignOnlineApplication
         fields = [
             'position',
             'typ',
             'workplace',
-            'need_work_pass',
             'start_time',
             'name',
             'university',

@@ -30,8 +30,6 @@ urlpatterns = [
         views.accept_invitation_to_attend_campaign,
         name='campaign.career.invitation',
     ),
-    url(r'^dtlweb/careers/2021jointtest', views.career_apply, name='campaign.career.2021jointtest'),
-    url(r'^dtlweb/careers/campaign', views.career_apply, name='campaign.career.apply'),
 ]
 
 if settings.DEBUG:

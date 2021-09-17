@@ -14,9 +14,12 @@ from main.models import OnlineApplication
 
 class Campaign(models.Model):
     name = models.CharField(max_length=255)
+    # TODO this is not actually, because it could contain crucial info which cannot miss to run a campaign
     meta_data = models.TextField(blank=True, default="{}")
     starttime = models.DateTimeField()
+    # TODO deprecated field, this has been moved into meta data
     test_id = models.IntegerField()
+    # TODO deprecated field, this has been moved into meta data
     active = models.BooleanField(blank=True, default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -60,7 +63,16 @@ class CampaignApplication(models.Model):
 class ApplicationStatus(enum.Enum):
     NEW = "NEW"
     PASS_RESUME = "PASS_RESUME"
+    PASS_RESUME_FAILED = "PASS_RESUME_FAILED"
     FAIL_RESUME = "FAIL_RESUME"
+
+
+class EventLog(models.Model):
+    name = models.CharField(max_length=255)
+    data = models.TextField(blank=True, default="")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class CampaignOnlineApplication(models.Model):
@@ -85,7 +97,7 @@ class CampaignOnlineApplication(models.Model):
         default=ApplicationStatus.NEW.name)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    need_work_pass = models.CharField(max_length=32, blank=True, default='Yes')
+    need_work_pass = models.CharField(max_length=32, blank=True, null=True)
 
     def __unicode__(self):
         return self.email
