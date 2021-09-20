@@ -19,6 +19,7 @@ from .types import (
     OldJobPosition,
     ConfigKey,
 )
+from . import helper
 
 
 DateTimeInput = partial(forms.DateTimeInput, {'class': 'datetime', 'type': 'hidden'})
@@ -142,9 +143,9 @@ class OnlineApplicationForm(forms.ModelForm):
         super(OnlineApplicationForm, self).__init__(*args, **kwargs)
         self.fields['resume'].help_text = 'Please make sure no chinese character in your file name'
 
-        self.position_map = get_type_in_database_config(ConfigKey.JOB_POSITION.value)
-        self.type_map = get_type_in_database_config(ConfigKey.JOB_TYPE.value)
-        self.workplace_map = get_type_in_database_config(ConfigKey.JOB_WORKPLACE.value)
+        self.position_map = helper.get_position_dict()
+        self.type_map = helper.get_jobtype_dict()
+        self.workplace_map = helper.get_workplace_dict()
         self.open_jobs = OpenJob.objects.filter(active=True)
 
         self.position_choices = list(

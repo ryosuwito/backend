@@ -8,9 +8,8 @@ from django.utils.html import strip_tags
 from .models import get_test_filepath
 from .types import (
     JobPosition,
-    Workplace,
-    JobType,
 )
+from . import helper
 
 
 COMPANY_CAREER_EMAIL = settings.COMPANY_CAREER_EMAIL
@@ -61,10 +60,12 @@ def send_online_application_summary(application):
     """
     forward candidate application to company career email
     """
+    jobtype_dict = helper.get_jobtype_dict()
+    workplace_dict = helper.get_workplace_dict()
     subject = "Job application - {}_{}_{}".format(
         application.get_position_display,
-        JobType[application.typ].value,
-        Workplace[application.workplace].value,
+        jobtype_dict[application.typ],
+        workplace_dict[application.workplace],
     )
 
     send_templated_email(
