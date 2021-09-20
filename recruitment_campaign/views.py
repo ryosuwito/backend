@@ -2,16 +2,23 @@ import traceback
 import logging
 import jwt
 import json
+import os
+import mimetypes
+
+from wsgiref.util import FileWrapper
 
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.utils.encoding import smart_str
 
 from django.shortcuts import (
     render,
     get_object_or_404,
     Http404,
     redirect,
+    HttpResponse,
 )
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
@@ -76,6 +83,21 @@ def career_apply(request):
             else:
                 context.update({'form': form})
                 return render(request, "recruitment_campaign/career_apply.html", context)
+
+
+@login_required
+def download_resume(request, file_name):
+    file_path = os.path.join(settings.MEDIA_ROOT, 'campaign/resumes', file_name)
+    if not os.path.isfile(file_path):
+        raise Http404()
+
+    file_wrapper = FileWrapper(file(file_path,'rb'))
+    file_mimetype = mimetypes.guess_type(file_path)
+    response = HttpResponse(file_wrapper, content_type=file_mimetype)
+    response['X-Sendfile'] = file_path
+    response['Content-Length'] = os.stat(file_path).st_size
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(os.path.basename(file_path))
+    return response
 
 
 @require_http_methods(["GET"])

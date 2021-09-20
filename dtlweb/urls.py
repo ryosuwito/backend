@@ -24,6 +24,7 @@ from recruitment_campaign import views
 urlpatterns = [
     url(r'^dtlweb/admin/', admin.site.urls),
     url(r'^dtlweb/campaign/', include('recruitment_campaign.urls')),
+    url(r'^dtlweb/media/campaign/resumes/(?P<file_name>.+)$', views.download_resume, name='campaign.download_resume'),
     url(r'^dtlweb/', include('main.urls')),
     url(
         r'^dtlweb/careers/campaign/inviation/(?P<hashstr>[\w:]+)/(?P<action>((accept)|(refuse)))$',
