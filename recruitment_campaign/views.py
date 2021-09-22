@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import traceback
 import logging
 import jwt
@@ -9,9 +10,11 @@ from wsgiref.util import FileWrapper
 
 from django.utils import timezone
 from django.utils.crypto import get_random_string
+from django.utils.dateparse import parse_datetime
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.utils.encoding import smart_str
+from django.forms.models import model_to_dict
 
 from django.shortcuts import (
     render,
@@ -31,16 +34,21 @@ from main.models import (
 )
 
 from .models import (
-    Campaign,
+    CampaignOnlineApplication,
     CampaignApplication,
+    Campaign,
+    EventLog,
 )
 from .emails import (
     send_online_application_confirm,
     send_online_application_summary,
+    send_token_email,
 )
 from .forms import CampaignApplicationForm
+from .types import ApplicationStatus2021
 
 from main import cron
+from main import emails as main_emails
 
 
 logger = logging.getLogger(__name__)
@@ -153,3 +161,81 @@ def accept_invitation_to_attend_campaign(request, hashstr, action):
         return render(request, "recruitment_campaign/refuse_invitation.html", context)
     else:
         raise Http404()
+
+
+@require_http_methods(["GET"])
+def accept_invite_2021(request, token):
+    # check if the application status is invite_sent, if it's not display a message
+    event_log = get_object_or_404(EventLog, name=token)
+    data = json.loads(event_log.data)
+    campaign = get_object_or_404(Campaign, pk=data.get('campaign'))
+    application = get_object_or_404(CampaignOnlineApplication, pk=data.get('application'))
+    token_event_log = get_object_or_404(EventLog, pk=data.get('token_event_id'))
+    token_event_data = json.loads(token_event_log.data)
+    if application.status == ApplicationStatus2021.INVITE_SENT.name:
+        # send email containing credentials
+        email_context = {
+            'username': token_event_data['payload']['username'],
+            'password': token_event_data['payload']['password'],
+            'host': settings.ONLINE_TEST_HOST,
+            'application': application,
+            'starttime': parse_datetime(token_event_data['test']['time']).strftime("%H:%M:%S"),
+            'duration': token_event_data['test']['duration'],
+        }
+        send_token_email(email_context)
+        # update application
+        application.refresh_from_db()
+        application.status = ApplicationStatus2021.INVITE_ACCEPTED.name
+        application.save(update_fields=('status',))
+        return render(request, 'recruitment_campaign/invite_accept_2021.html', {'title': campaign.name})
+    elif application.status == ApplicationStatus2021.INVITE_ACCEPTED.name:
+        # has  already accepted
+        return render(
+            request,
+            'recruitment_campaign/invite_accept_2021.html',
+            {'have_already_accepted': True, 'title': campaign.name}
+        )
+
+    raise Http404()
+
+
+@require_http_methods(["GET"])
+def refuse_invite_2021(request, token):
+    # check if the application status is invite_sent, if it's not display a message
+    event_log = get_object_or_404(EventLog, name=token)
+    data = json.loads(event_log.data)
+    campaign = get_object_or_404(Campaign, pk=data.get('campaign'))
+    application = get_object_or_404(CampaignOnlineApplication, pk=data.get('application'))
+    campaign_data = json.loads(campaign.meta_data)
+    # update application
+
+    if application.status == ApplicationStatus2021.INVITE_SENT.name:
+        online_app_data = model_to_dict(
+            application,
+            fields=['position', 'typ', 'workplace', 'name', 'university', 'school', 'major', 'email', 'resume'])
+
+        for field in ['position', 'typ', 'workplace']:
+            current_value = online_app_data[field]
+            online_app_data[field] = campaign_data['data_mapping'][current_value]
+
+        online_app_data['status'] = OnlineApplication.APP_STATUS_CAMPAIGN
+        online_app = OnlineApplication(**online_app_data)
+        online_app.save()
+        test_request = TestRequest.createTestRequestForApplication(online_app)
+        main_emails.send_test_request(test_request)
+        application.status = ApplicationStatus2021.INVITE_REFUSED.name
+        application.save(update_fields=('status',))
+        return render(
+            request,
+            'recruitment_campaign/invite_refuse_2021.html',
+            {'title': campaign.name, 'test_request': test_request}
+        )
+    elif application.status == ApplicationStatus2021.INVITE_REFUSED.name:
+        # have already refused the joint test
+        return render(
+            request,
+            'recruitment_campaign/invite_refuse_2021.html',
+            {'have_already_refused': True, 'title': campaign.name}
+        )
+
+    raise Http404

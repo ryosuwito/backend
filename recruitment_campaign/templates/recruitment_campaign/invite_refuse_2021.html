@@ -1,0 +1,39 @@
+{% extends 'main/blank_layout.html' %}
+{% load static %}
+{% block body-content %}
+<section class="border-bottom border-bottom-gray-lighter">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12">
+        <ul class="breadcrumbs-custom">
+          <li><a href="/">Home</a></li>
+          <li><a href="/2022recruitment/">2022 Recruitment</a></li>
+          <li class="active">{{ title }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section-top-55 section-bottom-60">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12 cell-md-8 cell-lg-9">
+        <div class="range">
+          <div class="cell-xs-12">
+            {% if test_request %}
+            <p>You have refused to attend the Joint Test. Please use the following link to schedule a written test at your convenience</p>
+            <a href="{% url 'main.career.test' req_id=test_request.id hashstr=test_request.hashstr %}">https://dytechlab.com{% url 'main.career.test' req_id=test_request.id hashstr=test_request.hashstr %}</a>
+            {% else %}
+            <p>We have sent you an email to schedule your test at your convenience.</p>
+            {% endif %}
+            <br>
+            <a href="/" class="btn btn-primary">Go back Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div style="border-top: 1px solid gainsboro"></div>
+
+{% endblock body-content %}

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, send_mail
 from django.template import loader, Context
 from django.utils.html import strip_tags
 
@@ -64,3 +64,46 @@ def send_online_application_summary(application):
         email_context={'application': application},
         recipients=[COMPANY_CAREER_EMAIL, ],
         files=application.resume.path)
+
+
+def send_invite_email_2021(campaign, application, date, starttime, duration, token):
+    """
+    send campaign passed_resume to candidate on scheduled datetime
+    """
+    email_template = 'emails/campaign_invite_2021.html'
+    context = {
+        'campaign': campaign,
+        'application': application,
+        'date': date,
+        'starttime': starttime,
+        'duration': duration,
+        'token': token
+    }
+
+    send_templated_email(
+        subject="Dynamic Technology Lab 2022 Global School Recruitment Drive - Test Scheduling",
+        email_template=email_template,
+        email_context=context,
+        recipients=[application.email,],
+        cc=[COMPANY_CAREER_EMAIL],)
+
+
+def send_on_token_failed(application):
+    """
+    """
+    body = "Fail to send token to candidate {} with application id {}".format(application.name, application.id)
+    send_mail(body, body, SENDER, recipient_list=[COMPANY_CAREER_EMAIL], fail_silently=True)
+
+
+def send_token_email(context):
+    """
+    send token to candidate on scheduled datetime
+    """
+    email_template = 'emails/campaign_credential_2021.html'
+
+    send_templated_email(
+        subject="Successful registration of Joint Test - Dynamic Technology Lab 2022 Global School Recruitment Drive",
+        email_template=email_template,
+        email_context=context,
+        recipients=[context['application'].email, ],
+        cc=[COMPANY_CAREER_EMAIL],)

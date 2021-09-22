@@ -1,0 +1,23 @@
+<p>Hi {{application.name}},</p>
+<br>
+<p>Congratulations! You have passed our resume selection and your registration in our 2022 Global School Recruitment Drive is complete.</p>
+<br>
+<p>Please see below for our online joint test details:</p>
+<p>Time</p>
+<p>Date: <b>Sunday, 17th October 2021, Singapore Time</b></p>
+<p>Start Time: <b>{{ starttime }}</b></p>
+<p>Duration: <b>{{ duration }}</b></p>
+<br>
+<p>We strongly recommend you to take the Online Joint Test. If you are able to attend the test that day, please click the following link to register for the test:</p>
+<p><a href="https://dytechlab.com{% url 'recruitmentcampaign.invite2021.accept' token=token %}">https://dytechlab.com{% url 'recruitmentcampaign.invite2021.accept' token=token %}</a></p>
+<p>And register below for the zoom session on that day in which you will be required to turn on your webcam during the written test.</p>
+<p><a href="https://us02web.zoom.us/meeting/register/tZwsdOCsrzMrGNCJjtFETI2f8Snlp-KqRsHj">https://us02web.zoom.us/meeting/register/tZwsdOCsrzMrGNCJjtFETI2f8Snlp-KqRsHj</a></p>
+<p>You will need to prepare a pen and paper for the test.</p>
+<br>
+<p>However, if you are unable to attend the test, you may click the following link to schedule a written test at your own convenience.</p>
+<p><a href="https://dytechlab.com{% url 'recruitmentcampaign.invite2021.refuse' token=token %}">https://dytechlab.com{% url 'recruitmentcampaign.invite2021.refuse' token=token %}</a></p>
+<br>
+<p>If you have any questions, please send us an email at careers@dytechlab.com.</p>
+<br>
+<p>Thanks,</p>
+<p>Dynamic Technology Lab</p>

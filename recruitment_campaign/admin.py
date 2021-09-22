@@ -4,6 +4,8 @@ import jwt
 import time as _time
 import datetime
 import json
+import uuid
+import requests
 
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
@@ -13,7 +15,10 @@ from django.contrib import messages
 
 from main.emails import send_campaign_passed_resume_email
 
+from recruitment_campaign import emails as campaign_emails
+
 from django.contrib import admin
+
 from .models import (
     Campaign,
     CampaignApplication,
@@ -21,10 +26,10 @@ from .models import (
     ApplicationStatus,
     EventLog,
 )
-
 from .forms import (
     CampaignApplicationAdminForm,
 )
+from .types import ApplicationStatus2021
 
 from main.models import TestRequest
 from main import cron
@@ -75,12 +80,15 @@ class CampaignOnlineApplicationAdmin(admin.ModelAdmin):
         'school',
         'major',
         'status',
+        'info_src',
     )
     list_display_links = ('id', 'name')
     list_filter = ('position', 'status', 'created_at')
     actions = [
-        'pass_resume_selected_applications',
-        'fail_selected_applications',
+        # 'pass_resume_selected_applications',
+        # 'fail_selected_applications',
+        'pass_resume_2021',
+        'fail_resume_2021',
     ]
 
     def fail_selected_applications(self, request, queryset):
@@ -92,7 +100,7 @@ class CampaignOnlineApplicationAdmin(admin.ModelAdmin):
         if updated_cnt > 0:
             self.message_user(
                 request,
-                "You have succefully refused %d applications" % updated_cnt,
+                "You have succefully failed %d applications" % updated_cnt,
                 messages.SUCCESS
             )
 
@@ -103,13 +111,16 @@ class CampaignOnlineApplicationAdmin(admin.ModelAdmin):
                 messages.ERROR
             )
 
-    def pass_resume_selected_applications(self, request, queryset):
+    def fail_resume_2021(self, request, queryset):
+        self.fail_selected_applications(request, queryset)
+
+    def pass_resume_2021(self, request, queryset):
         """
-        all candidates will do the test at a specific time
         """
         success_app_cnt = 0
         error_app_cnt = 0
-        campaign_cnt = Campaign.objects.filter(active=True).count()
+        campaigns = Campaign.objects.filter(active=True)
+        campaign_cnt = len(campaigns)
         if campaign_cnt != 1:
             self.message_user(
                 request,
@@ -117,7 +128,7 @@ class CampaignOnlineApplicationAdmin(admin.ModelAdmin):
             )
             return
 
-        campaign = Campaign.objects.get(active=True)
+        campaign = campaigns.get()
         tests_data = {}
         try:
             campaign_data = json.loads(campaign.meta_data)
@@ -134,38 +145,55 @@ class CampaignOnlineApplicationAdmin(admin.ModelAdmin):
 
         for app in queryset.filter(status=ApplicationStatus.NEW.name):
             try:
+                token = str(uuid.uuid4())
                 payload = {
                     'username': get_random_string(15),
                     'password': get_random_string(15),
-                    'timestamp': timestamp(timezone.now()),  # issued time
-                    'start_time_timestamp': timestamp(tests_data[app.position]['time']),
+                    'timestamp': cron.timestamp(timezone.now()),
+                    'start_time_timestamp': cron.timestamp(tests_data[app.position]['time']),
                     'fullname': app.name,
                     'test_id': tests_data[app.position]['test_id'],
                     'email': app.email,
                 }
-                token = jwt.encode(payload, settings.SHARE_KEY, 'HS256')
-                # Set token status failed anyway to avoid resend.
+                jwt_token = jwt.encode(payload, settings.SHARE_KEY, 'HS256')
                 event_log_data = {
-                    'payload': payload,
+                    'test': campaign_data['test'][app.position],
                     'token': token,
+                    'payload': payload,
+                    'jwt_token': jwt_token,
                 }
                 event_log = EventLog(
-                    name="campaign_%d_application_%d_passresume" % (campaign.id, app.id),
+                    name="campaign_%d_application_%d_status_%s" % (campaign.id, app.id, ApplicationStatus2021.INVITE_SENT.name),  # NoQA
                     data=json.dumps(event_log_data)
                 )
                 event_log.save()
+                create_token_event_data = {
+                    'campaign': campaign.id,
+                    'application': app.id,
+                    'token_event_id': event_log.id,
+                }
+                EventLog.objects.create(name=token, data=json.dumps(create_token_event_data))
                 CampaignOnlineApplication.objects\
                     .filter(id=app.id)\
-                    .update(status=ApplicationStatus.PASS_RESUME.name)
+                    .update(status=ApplicationStatus2021.INVITE_SENT.name)
 
                 date = tests_data[app.position]['time'].strftime('%A, %d %B %Y')
                 starttime = tests_data[app.position]['time'].strftime('%H:%M:%S')
                 duration = tests_data[app.position]['duration']
-                send_campaign_passed_resume_email(campaign, app, date, starttime, duration)
+
+                campaign_emails.send_invite_email_2021(campaign, app, date, starttime, duration, token)
+                # Activate account here
+                url = settings.ONLINE_TEST_ACTIVE_USER_LINK(jwt_token)
+                res = requests.get(url)
+                if res.status_code not in [200, 302]:
+                    campaign_emails.send_on_token_failed(app)
+                    logger.error('Cannot activate token for application {}'.format(app.id))
+                    raise Exception('cannot_activate_token')
+
                 success_app_cnt += 1
             except Exception as err:
                 event_log = EventLog(
-                    name="campaign_%d_application_%d_passresume_failed" % (campaign.id, app.id),
+                    name="campaign_%d_application_%d_status_%s" % (campaign.id, app.id, ApplicationStatus2021.FAILED.name),  # NoQA
                     data=str(err)
                 )
                 event_log.save()
