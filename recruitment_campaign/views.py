@@ -5,6 +5,7 @@ import jwt
 import json
 import os
 import mimetypes
+import uuid
 
 from wsgiref.util import FileWrapper
 
@@ -219,6 +220,10 @@ def refuse_invite_2021(request, token):
             online_app_data[field] = campaign_data['data_mapping'][current_value]
 
         online_app_data['status'] = OnlineApplication.APP_STATUS_CAMPAIGN
+        unique_str = uuid.uuid4()
+        OnlineApplication.objects \
+            .filter(email=online_app_data['email']) \
+            .update(email="{}__{}".format(str(unique_str), online_app_data['email']))
         online_app = OnlineApplication(**online_app_data)
         online_app.save()
         test_request = TestRequest.createTestRequestForApplication(online_app)
