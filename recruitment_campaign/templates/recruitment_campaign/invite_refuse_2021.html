@@ -20,12 +20,7 @@
       <div class="cell-xs-12 cell-md-8 cell-lg-9">
         <div class="range">
           <div class="cell-xs-12">
-            {% if test_request %}
-            <p>Please use the following link to schedule a written test at your convenience</p>
-            <a href="{% url 'main.career.test' req_id=test_request.id hashstr=test_request.hashstr %}">https://dytechlab.com{% url 'main.career.test' req_id=test_request.id hashstr=test_request.hashstr %}</a>
-            {% else %}
-            <p>We have sent you an email to schedule your test at your convenience.</p>
-            {% endif %}
+            <p>We have sent you an email to schedule your test at your convenience. Please check your spam folder too</p>
             <br>
             <a href="/" class="btn btn-primary">Go back Home</a>
           </div>
