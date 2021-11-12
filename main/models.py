@@ -86,8 +86,10 @@ class OnlineApplication(models.Model):
     @property
     def get_position_display(self):
         obj_prop_value = getattr(self, 'position', '')
-        enum_value = getattr(JobPosition, obj_prop_value, None)
-        return obj_prop_value if enum_value is None else enum_value.value
+        # TODO workaround for job name as we are employing dynamic job defining and this is a circular dependency,
+        # should move this to helpers an update callers
+        from .helper import get_position_dict  # noqa
+        return get_position_dict().get(obj_prop_value, obj_prop_value)
 
     def __unicode__(self):
         return self.email
