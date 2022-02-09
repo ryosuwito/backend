@@ -1,0 +1,41 @@
+{% load bootstrap3 %}
+
+<form method="post" {% if action %}action="{{ action }}"{% endif %}class="form" {% if multipart %}enctype="multipart/form-data"{% endif %}>
+  {% csrf_token %}
+  <!-- {% bootstrap_form form layout="vertical"%} -->
+  {% for field in form.groupObjectFields %}
+    {% bootstrap_field field %}
+  {% endfor %}
+  {% for frm in formset %}
+    {% if forloop.counter == 1%}
+    <div id="group{{ forloop.counter }}">
+    {% else %}
+    <div id="group{{ forloop.counter }}" class="hidden">
+    {% endif %}
+    {% for field in frm %}
+      {% bootstrap_field field %}
+    {% endfor %}
+    <hr/>
+    </div>
+  {% endfor %}
+  <div style="width:100%; margin-top: 15px;">
+    <button id="addButton" onclick="addParticipant()" class="btn btn-primary" type="button">Add Participant</button>
+  </div>
+  {{ formset.management_form }}
+  <div style="width:100%; margin-top: 15px;">
+    {% bootstrap_field form.info_src %}
+  </div>
+  <div style="width:100%; margin-top: 15px;">
+    {%buttons %}
+    
+    {% if lang == 'cn' %}
+    <button type="submit" class="pull-right btn btn-primary">提交</button>
+    {% else %}
+    <button type="submit" class="pull-right btn btn-primary">Submit</button>
+    {% endif %}
+  
+    {% endbuttons %}
+  </div>
+<!--   
+  <button class="btn btn-primary">Add More</button> -->
+</form>

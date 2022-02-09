@@ -29,8 +29,8 @@ def redirect_to_careers(request):
 
 urlpatterns = [
     url(r'^dtlweb/admin/', admin.site.urls),
-    # url(r'^dtlweb/campaign/', include('recruitment_campaign.urls')),  # Oct 26 2021
-    url(r'^dtlweb/campaign/', redirect_to_careers),  # Oct 26 2021
+    url(r'^dtlweb/campaign/', include('recruitment_campaign.urls')),  # Oct 26 2021
+    # url(r'^dtlweb/campaign/', redirect_to_careers),  # Oct 26 2021
     url(r'^dtlweb/media/campaign/resumes/(?P<file_name>.+)$', views.download_resume, name='campaign.download_resume'),
     url(r'^dtlweb/', include('main.urls')),
     # url(  # Oct 26 2021

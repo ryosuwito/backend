@@ -16,6 +16,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.utils.encoding import smart_str
 from django.forms.models import model_to_dict
+from django.forms import formset_factory
 
 from django.shortcuts import (
     render,
@@ -38,19 +39,24 @@ from .models import (
     CampaignOnlineApplication,
     CampaignApplication,
     Campaign,
+    GroupCampaign,
     EventLog,
+    GroupApplication,
+    IndividualApplicant
+
 )
 from .emails import (
     send_online_application_confirm,
     send_online_application_summary,
     send_token_email,
+    send_group_campaign_email,
 )
-from .forms import CampaignApplicationForm
+from .forms import CampaignApplicationForm, GroupApplicationForm, IndividualApplicationForm
 from .types import ApplicationStatus2021
 
 from main import cron
 from main import emails as main_emails
-
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -66,7 +72,6 @@ def handle_application_form(application):
 def career_apply(request):
     campaign = Campaign.objects.filter(active=True)
     context = {}
-
     if len(campaign) == 0:
         raise Http404
     else:
@@ -93,6 +98,47 @@ def career_apply(request):
                 context.update({'form': form})
                 return render(request, "recruitment_campaign/career_apply.html", context)
 
+@require_http_methods(["GET", "POST"])
+def group_apply(request):
+    campaign = GroupCampaign.objects.filter(active=True, starttime__lte=datetime.now()).first()
+    if not campaign:
+        raise Http404
+    else:
+        Formset = formset_factory(IndividualApplicationForm, extra=3)
+        formset = Formset()
+        context = {'campaign':campaign}
+        if request.method == 'GET':
+            context.update({'form': GroupApplicationForm(campaign, initial={'group':'group'}), 'formset':formset, 'req_type':"GET"})
+            return render(request, "recruitment_campaign/group_apply.html", context)
+        else:
+            # Handle POST request
+            formset = Formset(request.POST, request.FILES)
+            group_form = GroupApplicationForm(campaign, request.POST)
+            if formset.is_valid() and group_form.is_valid():
+                group = None
+                if group_form.cleaned_data.get('group') == "group":
+                    group = GroupApplication.objects.create(name=group_form.cleaned_data.get('group_name'))
+                for form in formset:
+                    applicant = IndividualApplicant.objects.create(
+                        name=form.cleaned_data.get('name'),
+                        email=form.cleaned_data.get('email'),
+                        graduation_date=form.cleaned_data.get('graduation_date'),
+                        info_src= group_form.cleaned_data.get('info_src'),
+                        university=form.cleaned_data.get('univ'),
+                        resume=form.cleaned_data.get('resume'),
+                        group = group
+                    )
+                    try :
+                        context = {"applicant": applicant}
+                        send_group_campaign_email(context)
+                    except Exception as e:
+                        print(e)
+
+                return redirect(reverse('recruitmentcampaign.success_registration'))
+            else:
+                context.update({'form': group_form, 'formset':formset, 'req_type':"POST"})
+                return render(request, "recruitment_campaign/group_apply.html", context)
+
 
 @login_required
 def download_resume(request, file_name):
@@ -112,6 +158,10 @@ def download_resume(request, file_name):
 @require_http_methods(["GET"])
 def success_application(request):
     return render(request, "recruitment_campaign/application_success.html")
+
+@require_http_methods(["GET"])
+def success_registration(request):
+    return render(request, "recruitment_campaign/registration_success.html")
 
 
 @require_http_methods(["GET"])

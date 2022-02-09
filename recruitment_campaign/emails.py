@@ -107,3 +107,17 @@ def send_token_email(context):
         email_context=context,
         recipients=[context['application'].email, ],
         cc=[COMPANY_CAREER_EMAIL],)
+
+
+def send_group_campaign_email(context):
+    """
+    send email to applicant
+    """
+    email_template = 'emails/group_campaign.html'
+
+    send_templated_email(
+        subject='Successful registration for DTL Equity Research Challenge 2022',
+        email_template=email_template,
+        email_context=context,
+        recipients=[context['applicant'].email, ],
+        cc=[COMPANY_CAREER_EMAIL],)

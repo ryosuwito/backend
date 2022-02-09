@@ -21,10 +21,13 @@ from django.contrib import admin
 
 from .models import (
     Campaign,
+    GroupCampaign,
     CampaignApplication,
     CampaignOnlineApplication,
     ApplicationStatus,
     EventLog,
+    GroupApplication,
+    IndividualApplicant
 )
 from .forms import (
     CampaignApplicationAdminForm,
@@ -326,3 +329,21 @@ class ApplicationAdmin(admin.ModelAdmin):
     list_select_related = ('campaign', 'application')
     list_display_links = ('id', 'name')
     list_filter = ('campaign__name', 'application__position', 'status')
+
+class GroupCampaignAdmin(admin.ModelAdmin):
+    list_display = [f.name for f in GroupCampaign._meta.fields]
+
+
+admin.site.register(GroupCampaign, GroupCampaignAdmin)
+
+class GroupApplicationAdmin(admin.ModelAdmin):
+    list_display = [f.name for f in GroupApplication._meta.fields]
+
+
+admin.site.register(GroupApplication, GroupApplicationAdmin)
+
+class IndividualApplicantAdmin(admin.ModelAdmin):
+    list_display = [f.name for f in IndividualApplicant._meta.fields]
+
+
+admin.site.register(IndividualApplicant, IndividualApplicantAdmin)
