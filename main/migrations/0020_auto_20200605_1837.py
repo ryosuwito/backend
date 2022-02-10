@@ -15,6 +15,14 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='openjob',
             name='position',
-            field=models.CharField(choices=[(b'DATA_ANALYST', b'Data Analyst'), (b'DATA_ENGINEER', b'Data Engineer'), (b'DEV', b'Developer'), (b'FSDEV', b'Full-Stack Web Developer'), (b'FQRES', b'Fundamental Quantitative Researcher'), (b'OP_SPECIALIST', b'Operation Specialist'), (b'QRES', b'Quantitative Researcher'), (b'SYSAD', b'System Administrator')], max_length=255),
+            field=models.CharField(choices=[(b'DATA_ANALYST', b'Data Analyst'),
+                                            (b'DATA_ENGINEER', b'Data Engineer'),
+                                            (b'DEV', b'Developer'),
+                                            (b'FSDEV', b'Full-Stack Web Developer'),
+                                            (b'FQRES', b'Fundamental Quantitative Researcher'),
+                                            (b'OP_SPECIALIST', b'Operation Specialist'),
+                                            (b'QRES', b'Quantitative Researcher'),
+                                            (b'SYSAD', b'System Administrator')],
+                                   max_length=255),
         ),
     ]

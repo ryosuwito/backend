@@ -15,6 +15,14 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='onlineapplication',
             name='position',
-            field=models.CharField(choices=[('DEV', 'Developer'), ('DATA_ENGINEER', 'Data Engineer'), ('OP_SPECIALIST', 'Trading Operation Specialist'), ('QRES', 'Quantitative Researcher'), ('FQRES', 'Fundamental Quantitative Researcher'), ('INTERN_QRES', 'Quantitative Researcher (Internship)'), ('INTERN_DATA_ENGINEER', 'Data Engineer (Internship)')], default='DEV', max_length=20),
+            field=models.CharField(choices=[('DEV', 'Developer'),
+                                            ('DATA_ENGINEER', 'Data Engineer'),
+                                            ('OP_SPECIALIST', 'Trading Operation Specialist'),
+                                            ('QRES', 'Quantitative Researcher'),
+                                            ('FQRES', 'Fundamental Quantitative Researcher'),
+                                            ('INTERN_QRES', 'Quantitative Researcher (Internship)'),
+                                            ('INTERN_DATA_ENGINEER', 'Data Engineer (Internship)')],
+                                   default='DEV',
+                                   max_length=20),
         ),
     ]

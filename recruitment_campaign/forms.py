@@ -96,6 +96,49 @@ class CampaignApplicationForm(forms.ModelForm):
         return start_time
 
 
+class IndividualApplicationForm(forms.Form):
+    name = forms.CharField(required=False, label='Applicant Name*',
+                           widget=forms.TextInput(attrs={'class':'form-control'}))
+    univ = forms.CharField(required=False, label='University*',
+                           widget=forms.TextInput(attrs={'class':'form-control'}))
+    graduation_date = forms.DateField(
+        widget=forms.SelectDateWidget(attrs={
+            'class':'row bootstrap3-multi-input'}), label='Graduation Date*', initial=datetime.date.today(),
+    )
+    email = forms.EmailField(required=False, help_text="One email can only be used once.", label='Email*',
+                             widget=forms.TextInput(attrs={'class':'form-control', 'id': 'email'}))
+    resume = forms.FileField(help_text="Please make sure no chinese character in your file name.")
+
+    def __init__(self, *args, **kwargs):
+        super(IndividualApplicationForm, self).__init__(*args, **kwargs)
+
+
+class GroupApplicationForm(forms.Form):
+    GROUP_CHOICES = [('group','Group'),
+                     ('individual','Individual')]
+    group = forms.ChoiceField(choices=GROUP_CHOICES,
+                              widget=forms.RadioSelect(attrs={'onclick': 'checkGroup();'}),
+                              label='Group*')
+    group_name = forms.CharField(required=False, label='Group Name*',
+                                 widget=forms.TextInput(attrs={'class':'form-control','id': 'groupNameId'}))
+
+    info_src = InfoSourceField(label='Where do you get our competition information ? *')
+
+    def clean(self):
+        cleaned_data = super(GroupApplicationForm, self).clean()
+        group_name = cleaned_data.get("group_name")
+        group = cleaned_data.get("group")
+        if group == "group" and group_name == '':
+            msg = "Group name must be filled."
+            self.add_error('group_name', msg)
+
+    def groupObjectFields(self):
+        return [field for field in self if field.name in ('group', 'group_name')]
+
+    def __init__(self, campaign, *args, **kwargs):
+        super(GroupApplicationForm, self).__init__(*args, **kwargs)
+
+
 class CampaignApplicationAdminForm(forms.ModelForm):
     class Meta:
         model = CampaignApplication

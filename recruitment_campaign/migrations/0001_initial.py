@@ -35,8 +35,10 @@ class Migration(migrations.Migration):
                 ('status', models.CharField(blank=True, default='new', max_length=255)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('application', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='campain_applications', to='main.OnlineApplication')),
-                ('campaign', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='applications', to='recruitment_campaign.Campaign')),
+                ('application', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='campain_applications', to='main.OnlineApplication')),
+                ('campaign', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='applications', to='recruitment_campaign.Campaign')),
             ],
         ),
     ]

@@ -1,0 +1,97 @@
+{% extends 'main/blank_layout.html' %}
+{% load static %}
+{% block body-content %}
+<style>
+  .radio{
+  display:inline-block;
+  }
+</style>
+<section class="border-bottom border-bottom-gray-lighter">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12">
+        <ul class="breadcrumbs-custom">
+          <li><a href="/">Home</a></li>
+          <li><a href="/careers">Careers</a></li>
+          <li class="active">{{ campaign.name }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section-top-55 section-bottom-60">
+  <div class="shell">
+    <div class="range">
+      <div class="cell-xs-12 cell-md-8 cell-lg-9">
+        <div class="range">
+          <div class="cell-xs-12">
+            <h3>{{ campaign.name }}</h3>
+            <div>
+              {% autoescape off %}
+              {{ campaign.content }}
+              {% endautoescape %}
+            </div>
+            <h3>Online Application</h3>
+            {% block apply-confirm %}
+            {% endblock apply-confirm %}
+
+            {% if form %}
+            <div class="row margin-vert-30">
+              <div class="col-md-8">
+                <p class="help-block">Required fields indicated with (*)</p>
+                {% include 'main/snippet_multiple_form.html' with form=form multipart=True %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", function(event) { 
+    var req_type = '{{req_type}}'
+    if(req_type == "GET"){
+      document.getElementById("id_form-TOTAL_FORMS").value = 1;
+    }
+    else {
+      document.getElementById("id_form-TOTAL_FORMS").value = {{formset.total_form_count}};
+      for(let i=1;i<{{formset.total_form_count}};i++){
+        addParticipant()
+      }
+      let addButton = document.getElementById("addButton");
+      addButton.classList.add("hidden");
+    }
+  });
+  function addParticipant(){
+    let group2 = document.getElementById("group2");
+    let group3 = document.getElementById("group3");
+    let addButton = document.getElementById("addButton");
+    if (group2.classList.contains("hidden")){
+      document.getElementById("id_form-TOTAL_FORMS").value = 2;
+      group2.classList.remove("hidden");
+    } else if (group3.classList.contains("hidden")){
+      document.getElementById("id_form-TOTAL_FORMS").value = 3;
+      group3.classList.remove("hidden");
+      addButton.classList.add("hidden");
+    }
+  }
+  function checkGroup(){ 
+      let groupName = document.getElementById("groupNameId");
+      let addButton = document.getElementById("addButton");
+      let parent = groupName.parentNode
+      let groupValue = document.querySelector('input[name="group"]:checked').value
+      if(groupValue != "group"){
+        parent.classList.add("hidden");
+        addButton.classList.add("hidden");
+        document.getElementById("id_form-TOTAL_FORMS").value = 1;
+        document.getElementById("group2").classList.add("hidden");
+        document.getElementById("group3").classList.add("hidden");
+      } else {
+        parent.classList.remove("hidden");
+        addButton.classList.remove("hidden");
+      }
+  }
+  </script>
+</section>
+{% endblock body-content %}

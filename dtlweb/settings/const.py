@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django_crontab',
     'mailer',
     'whitenoise',
+    'ckeditor',
     'snowpenguin.django.recaptcha2',
 ]
 
@@ -246,3 +247,4 @@ LOGGING = {
         },
     }
 }
+CKEDITOR_UPLOAD_PATH = "uploads/"

@@ -15,6 +15,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='openjob',
             name='workplace',
-            field=models.CharField(choices=[(b'HANOI', b'Hanoi'), (b'REMOTE', b'Remote'), (b'SHANGHAI', b'Shanghai'), (b'SINGAPORE', b'Singapore')], max_length=255),
+            field=models.CharField(choices=[(b'HANOI', b'Hanoi'),
+                                            (b'REMOTE', b'Remote'),
+                                            (b'SHANGHAI', b'Shanghai'),
+                                            (b'SINGAPORE', b'Singapore')],
+                                   max_length=255),
         ),
     ]
