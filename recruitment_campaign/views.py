@@ -98,6 +98,7 @@ def career_apply(request):
                 context.update({'form': form})
                 return render(request, "recruitment_campaign/career_apply.html", context)
 
+
 @require_http_methods(["GET", "POST"])
 def group_apply(request):
     campaign = GroupCampaign.objects.filter(active=True, starttime__lte=datetime.now()).first()
@@ -108,7 +109,8 @@ def group_apply(request):
         formset = Formset()
         context = {'campaign':campaign}
         if request.method == 'GET':
-            context.update({'form': GroupApplicationForm(campaign, initial={'group':'group'}), 'formset':formset, 'req_type':"GET"})
+            context.update({'form': GroupApplicationForm(campaign, initial={'group':'group'}),
+                            'formset':formset, 'req_type':"GET"})
             return render(request, "recruitment_campaign/group_apply.html", context)
         else:
             # Handle POST request
@@ -123,10 +125,10 @@ def group_apply(request):
                         name=form.cleaned_data.get('name'),
                         email=form.cleaned_data.get('email'),
                         graduation_date=form.cleaned_data.get('graduation_date'),
-                        info_src= group_form.cleaned_data.get('info_src'),
+                        info_src=group_form.cleaned_data.get('info_src'),
                         university=form.cleaned_data.get('univ'),
                         resume=form.cleaned_data.get('resume'),
-                        group = group
+                        group=group
                     )
                     try :
                         context = {"applicant": applicant}
@@ -158,6 +160,7 @@ def download_resume(request, file_name):
 @require_http_methods(["GET"])
 def success_application(request):
     return render(request, "recruitment_campaign/application_success.html")
+
 
 @require_http_methods(["GET"])
 def success_registration(request):

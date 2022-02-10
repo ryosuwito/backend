@@ -44,7 +44,8 @@ class Migration(migrations.Migration):
                 ('resume', models.FileField(blank=True, upload_to=recruitment_campaign.models.user_resume_path)),
                 ('graduation_date', models.DateField(blank=True, max_length=255, null=True)),
                 ('info_src', models.CharField(default='N.A', max_length=200, null=True)),
-                ('group', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='recruitment_campaign.GroupApplication')),
+                ('group', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                 to='recruitment_campaign.GroupApplication')),
             ],
         ),
     ]

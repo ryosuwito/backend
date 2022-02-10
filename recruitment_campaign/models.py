@@ -123,11 +123,14 @@ class GroupCampaign(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-   
+
+
 class GroupApplication(models.Model):
     name = models.CharField(max_length=30)
+
     def __unicode__(self):
         return self.name
+
 
 class IndividualApplicant(models.Model):
     name = models.CharField(max_length=30)
@@ -138,6 +141,6 @@ class IndividualApplicant(models.Model):
                               upload_to=user_resume_path)
     graduation_date = models.DateField(max_length=255, blank=True, null=True)
     info_src = models.CharField(max_length=200, null=True, blank=False, default="N.A")
+
     def __unicode__(self):
         return self.email
-

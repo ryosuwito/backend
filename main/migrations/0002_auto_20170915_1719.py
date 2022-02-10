@@ -15,6 +15,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='onlineapplication',
             name='status',
-            field=models.CharField(choices=[('NEW', 'NEW'), ('PASS_RESUME', 'PASS RESUME'), ('FAIL_RESUME', 'FAIL RESUME'), ('PASS_TEST', 'PASS TEST'), ('FAIL_TEST', 'FAIL TEST'), ('DNF_TEST', 'DNF TEST')], default='NEW', max_length=20),
+            field=models.CharField(choices=[('NEW', 'NEW'),
+                                            ('PASS_RESUME', 'PASS RESUME'),
+                                            ('FAIL_RESUME', 'FAIL RESUME'),
+                                            ('PASS_TEST', 'PASS TEST'),
+                                            ('FAIL_TEST', 'FAIL TEST'),
+                                            ('DNF_TEST', 'DNF TEST')],
+                                   default='NEW',
+                                   max_length=20),
         ),
     ]

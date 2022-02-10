@@ -40,7 +40,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='openjob',
             name='typ',
-            field=models.CharField(choices=[(b'FULLTIME_INTERNSHIP', b'Full-time Internship'), (b'FULLTIME_JOB', b'Full-time Job'), (b'INTERNSHIP', b'Internship'), (b'PARTTIME_INTERNSHIP', b'Part-time Internship')], max_length=255),
+            field=models.CharField(choices=[(b'FULLTIME_INTERNSHIP', b'Full-time Internship'),
+                                            (b'FULLTIME_JOB', b'Full-time Job'),
+                                            (b'INTERNSHIP', b'Internship'),
+                                            (b'PARTTIME_INTERNSHIP', b'Part-time Internship')],
+                                   max_length=255),
         ),
         migrations.AlterUniqueTogether(
             name='openjob',
