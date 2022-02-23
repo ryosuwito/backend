@@ -1,0 +1,66 @@
+{% extends "admin/change_form.html" %}
+{% block field_sets %}
+{% for fieldset in adminform %}
+  {% include "admin/includes/fieldset.html" %}
+{% endfor %}
+<script>
+    var status_input = document.getElementsByName("status")[0]
+    var reason_inputs = document.getElementsByName("reason")
+    var reason_other = null
+    reason_inputs.forEach(function myFunction(reason_input) {
+        if(reason_input.value == "other"){
+            reason_other = reason_input
+        }
+    });
+    status_input.addEventListener('change', statusChanged);
+    reason_other.addEventListener('change', reasonOtherChanged);
+    /* functions */
+    function statusChanged(){
+        document.getElementsByClassName("field-reason")[0].classList.add("hidden");
+        if(this.value == "FAIL_RESUME"){
+            document.getElementsByClassName("field-reason")[0].classList.remove("hidden");
+        }
+    }
+    function reasonOtherChanged(){
+        if(this.checked){
+            var node = document.createElement("LI");
+            node.innerHTML = '<textarea id="other_reason" name="other_reason" rows="4" cols="50" placeholder="Other Reason"></textarea>';
+            document.getElementById("id_reason").appendChild(node);
+            var other_reason_input = document.getElementById("other_reason")
+            other_reason_input.addEventListener('change', reasonTextChanged);
+        } else {
+            console.log()
+            document.getElementById("id_reason").removeChild(document.getElementById("other_reason").parentNode);
+        }
+    }
+    function reasonTextChanged(){
+        if(this.value) reason_other.value = this.value
+    }
+    if(status_input.value != "FAIL_RESUME"){
+        document.getElementsByClassName("field-reason")[0].classList.add("hidden");
+    } else {
+        let reason_initial = "{{reasons}}".split(';').map(function(item) {
+            return item.trim();
+        });
+        reason_values = []
+        reason_inputs.forEach(function myFunction(reason_input) {
+            reason_values.push(reason_input.value)
+        });
+        reason_inputs.forEach(function myFunction(reason_input) {
+            if(reason_initial.includes(reason_input.value)){
+                reason_input.checked = true
+            } else {
+                if(reason_initial.length > 0 && reason_initial[0] != '' && !reason_values.includes(reason_initial[reason_initial.length-1])){
+                    if(!document.getElementById("other_reason")){
+                        reason_other.value = reason_initial[reason_initial.length-1]
+                        reason_other.checked = true
+                        var event = new Event('change');
+                        reason_other.dispatchEvent(event);
+                        document.getElementById("other_reason").value = reason_other.value
+                    }
+                }
+            }
+        });
+    }
+</script>
+{% endblock %}

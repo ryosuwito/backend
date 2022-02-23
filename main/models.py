@@ -75,6 +75,8 @@ class OnlineApplication(models.Model):
         max_length=20,
         choices=APP_STATUS_CHOICES,
         default=APP_STATUS_NEW)
+
+    reason = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     # if the application is for onsite event
