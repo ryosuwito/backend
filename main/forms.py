@@ -96,6 +96,43 @@ class InfoSourceField(forms.MultiValueField):
         return ','.join(all_data)
 
 
+REASON_CHOICES = [
+    ('Weak technical skills', 'Weak technical skills'),
+    ('Educational background is not suitable', 'Educational background is not suitable'),
+    ('No relevant experience', 'No relevant experience'),
+    ('other', 'Others'),
+]
+
+
+class ChoiceFieldNoValidation(forms.MultipleChoiceField):
+    def validate(self, value):
+        pass
+
+
+class OnlineApplicationWithReasonForm(forms.ModelForm):
+    model = OnlineApplication
+    reason = ChoiceFieldNoValidation(
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        choices=REASON_CHOICES,
+    )
+
+    class Meta:
+        fields = [
+            'typ','workplace','position','name',
+            'university','school','major','email',
+            'resume','info_src','start_time','status',
+            'reason','is_onsite_recruiment',
+            'test_site','need_work_pass',
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super(OnlineApplicationWithReasonForm, self).__init__(*args, **kwargs)
+        instance = self.instance
+        if instance.reason:
+            self.initial['reason'] = instance.reason[1:-1].replace("u'","").replace("'","").split(",")
+
+
 class OnlineApplicationForm(forms.ModelForm):
     start_time = forms.DateField(
         widget=forms.SelectDateWidget, label='Pick up a date to start working', initial=datetime.date.today(),

@@ -13,7 +13,11 @@ from main.models import (
     OpenJob,
     ConfigEntry,
 )
-from main.forms import OpenJobForm
+from main.forms import (
+    OpenJobForm,
+    OnlineApplicationWithReasonForm
+)
+
 from main.types import (
     JobType,
     JobPosition,
@@ -26,6 +30,8 @@ from recruitment_campaign.models import (
     Campaign,
     CampaignApplication,
 )
+from rangefilter.filters import DateRangeFilter
+from import_export.admin import ImportExportModelAdmin
 
 from . import emails
 
@@ -41,7 +47,9 @@ def get_enum_val(enum_obj, obj_prop_name):
 
 
 @admin.register(OnlineApplication)
-class OnlineApplicationAdmin(admin.ModelAdmin):
+class OnlineApplicationAdmin(ImportExportModelAdmin):
+    form = OnlineApplicationWithReasonForm
+    change_form_template = 'main/online_application_change_form.html'
     actions = ['invite_selected_apps_to_attend_the_active_campaign']
 
     def invite_selected_apps_to_attend_the_active_campaign(self, request, queryset):
@@ -112,6 +120,17 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
         else:
             return "None"
 
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        extra_context = extra_context or {}
+        instance = OnlineApplication.objects.get(id=object_id)
+        if instance.reason:
+            extra_context['reasons'] = instance.reason
+        else :
+            extra_context['reasons'] = ''
+        return super(OnlineApplicationAdmin, self).change_view(
+            request, object_id, form_url, extra_context=extra_context,
+        )
+
     def start_and_end_time(obj):
         start_time = obj.start_time
         if start_time is None:
@@ -130,15 +149,29 @@ class OnlineApplicationAdmin(admin.ModelAdmin):
 
         return '{}-{}'.format(start_time, end_time)
 
+    def save_model(self, request, obj, form, change):
+        if obj.status != obj.APP_STATUS_FAIL_RESUME:
+            obj.reason = None
+        if obj.status == obj.APP_STATUS_FAIL_RESUME and obj.reason:
+            obj.reason = ";".join(obj.reason[1:-1].replace("u'","").replace("'","").split(","))
+        super(OnlineApplicationAdmin, self).save_model(request, obj, form, change)
+
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            print(instance)
+            instance.save()
+
     get_scheduled_test.short_description = "Scheduled Test"
     list_display = ('name', 'university', 'school', 'major', 'email',
                     get_enum_val(JobPosition, 'position'), get_enum_val(JobType, 'typ'),
                     'need_work_pass',
-                    get_enum_val(Workplace, 'workplace'), start_and_end_time, 'status',
+                    get_enum_val(Workplace, 'workplace'), start_and_end_time, 'status', 'reason',
                     get_scheduled_test, 'info_src', 'from_china_event', 'test_site', 'created_at')
 
     list_editable = ('status',)
-    list_filter = ('typ', 'workplace', 'position', 'status', 'is_onsite_recruiment', 'test_site',)
+    list_filter = (('created_at', DateRangeFilter), 'typ', 'workplace',
+                   'position', 'status', 'is_onsite_recruiment', 'test_site',)
     search_fields = ('name', 'university', 'school', 'major', 'email')
 
 

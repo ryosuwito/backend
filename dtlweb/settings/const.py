@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'mailer',
     'whitenoise',
     'ckeditor',
+    'rangefilter',
+    'import_export',
     'snowpenguin.django.recaptcha2',
 ]
 
@@ -248,3 +250,4 @@ LOGGING = {
     }
 }
 CKEDITOR_UPLOAD_PATH = "uploads/"
+IMPORT_EXPORT_USE_TRANSACTIONS = True
